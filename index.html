@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANTARA - Maquillaje y Skincare</title>
     
+    <!-- Configuración de Vista Previa -->
     <meta property="og:title" content="ANTARA - Catálogo y Pedidos">
     <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
     <meta property="og:type" content="website">
 
+    <!-- Configuración para App Móvil -->
     <meta name="theme-color" content="#fbf9f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
+    <!-- Tipografía moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -33,11 +36,23 @@
             padding: 0; 
             color: var(--text-main); 
         }
+
+        /* Banner de Promociones Superior */
+        .promo-banner {
+            background-color: #2c2c2c;
+            color: #fbf9f6;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            padding: 8px 10px;
+            text-transform: uppercase;
+        }
         
         /* Encabezado Minimalista Chic */
         header { 
             background-color: #ffffff; 
-            padding: 35px 15px; 
+            padding: 25px 15px 15px 15px; 
             text-align: center; 
             border-bottom: 1px solid var(--border-color); 
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
@@ -52,9 +67,9 @@
         }
         p.subtitle { 
             color: var(--primary-tone); 
-            margin: 8px 0 0 0; 
+            margin: 6px 0 0 0; 
             font-weight: 600; 
-            font-size: 12px; 
+            font-size: 11px; 
             letter-spacing: 2.5px; 
             text-transform: uppercase; 
         }
@@ -65,16 +80,42 @@
             margin: 0 auto; 
             padding: 10px 15px 100px 15px; 
         }
+
+        /* Botones de Filtro Rápido por Categoría */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 25px 0 10px 0;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--text-main);
+            color: #ffffff;
+            border-color: var(--text-main);
+        }
         
         .category-header { 
             border-bottom: 1px solid var(--border-color); 
             padding-bottom: 8px; 
-            margin: 40px 0 20px 0; 
+            margin: 35px 0 15px 0; 
         }
         .category-header h2 { 
             color: var(--text-main); 
             margin: 0; 
-            font-size: 18px; 
+            font-size: 16px; 
             font-weight: 600; 
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -111,9 +152,30 @@
         }
         .product-thumb:hover { transform: scale(1.03); }
         .product-info { flex-grow: 1; }
-        .product-info h3 { margin: 0 0 4px 0; font-size: 15px; font-weight: 600; color: #2c2c2c; }
-        .product-info p { margin: 0; color: var(--text-muted); font-size: 12px; line-height: 1.4; }
-        .price { font-weight: 700; color: var(--primary-tone); font-size: 14px; display: block; margin-top: 6px; }
+        .product-info h3 { margin: 0 0 3px 0; font-size: 15px; font-weight: 600; color: #2c2c2c; }
+        .product-info p { margin: 0 0 6px 0; color: var(--text-muted); font-size: 12px; line-height: 1.4; }
+        
+        /* Indicador de Stock y Precio */
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 4px;
+        }
+        .price { font-weight: 700; color: var(--primary-tone); font-size: 14px; }
+        .stock-tag { 
+            font-size: 10px; 
+            font-weight: 600; 
+            padding: 2px 8px; 
+            border-radius: 6px; 
+            background: #edf7ed; 
+            color: #2e7d32; 
+            letter-spacing: 0.5px;
+        }
+        .stock-tag.out {
+            background: #fde8e8;
+            color: #c53030;
+        }
         
         .btn-add { 
             background: var(--text-main); 
@@ -147,16 +209,11 @@
 
         /* Modales Estilizados Minimalistas */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(4px); }
-        .modal-content { background: #ffffff; color: #2c2c2c; width: 90%; max-width: 420px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid var(--border-color); text-align: center; }
+        .modal-content { background: #ffffff; color: #2c2c2c; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
         
-        .modal-product-img { width: 100%; height: 220px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 15px; background: #f9f6f0; }
-
         .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 300; text-align: center; }
         .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
         .cerrar-zoom { position: absolute; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: bold; cursor: pointer; }
-
-        .textarea-notes { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #dcd6ce; background: #faf8f5; color: #2c2c2c; border-radius: 8px; margin-top: 5px; resize: vertical; font-family: 'Plus Jakarta Sans', sans-serif; text-align: left; }
-        .textarea-notes:focus { border-color: var(--primary-tone); outline: none; }
 
         /* Barra de Carrito Inferior Estilo Boutique */
         .cart-bar { 
@@ -178,33 +235,43 @@
         }
         .cart-bar:hover { background: #f9f6f0; }
         
-        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0eae1; padding: 12px 0; text-align: left; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0eae1; padding: 12px 0; }
         .cart-controls { display: flex; align-items: center; gap: 8px; }
         .btn-qty { background: #f0eae1; color: #2c2c2c; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 6px; }
         .btn-remove { background: #e0b1b1; color: #5a1a1a; border: none; padding: 5px 8px; cursor: pointer; border-radius: 6px; font-size: 11px; }
         
         .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2); margin-top: 15px; transition: opacity 0.2s; }
         .btn-instagram:hover { opacity: 0.9; }
-        
-        .btn-primary { background: var(--primary-tone); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 15px; }
-        .btn-primary:hover { background: var(--primary-hover); }
 
         .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
-        
-        .loading-text { text-align: center; color: var(--text-muted); padding: 40px; font-size: 14px; }
+        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
     </style>
 </head>
 <body>
 
+    <!-- Banner de Promociones y Avisos -->
+    <div class="promo-banner">
+        ✨ Envíos seguros a Monterrey • Pide directo por DM 💖
+    </div>
+
     <header>
         <h1>ANTARA</h1>
         <p class="subtitle">Maquillaje • Skincare • Accesorios</p>
+
+        <!-- Filtros Rápidos por Categoría -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ Todo</button>
+            <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 Maquillaje</button>
+            <button class="filter-btn" onclick="filtrarCategoria('skincare', this)">💧 Skincare</button>
+            <button class="filter-btn" onclick="filtrarCategoria('accesorio', this)">👜 Accesorios</button>
+        </div>
     </header>
 
     <div class="catalog-container" id="catalog">
-        <div class="loading-text">Cargando productos desde el inventario... ✨</div>
+        <div class="loading">Cargando colección... ✨</div>
     </div>
 
+    <!-- Visor de Imagen en Grande (Zoom) -->
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
         <img id="imgZoom" src="" alt="Vista previa">
@@ -214,41 +281,26 @@
         🛍️ Ver Carrito (<span id="contador-items">0</span> productos) • Total: $<span id="total-bar">0</span> MXN
     </div>
 
-    <!-- Modal con foto, descripción y notas -->
-    <div class="modal" id="modalPersonalizar">
-        <div class="modal-content">
-            <img id="modal-img-producto" class="modal-product-img" src="" alt="Producto">
-            <h2 id="modal-titulo-producto" style="margin:0 0 5px 0; color:var(--text-main); font-size: 17px; font-weight:600;"></h2>
-            <p id="modal-desc-producto" style="font-size: 13px; color: var(--text-muted); margin: 0 0 10px 0;"></p>
-            <p id="modal-precio-producto" style="font-size: 15px; color: var(--primary-tone); font-weight: 700; margin: 0 0 15px 0;"></p>
-            
-            <label style="font-size: 12px; font-weight: 600; display: block; margin-top: 10px; color: #444; text-align: left;">Notas especiales (Tono, variante, etc.):</label>
-            <textarea id="input-notas" class="textarea-notes" rows="2" placeholder="Ej. Tono nude, sellado para regalo..."></textarea>
-
-            <button class="btn-primary" onclick="confirmarPersonalizacion()">Agregar al Carrito</button>
-            <button class="btn-close" onclick="cerrarPersonalizar()">Cancelar</button>
-        </div>
-    </div>
-
     <div class="modal" id="modalCarrito">
-        <div class="modal-content" style="text-align: left;">
-            <h2 style="margin-top:0; font-size: 18px; text-align: center;">Tu Carrito de Compras</h2>
+        <div class="modal-content">
+            <h2 style="margin-top:0; font-size: 18px;">Tu Carrito de Compras</h2>
             <div id="lista-carrito-modal">
-                <p style="text-align: center;">Tu carrito está vacío.</p>
+                <p>Tu carrito está vacío.</p>
             </div>
-            <h3 style="margin-bottom: 5px; margin-top: 15px; font-size: 16px; text-align: right;">Total: $<span id="total-modal">0</span> MXN</h3>
+            <h3 style="margin-bottom: 5px; margin-top: 15px; font-size: 16px;">Total: $<span id="total-modal">0</span> MXN</h3>
             
             <button class="btn-instagram" onclick="enviarPedidoInstagram()">📸 Enviar Pedido por Instagram DM</button>
             <button class="btn-close" onclick="cerrarCarrito()">Cerrar y seguir viendo</button>
         </div>
     </div>
 
+    <!-- Script de carga con JSONP y Filtros -->
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbzfMGe4DuKT7nv8vNQpvuagrJof5wfGBHRmT0BG9HgkzpZ4zoGTJi9fFuuzEdTaaTBg/exec";
-
-        let catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzANIhd7-OA6CJ9JT6IOWPwFsVj9bf7EkVeTPB4TapmZ398bq5F4s3yzN6cp8Dfhiyj/exec";
+        
+        let datosOriginales = [];
+        let categoriaActiva = 'todos';
         let carrito = [];
-        let productoEnEdicion = null;
 
         function abrirZoom(urlImagen) {
             document.getElementById('imgZoom').src = urlImagen;
@@ -259,58 +311,66 @@
             document.getElementById('modalZoom').style.display = 'none';
         }
 
-        async function cargarCatalogoDesdeGoogleSheet() {
-            try {
-                let response = await fetch(API_URL);
-                let data = await response.json();
+        function cargarCatalogo() {
+            const script = document.createElement('script');
+            script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo`;
+            script.onerror = function() {
+                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica permisos de Apps Script.</p>`;
+            };
+            document.body.appendChild(script);
+        }
 
-                catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
+        function procesarDatosCatalogo(datosCrudos) {
+            datosOriginales = datosCrudos.map(item => ({
+                nombre: item.nombre || item.producto || "Producto",
+                categoria: item.categoria || "",
+                precio: Number(item.precio) || 0,
+                desc: item.desc || item['detalles / tono'] || item.detalles || "",
+                imagen: item.imagen || "",
+                existencia: Number(item.existencia) !== undefined ? Number(item.existencia) : 1
+            }));
 
-                data.forEach(item => {
-                    if (!item.producto) return;
-                    if (item.existencia !== undefined && Number(item.existencia) === 0) return;
+            renderizarCatalogo();
+        }
 
-                    let cat = item.categoría ? item.categoría.trim() : "";
-                    
-                    let productoLimpio = {
-                        nombre: item.producto,
-                        categoria: cat,
-                        precio: Number(item.precio) || 0,
-                        desc: item["detalles / tono"] || "",
-                        imagen: item.imagen || ""
-                    };
+        function filtrarCategoria(cat, boton) {
+            categoriaActiva = cat;
+            
+            // Cambiar clase activa en los botones
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            boton.classList.add('active');
 
-                    if (cat.toLowerCase().includes("maquillaje")) {
-                        catalogData.Maquillaje.push(productoLimpio);
-                    } else if (cat.toLowerCase().includes("skincare")) {
-                        catalogData.Skincare.push(productoLimpio);
-                    } else if (cat.toLowerCase().includes("accesorio")) {
-                        catalogData.Accesorios.push(productoLimpio);
-                    }
-                });
-
-                renderizarCatalogo();
-            } catch (error) {
-                console.error("Error al cargar el catálogo:", error);
-                document.getElementById('catalog').innerHTML = `<p style="text-align:center; color:#c96b6b;">Error al cargar los productos. Intenta recargar la página.</p>`;
-            }
+            renderizarCatalogo();
         }
 
         function renderizarCatalogo() {
             const contenedor = document.getElementById('catalog');
             let html = "";
-            const ordenCategorias = ["Maquillaje", "Skincare", "Accesorios"];
-            const iconosCat = { "Maquillaje": "💄", "Skincare": "✨", "Accesorios": "👜" };
+            
+            let categoriasMap = { "Maquillaje": "💄", "Skincare": "✨", "Accesorios": "👜" };
+            let listaCategorias = ["Maquillaje", "Skincare", "Accesorios"];
 
             let hayProductos = false;
 
-            ordenCategorias.forEach(cat => {
-                let listaProductos = catalogData[cat] || [];
-                if (listaProductos.length > 0) {
+            listaCategorias.forEach(cat => {
+                if (categoriaActiva !== 'todos' && !cat.toLowerCase().includes(categoriaActiva)) {
+                    return;
+                }
+
+                let productosFiltrados = datosOriginales.filter(item => {
+                    let c = item.categoria ? item.categoria.trim().toLowerCase() : "";
+                    return c.includes(cat.toLowerCase());
+                });
+
+                if (productosFiltrados.length > 0) {
                     hayProductos = true;
-                    html += `<div class="category-header"><h2>${iconosCat[cat]} ${cat}</h2></div>`;
-                    listaProductos.forEach(item => {
+                    html += `<div class="category-header"><h2>${categoriasMap[cat]} ${cat}</h2></div>`;
+                    
+                    productosFiltrados.forEach(item => {
                         let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
+                        let enStock = item.existencia > 0;
+                        let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out">Agotado</span>`;
+                        let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
 
                         html += `
                             <div class="product-card">
@@ -318,9 +378,12 @@
                                 <div class="product-info">
                                     <h3>${item.nombre}</h3>
                                     <p>${item.desc}</p>
-                                    <span class="price">$${item.precio} MXN</span>
+                                    <div class="product-meta">
+                                        <span class="price">$${item.precio} MXN</span>
+                                        ${stockHtml}
+                                    </div>
                                 </div>
-                                <button class="btn-add" onclick='prepararPersonalizacion(${JSON.stringify(item)}, event)'>Agregar</button>
+                                ${botonHtml}
                             </div>
                         `;
                     });
@@ -328,22 +391,27 @@
             });
 
             if (!hayProductos) {
-                html = `<p style="text-align:center; color:#7d7d7d; padding:40px;">No hay productos disponibles por el momento.</p>`;
+                html = `<p style="text-align:center; color:var(--text-muted); padding:40px;">No hay productos en esta categoría.</p>`;
             }
 
             contenedor.innerHTML = html;
         }
 
-        function prepararPersonalizacion(item, event) {
+        function agregarAlCarrito(item, event) {
             animarItemAlCarrito(event.target);
-            productoEnEdicion = item;
-            
-            document.getElementById('modal-img-producto').src = item.imagen || '';
-            document.getElementById('modal-titulo-producto').innerText = item.nombre;
-            document.getElementById('modal-desc-producto').innerText = item.desc;
-            document.getElementById('modal-precio-producto').innerText = "$" + item.precio + " MXN";
-            document.getElementById('input-notas').value = "";
-            document.getElementById('modalPersonalizar').style.display = 'flex';
+
+            let encontrado = carrito.find(i => i.nombre === item.nombre);
+            if (encontrado) {
+                encontrado.cantidad += 1;
+            } else {
+                carrito.push({
+                    nombre: item.nombre,
+                    precio: item.precio,
+                    cantidad: 1
+                });
+            }
+
+            actualizarCarritoUI();
         }
 
         function animarItemAlCarrito(boton) {
@@ -364,36 +432,12 @@
             setTimeout(() => { anim.remove(); }, 650);
         }
 
-        function cerrarPersonalizar() {
-            document.getElementById('modalPersonalizar').style.display = 'none';
-        }
-
-        function confirmarPersonalizacion() {
-            let notasExtra = document.getElementById('input-notas').value.trim();
-            let textoDetalle = notasExtra ? " (" + notasExtra + ")" : "";
-            let nombreFinal = productoEnEdicion.nombre + textoDetalle;
-
-            let encontrado = carrito.find(item => item.nombreCompleto === nombreFinal);
-            if (encontrado) {
-                encontrado.cantidad += 1;
-            } else {
-                carrito.push({
-                    nombreCompleto: nombreFinal,
-                    precio: productoEnEdicion.precio,
-                    cantidad: 1
-                });
-            }
-
-            actualizarCarritoUI();
-            cerrarPersonalizar();
-        }
-
-        function cambiarCantidad(nombreCompleto, cambio) {
-            let item = carrito.find(i => i.nombreCompleto === nombreCompleto);
+        function cambiarCantidad(nombre, cambio) {
+            let item = carrito.find(i => i.nombre === nombre);
             if (item) {
                 item.cantidad += cambio;
                 if (item.cantidad <= 0) {
-                    carrito = carrito.filter(i => i.nombreCompleto !== nombreCompleto);
+                    carrito = carrito.filter(i => i.nombre !== nombre);
                 }
             }
             actualizarCarritoUI();
@@ -432,14 +476,14 @@
                 html += `
                     <div class="cart-item">
                         <div>
-                            <strong style="color:#2c2c2c; font-size: 14px;">${item.nombreCompleto}</strong><br>
+                            <strong style="color:#2c2c2c; font-size: 14px;">${item.nombre}</strong><br>
                             <small style="color:#7d7d7d;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
                         </div>
                         <div class="cart-controls">
-                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombreCompleto.replace(/'/g, "\\'")}', -1)">-</button>
+                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', -1)">-</button>
                             <span style="color:#2c2c2c; font-weight:600;">${item.cantidad}</span>
-                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombreCompleto.replace(/'/g, "\\'")}', 1)">+</button>
-                            <button class="btn-remove" onclick="cambiarCantidad('${item.nombreCompleto.replace(/'/g, "\\'")}', -${item.cantidad})">✕</button>
+                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', 1)">+</button>
+                            <button class="btn-remove" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', -${item.cantidad})">✕</button>
                         </div>
                     </div>
                 `;
@@ -458,11 +502,11 @@
 
             carrito.forEach((item, index) => {
                 let subtotal = item.precio * item.cantidad;
-                mensaje += `${index + 1}. ${item.cantidad}x *${item.nombreCompleto}* - $${subtotal} MXN\n`;
+                mensaje += `${index + 1}. ${item.cantidad}x *${item.nombre}* - $${subtotal} MXN\n`;
                 totalGeneral += subtotal;
             });
 
-            mensaje += `\n🛍️ *TOTAL A PAGAR:* *${totalGeneral} MXN*\n\n¿Me confirmar disponibilidad y datos por favor? 💖`;
+            mensaje += `\n🛍️ *TOTAL A PAGAR:* *${totalGeneral} MXN*\n\n¿Me confirman disponibilidad y datos por favor? 💖`;
 
             let url = `https://www.instagram.com/antara_beautyy/`;
             
@@ -474,7 +518,7 @@
             });
         }
 
-        cargarCatalogoDesdeGoogleSheet();
+        cargarCatalogo();
     </script>
 
 </body>
