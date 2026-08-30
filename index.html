@@ -20,13 +20,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fbf9f6; /* Fondo blanco marfil / minimalista */
-            --card-bg: #ffffff;  /* Tarjetas blancas puras */
-            --text-main: #2c2c2c; /* Texto principal oscuro y elegante */
-            --text-muted: #7d7d7d; /* Texto secundario suave */
-            --primary-tone: #b8977e; /* Tono beige arena / elegante */
+            --bg-color: #fbf9f6; 
+            --card-bg: #ffffff;  
+            --text-main: #2c2c2c; 
+            --text-muted: #7d7d7d; 
+            --primary-tone: #b8977e; 
             --primary-hover: #9c7b63;
-            --border-color: #eee4dc; /* Bordes sutiles tono arena */
+            --border-color: #eee4dc; 
         }
 
         body { 
@@ -242,6 +242,7 @@
     </div>
 
     <script>
+        // PEGA AQUÍ EL ENLACE DE APPS SCRIPT DE TU HOJA DE ANTARA
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPaj6h1Mn0P4dNRKIoRNVUNjKr1nUTX9_IJxU3wd9iLpJyaqwBp2DNh3itGtm1S3stoQ/exec"; 
         
         let catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
@@ -280,7 +281,7 @@
                 renderizarCatalogo();
             } catch (error) {
                 console.error("Error al cargar el catálogo:", error);
-                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica tu URL o permisos.</p>`;
+                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica tu URL o permisos de Apps Script.</p>`;
             }
         }
 
