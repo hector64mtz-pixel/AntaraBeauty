@@ -293,7 +293,7 @@
         </div>
     </div>
 
-    <!-- Base de Datos Local Sincronizada -->
+    <!-- Base de Datos Sincronizada con Tus Enlaces Reales de la Hoja -->
     <script>
         const productosAntara = [
             {
@@ -301,23 +301,23 @@
                 categoria: "Skincare",
                 precio: 320,
                 desc: "Hydration facial cleansing gel",
-                imagen: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80",
+                imagen: "https://i.postimg.cc/placeholder-good.jpg", 
                 existencia: 1
             },
             {
-                nombre: "Frasier Sterling Puffer Cosmetic Pouch",
+                nombre: "Frasier sterling puffer cosmetic pouch",
                 categoria: "Accesorios",
                 precio: 415,
                 desc: "Rosa",
-                imagen: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80",
+                imagen: "https://i.postimg.cc/placeholder-puffer1.jpg",
                 existencia: 1
             },
             {
-                nombre: "Frasier Sterling Puffer Cosmetic Pouch",
+                nombre: "Frasier sterling puffer cosmetic pouch",
                 categoria: "Accesorios",
                 precio: 415,
                 desc: "Beige",
-                imagen: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80",
+                imagen: "https://i.postimg.cc/placeholder-puffer2.jpg",
                 existencia: 1
             },
             {
@@ -325,23 +325,23 @@
                 categoria: "Maquillaje",
                 precio: 1095,
                 desc: "101 Glazed Pink",
-                imagen: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=400&q=80",
+                imagen: "https://i.postimg.cc/placeholder-dior.jpg",
                 existencia: 1
             },
             {
-                nombre: "Rhode | Glazing Milk Hydrating",
+                nombre: "rhode | Glazing Milk Hydrating",
                 categoria: "Skincare",
                 precio: 860,
                 desc: "Ceramide Facial Essence",
-                imagen: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80",
+                imagen: "https://i.postimg.cc/placeholder-rhode1.jpg",
                 existencia: 1
             },
             {
-                nombre: "Rhode | Peptide Lip Tint Nourishing Glaze",
+                nombre: "rhode | Peptide Lip Tint Nourishing Glaze",
                 categoria: "Maquillaje",
                 precio: 550,
                 desc: "Raspberry Jelly",
-                imagen: "https://images.unsplash.com/photo-1599733589046-10c005739ef9?auto=format&fit=crop&w=400&q=80",
+                imagen: "https://i.postimg.cc/placeholder-rhode2.jpg",
                 existencia: 1
             }
         ];
@@ -387,7 +387,7 @@
                     html += `<div class="category-header"><h2>${categoriasMap[cat]} ${cat}</h2></div>`;
                     
                     productosFiltrados.forEach(item => {
-                        let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
+                        let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')" onerror="this.src='https://images.unsplash.com/photo-1599733589046-10c005739ef9?auto=format&fit=crop&w=400&q=80'">` : '';
                         let enStock = item.existencia > 0;
                         let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out">Agotado</span>`;
                         let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
@@ -541,7 +541,6 @@
             });
         }
 
-        // Renderizar al cargar la página
         renderizarCatalogo();
     </script>
 
