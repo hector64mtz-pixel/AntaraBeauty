@@ -162,6 +162,10 @@
             background: #edf7ed; 
             color: #2e7d32; 
         }
+        .stock-tag.out {
+            background: #fde8e8;
+            color: #c53030;
+        }
         
         .btn-add { 
             background: var(--text-main); 
@@ -223,10 +227,11 @@
         .btn-qty { background: #f0eae1; color: #2c2c2c; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 6px; }
         .btn-remove { background: #e0b1b1; color: #5a1a1a; border: none; padding: 5px 8px; cursor: pointer; border-radius: 6px; font-size: 11px; }
         
-        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2); margin-top: 15px; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2); margin-top: 15px; transition: opacity 0.2s; }
         .btn-instagram:hover { opacity: 0.9; }
 
         .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
+        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
     </style>
 </head>
 <body>
@@ -243,12 +248,12 @@
             <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ Todo</button>
             <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 Maquillaje</button>
             <button class="filter-btn" onclick="filtrarCategoria('skincare', this)">💧 Skincare</button>
-            <button class="filter-btn" onclick="filtrarCategoria('accesorio', this)">👜 Accesorios</button>
+            <button class="filter-btn" onclick="filtrarCategoria('accesorios', this)">👜 Accesorios</button>
         </div>
     </header>
 
     <div class="catalog-container" id="catalog">
-        <!-- Catálogo renderizado -->
+        <div class="loading">Sincronizando inventario con Google Sheets... ✨</div>
     </div>
 
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
@@ -274,58 +279,10 @@
     </div>
 
     <script>
-        // BASE DE DATOS EXACTA DE TUS PRODUCTOS Y FOTOS REALES
-        const productosAntara = [
-            {
-                nombre: "Good Molecular",
-                categoria: "Skincare",
-                precio: 320,
-                desc: "Hydration facial cleansing gel",
-                imagen: "https://i.postimg.cc/placeholder-good.jpg", 
-                existencia: 1
-            },
-            {
-                nombre: "Frasier sterling puffer cosmetic pouch",
-                categoria: "Accesorios",
-                precio: 415,
-                desc: "Rosa",
-                imagen: "https://i.postimg.cc/placeholder-puffer1.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "Frasier sterling puffer cosmetic pouch",
-                categoria: "Accesorios",
-                precio: 415,
-                desc: "Beige",
-                imagen: "https://i.postimg.cc/placeholder-puffer2.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "DIOR | Lip Glow Butter Hydrating Gloss Balm",
-                categoria: "Maquillaje",
-                precio: 1095,
-                desc: "101 Glazed Pink",
-                imagen: "https://i.postimg.cc/placeholder-dior.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "rhode | Glazing Milk Hydrating",
-                categoria: "Skincare",
-                precio: 860,
-                desc: "Ceramide Facial Essence",
-                imagen: "https://i.postimg.cc/placeholder-rhode1.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "rhode | Peptide Lip Tint Nourishing Glaze",
-                categoria: "Maquillaje",
-                precio: 550,
-                desc: "Raspberry Jelly",
-                imagen: "https://i.postimg.cc/placeholder-rhode2.jpg",
-                existencia: 1
-            }
-        ];
-
+        // Aquí está tu enlace exacto de Apps Script
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp1DP4PFs8v0H5osvm29B5oJsQDc0rNyf4jFlEbHNbIUDwRHtRluwlFsxywODRGzLe/exec";
+        
+        let datosOriginales = [];
         let categoriaActiva = 'todos';
         let carrito = [];
 
@@ -338,6 +295,32 @@
             document.getElementById('modalZoom').style.display = 'none';
         }
 
+        function cargarCatalogo() {
+            const script = document.createElement('script');
+            // TRUCO DE ORO: Un número aleatorio al final rompe el caché del celular para forzar la actualización
+            script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo&t=${new Date().getTime()}`;
+            script.onerror = function() {
+                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo.</p>`;
+            };
+            document.body.appendChild(script);
+        }
+
+        function procesarDatosCatalogo(datosCrudos) {
+            datosOriginales = datosCrudos.map(item => {
+                // Aquí corregimos el detalle de los acentos leyendo exactamente tus nombres de columnas
+                return {
+                    nombre: item["producto"] || item["nombre"] || "Sin nombre",
+                    categoria: item["categoría"] || item["categoria"] || "", 
+                    precio: Number(item["precio"]) || 0,
+                    desc: item["detalles / tono"] || item["detalles"] || "",
+                    imagen: item["imagen"] || "",
+                    existencia: item["existencia"] !== undefined ? Number(item["existencia"]) : 1
+                };
+            });
+
+            renderizarCatalogo();
+        }
+
         function filtrarCategoria(cat, boton) {
             categoriaActiva = cat;
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
@@ -348,29 +331,31 @@
         function renderizarCatalogo() {
             const contenedor = document.getElementById('catalog');
             let html = "";
-            let categoriasMap = { "Maquillaje": "💄", "Skincare": "✨", "Accesorios": "👜" };
-            let listaCategorias = ["Maquillaje", "Skincare", "Accesorios"];
+            let categoriasMap = { "maquillaje": "💄", "skincare": "✨", "accesorios": "👜" };
+            let listaCategorias = ["maquillaje", "skincare", "accesorios"];
             let hayProductos = false;
 
             listaCategorias.forEach(cat => {
-                if (categoriaActiva !== 'todos' && !cat.toLowerCase().includes(categoriaActiva)) {
+                if (categoriaActiva !== 'todos' && categoriaActiva !== cat) {
                     return;
                 }
 
-                let productosFiltrados = productosAntara.filter(item => {
+                let productosFiltrados = datosOriginales.filter(item => {
                     let c = item.categoria ? item.categoria.trim().toLowerCase() : "";
-                    return c.includes(cat.toLowerCase());
+                    // Con esto nos aseguramos que "Accesorios" y "Accesorio" funcionen igual
+                    return c.includes(cat) || (cat === "accesorios" && c.includes("accesorio"));
                 });
 
                 if (productosFiltrados.length > 0) {
                     hayProductos = true;
-                    html += `<div class="category-header"><h2>${categoriasMap[cat]} ${cat}</h2></div>`;
+                    // Capitalizamos el nombre de la categoría para el título
+                    let tituloCat = cat.charAt(0).toUpperCase() + cat.slice(1);
+                    html += `<div class="category-header"><h2>${categoriasMap[cat]} ${tituloCat}</h2></div>`;
                     
                     productosFiltrados.forEach(item => {
-                        // Si quieres poner tus links reales de postimages solo reemplaza el src, si falla carga una imagen bonita de respaldo
-                        let imagenHtml = `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')" onerror="this.src='https://images.unsplash.com/photo-1599733589046-10c005739ef9?auto=format&fit=crop&w=400&q=80'">`;
+                        let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
                         let enStock = item.existencia > 0;
-                        let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out" style="background:#fde8e8; color:#c53030;">Agotado</span>`;
+                        let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out">Agotado</span>`;
                         let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
 
                         html += `
@@ -522,7 +507,8 @@
             });
         }
 
-        renderizarCatalogo();
+        // Llamamos a la función de carga al iniciar
+        cargarCatalogo();
     </script>
 
 </body>
