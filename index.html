@@ -244,6 +244,7 @@
         .btn-instagram:hover { opacity: 0.9; }
 
         .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
+        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
     </style>
 </head>
 <body>
@@ -267,7 +268,7 @@
     </header>
 
     <div class="catalog-container" id="catalog">
-        <!-- Contenido dinámico -->
+        <div class="loading">Cargando colección desde tu hoja... ✨</div>
     </div>
 
     <!-- Visor de Imagen en Grande (Zoom) -->
@@ -293,59 +294,11 @@
         </div>
     </div>
 
-    <!-- Base de Datos Sincronizada con Tus Enlaces Reales de la Hoja -->
+    <!-- Script conectado a tu Google Sheet para jalar tus imágenes reales -->
     <script>
-        const productosAntara = [
-            {
-                nombre: "Good Molecular",
-                categoria: "Skincare",
-                precio: 320,
-                desc: "Hydration facial cleansing gel",
-                imagen: "https://i.postimg.cc/placeholder-good.jpg", 
-                existencia: 1
-            },
-            {
-                nombre: "Frasier sterling puffer cosmetic pouch",
-                categoria: "Accesorios",
-                precio: 415,
-                desc: "Rosa",
-                imagen: "https://i.postimg.cc/placeholder-puffer1.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "Frasier sterling puffer cosmetic pouch",
-                categoria: "Accesorios",
-                precio: 415,
-                desc: "Beige",
-                imagen: "https://i.postimg.cc/placeholder-puffer2.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "DIOR | Lip Glow Butter Hydrating Gloss Balm",
-                categoria: "Maquillaje",
-                precio: 1095,
-                desc: "101 Glazed Pink",
-                imagen: "https://i.postimg.cc/placeholder-dior.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "rhode | Glazing Milk Hydrating",
-                categoria: "Skincare",
-                precio: 860,
-                desc: "Ceramide Facial Essence",
-                imagen: "https://i.postimg.cc/placeholder-rhode1.jpg",
-                existencia: 1
-            },
-            {
-                nombre: "rhode | Peptide Lip Tint Nourishing Glaze",
-                categoria: "Maquillaje",
-                precio: 550,
-                desc: "Raspberry Jelly",
-                imagen: "https://i.postimg.cc/placeholder-rhode2.jpg",
-                existencia: 1
-            }
-        ];
-
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzANIhd7-OA6CJ9JT6IOWPwFsVj9bf7EkVeTPB4TapmZ398bq5F4s3yzN6cp8Dfhiyj/exec";
+        
+        let datosOriginales = [];
         let categoriaActiva = 'todos';
         let carrito = [];
 
@@ -356,6 +309,28 @@
 
         function cerrarZoom() {
             document.getElementById('modalZoom').style.display = 'none';
+        }
+
+        function cargarCatalogo() {
+            const script = document.createElement('script');
+            script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo`;
+            script.onerror = function() {
+                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica permisos de Apps Script.</p>`;
+            };
+            document.body.appendChild(script);
+        }
+
+        function procesarDatosCatalogo(datosCrudos) {
+            datosOriginales = datosCrudos.map(item => ({
+                nombre: item.producto || item.nombre || "Producto",
+                categoria: item.categoria || "",
+                precio: Number(item.precio) || 0,
+                desc: item['detalles / tono'] || item.detalles || item.desc || "",
+                imagen: item.imagen || "",
+                existencia: Number(item.existencia) !== undefined ? Number(item.existencia) : 1
+            }));
+
+            renderizarCatalogo();
         }
 
         function filtrarCategoria(cat, boton) {
@@ -377,7 +352,7 @@
                     return;
                 }
 
-                let productosFiltrados = productosAntara.filter(item => {
+                let productosFiltrados = datosOriginales.filter(item => {
                     let c = item.categoria ? item.categoria.trim().toLowerCase() : "";
                     return c.includes(cat.toLowerCase());
                 });
@@ -387,7 +362,7 @@
                     html += `<div class="category-header"><h2>${categoriasMap[cat]} ${cat}</h2></div>`;
                     
                     productosFiltrados.forEach(item => {
-                        let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')" onerror="this.src='https://images.unsplash.com/photo-1599733589046-10c005739ef9?auto=format&fit=crop&w=400&q=80'">` : '';
+                        let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
                         let enStock = item.existencia > 0;
                         let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out">Agotado</span>`;
                         let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
@@ -541,7 +516,7 @@
             });
         }
 
-        renderizarCatalogo();
+        cargarCatalogo();
     </script>
 
 </body>
