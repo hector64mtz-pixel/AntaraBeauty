@@ -44,7 +44,7 @@
             text-align: center;
             font-size: 11px;
             font-weight: 500;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             padding: 8px 10px;
             text-transform: uppercase;
         }
@@ -244,14 +244,13 @@
         .btn-instagram:hover { opacity: 0.9; }
 
         .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
-        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
     </style>
 </head>
 <body>
 
-    <!-- Banner de Promociones y Avisos -->
+    <!-- Banner con Entregas Personales -->
     <div class="promo-banner">
-        ✨ Envíos seguros a Monterrey • Pide directo por DM 💖
+        ✨ Entregas personales en Monterrey • Pide directo por DM 💖
     </div>
 
     <header>
@@ -268,7 +267,7 @@
     </header>
 
     <div class="catalog-container" id="catalog">
-        <div class="loading">Cargando colección... ✨</div>
+        <!-- Contenido dinámico -->
     </div>
 
     <!-- Visor de Imagen en Grande (Zoom) -->
@@ -294,11 +293,59 @@
         </div>
     </div>
 
-    <!-- Script de carga con JSONP y Filtros -->
+    <!-- Base de Datos Local Sincronizada -->
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzANIhd7-OA6CJ9JT6IOWPwFsVj9bf7EkVeTPB4TapmZ398bq5F4s3yzN6cp8Dfhiyj/exec";
-        
-        let datosOriginales = [];
+        const productosAntara = [
+            {
+                nombre: "Good Molecular",
+                categoria: "Skincare",
+                precio: 320,
+                desc: "Hydration facial cleansing gel",
+                imagen: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80",
+                existencia: 1
+            },
+            {
+                nombre: "Frasier Sterling Puffer Cosmetic Pouch",
+                categoria: "Accesorios",
+                precio: 415,
+                desc: "Rosa",
+                imagen: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80",
+                existencia: 1
+            },
+            {
+                nombre: "Frasier Sterling Puffer Cosmetic Pouch",
+                categoria: "Accesorios",
+                precio: 415,
+                desc: "Beige",
+                imagen: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80",
+                existencia: 1
+            },
+            {
+                nombre: "DIOR | Lip Glow Butter Hydrating Gloss Balm",
+                categoria: "Maquillaje",
+                precio: 1095,
+                desc: "101 Glazed Pink",
+                imagen: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=400&q=80",
+                existencia: 1
+            },
+            {
+                nombre: "Rhode | Glazing Milk Hydrating",
+                categoria: "Skincare",
+                precio: 860,
+                desc: "Ceramide Facial Essence",
+                imagen: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80",
+                existencia: 1
+            },
+            {
+                nombre: "Rhode | Peptide Lip Tint Nourishing Glaze",
+                categoria: "Maquillaje",
+                precio: 550,
+                desc: "Raspberry Jelly",
+                imagen: "https://images.unsplash.com/photo-1599733589046-10c005739ef9?auto=format&fit=crop&w=400&q=80",
+                existencia: 1
+            }
+        ];
+
         let categoriaActiva = 'todos';
         let carrito = [];
 
@@ -311,45 +358,18 @@
             document.getElementById('modalZoom').style.display = 'none';
         }
 
-        function cargarCatalogo() {
-            const script = document.createElement('script');
-            script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo`;
-            script.onerror = function() {
-                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica permisos de Apps Script.</p>`;
-            };
-            document.body.appendChild(script);
-        }
-
-        function procesarDatosCatalogo(datosCrudos) {
-            datosOriginales = datosCrudos.map(item => ({
-                nombre: item.nombre || item.producto || "Producto",
-                categoria: item.categoria || "",
-                precio: Number(item.precio) || 0,
-                desc: item.desc || item['detalles / tono'] || item.detalles || "",
-                imagen: item.imagen || "",
-                existencia: Number(item.existencia) !== undefined ? Number(item.existencia) : 1
-            }));
-
-            renderizarCatalogo();
-        }
-
         function filtrarCategoria(cat, boton) {
             categoriaActiva = cat;
-            
-            // Cambiar clase activa en los botones
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             boton.classList.add('active');
-
             renderizarCatalogo();
         }
 
         function renderizarCatalogo() {
             const contenedor = document.getElementById('catalog');
             let html = "";
-            
             let categoriasMap = { "Maquillaje": "💄", "Skincare": "✨", "Accesorios": "👜" };
             let listaCategorias = ["Maquillaje", "Skincare", "Accesorios"];
-
             let hayProductos = false;
 
             listaCategorias.forEach(cat => {
@@ -357,7 +377,7 @@
                     return;
                 }
 
-                let productosFiltrados = datosOriginales.filter(item => {
+                let productosFiltrados = productosAntara.filter(item => {
                     let c = item.categoria ? item.categoria.trim().toLowerCase() : "";
                     return c.includes(cat.toLowerCase());
                 });
@@ -400,13 +420,14 @@
         function agregarAlCarrito(item, event) {
             animarItemAlCarrito(event.target);
 
-            let encontrado = carrito.find(i => i.nombre === item.nombre);
+            let encontrado = carrito.find(i => i.nombre === item.nombre && i.desc === item.desc);
             if (encontrado) {
                 encontrado.cantidad += 1;
             } else {
                 carrito.push({
                     nombre: item.nombre,
                     precio: item.precio,
+                    desc: item.desc,
                     cantidad: 1
                 });
             }
@@ -432,12 +453,12 @@
             setTimeout(() => { anim.remove(); }, 650);
         }
 
-        function cambiarCantidad(nombre, cambio) {
-            let item = carrito.find(i => i.nombre === nombre);
+        function cambiarCantidad(nombre, desc, cambio) {
+            let item = carrito.find(i => i.nombre === nombre && i.desc === desc);
             if (item) {
                 item.cantidad += cambio;
                 if (item.cantidad <= 0) {
-                    carrito = carrito.filter(i => i.nombre !== nombre);
+                    carrito = carrito.filter(i => !(i.nombre === nombre && i.desc === desc));
                 }
             }
             actualizarCarritoUI();
@@ -473,17 +494,18 @@
 
             let html = "";
             carrito.forEach(item => {
+                let detalleStr = item.desc ? ` (${item.desc})` : '';
                 html += `
                     <div class="cart-item">
                         <div>
-                            <strong style="color:#2c2c2c; font-size: 14px;">${item.nombre}</strong><br>
+                            <strong style="color:#2c2c2c; font-size: 14px;">${item.nombre}${detalleStr}</strong><br>
                             <small style="color:#7d7d7d;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
                         </div>
                         <div class="cart-controls">
-                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', -1)">-</button>
+                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -1)">-</button>
                             <span style="color:#2c2c2c; font-weight:600;">${item.cantidad}</span>
-                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', 1)">+</button>
-                            <button class="btn-remove" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', -${item.cantidad})">✕</button>
+                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', 1)">+</button>
+                            <button class="btn-remove" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -${item.cantidad})">✕</button>
                         </div>
                     </div>
                 `;
@@ -502,7 +524,8 @@
 
             carrito.forEach((item, index) => {
                 let subtotal = item.precio * item.cantidad;
-                mensaje += `${index + 1}. ${item.cantidad}x *${item.nombre}* - $${subtotal} MXN\n`;
+                let detalleStr = item.desc ? ` (${item.desc})` : '';
+                mensaje += `${index + 1}. ${item.cantidad}x *${item.nombre}${detalleStr}* - $${subtotal} MXN\n`;
                 totalGeneral += subtotal;
             });
 
@@ -518,7 +541,8 @@
             });
         }
 
-        cargarCatalogo();
+        // Renderizar al cargar la página
+        renderizarCatalogo();
     </script>
 
 </body>
