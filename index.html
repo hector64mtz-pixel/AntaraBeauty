@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANTARA - Maquillaje y Skincare</title>
     
-    <!-- Configuración de Vista Previa -->
     <meta property="og:title" content="ANTARA - Catálogo y Pedidos">
     <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
     <meta property="og:type" content="website">
 
-    <!-- Configuración para App Móvil -->
     <meta name="theme-color" content="#fbf9f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
-    <!-- Tipografía moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -37,7 +34,6 @@
             color: var(--text-main); 
         }
 
-        /* Banner de Promociones Superior */
         .promo-banner {
             background-color: #2c2c2c;
             color: #fbf9f6;
@@ -49,7 +45,6 @@
             text-transform: uppercase;
         }
         
-        /* Encabezado Minimalista Chic */
         header { 
             background-color: #ffffff; 
             padding: 25px 15px 15px 15px; 
@@ -74,14 +69,12 @@
             text-transform: uppercase; 
         }
 
-        /* Contenedor Principal */
         .catalog-container { 
             max-width: 750px; 
             margin: 0 auto; 
             padding: 10px 15px 100px 15px; 
         }
 
-        /* Botones de Filtro Rápido por Categoría */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -121,7 +114,6 @@
             text-transform: uppercase;
         }
 
-        /* Tarjetas de Productos Minimalistas */
         .product-card { 
             background-color: var(--card-bg); 
             border: 1px solid var(--border-color); 
@@ -133,11 +125,6 @@
             align-items: center; 
             gap: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .product-card:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-            transform: translateY(-2px);
         }
         .product-thumb { 
             width: 85px; 
@@ -148,14 +135,11 @@
             flex-shrink: 0; 
             background: #f9f6f0; 
             cursor: pointer; 
-            transition: transform 0.2s; 
         }
-        .product-thumb:hover { transform: scale(1.03); }
         .product-info { flex-grow: 1; }
         .product-info h3 { margin: 0 0 3px 0; font-size: 15px; font-weight: 600; color: #2c2c2c; }
         .product-info p { margin: 0 0 6px 0; color: var(--text-muted); font-size: 12px; line-height: 1.4; }
         
-        /* Indicador de Stock y Precio */
         .product-meta {
             display: flex;
             align-items: center;
@@ -170,11 +154,6 @@
             border-radius: 6px; 
             background: #edf7ed; 
             color: #2e7d32; 
-            letter-spacing: 0.5px;
-        }
-        .stock-tag.out {
-            background: #fde8e8;
-            color: #c53030;
         }
         
         .btn-add { 
@@ -186,36 +165,16 @@
             cursor: pointer; 
             font-size: 13px; 
             font-weight: 600; 
-            transition: background 0.2s, transform 0.1s; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .btn-add:hover { background: var(--primary-tone); }
-        .btn-add:active { transform: scale(0.95); }
 
-        /* Animación de producto volando al carrito */
-        @keyframes volarAlCarrito {
-            0% { opacity: 1; transform: scale(1) translate(0, 0) rotate(0deg); }
-            50% { transform: scale(1.3) translate(-20px, -60px) rotate(-10deg); }
-            85% { transform: scale(0.8) translate(0, 120px) rotate(5deg); }
-            100% { opacity: 0; transform: scale(0.4) translate(0, 180px) rotate(0deg); }
-        }
-        .item-volador {
-            position: fixed;
-            font-size: 24px;
-            z-index: 9999;
-            pointer-events: none;
-            animation: volarAlCarrito 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        /* Modales Estilizados Minimalistas */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(4px); }
-        .modal-content { background: #ffffff; color: #2c2c2c; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 200; }
+        .modal-content { background: #ffffff; color: #2c2c2c; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; }
         
         .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 300; text-align: center; }
-        .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+        .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; }
         .cerrar-zoom { position: absolute; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: bold; cursor: pointer; }
 
-        /* Barra de Carrito Inferior Estilo Boutique */
         .cart-bar { 
             position: fixed; 
             bottom: 0; 
@@ -228,28 +187,22 @@
             text-align: center; 
             font-weight: 600; 
             cursor: pointer; 
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.05); 
             font-size: 15px; 
             z-index: 100; 
-            transition: background 0.2s; 
         }
-        .cart-bar:hover { background: #f9f6f0; }
         
         .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0eae1; padding: 12px 0; }
         .cart-controls { display: flex; align-items: center; gap: 8px; }
         .btn-qty { background: #f0eae1; color: #2c2c2c; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 6px; }
         .btn-remove { background: #e0b1b1; color: #5a1a1a; border: none; padding: 5px 8px; cursor: pointer; border-radius: 6px; font-size: 11px; }
         
-        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2); margin-top: 15px; transition: opacity 0.2s; }
-        .btn-instagram:hover { opacity: 0.9; }
-
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; margin-top: 15px; }
         .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
         .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
     </style>
 </head>
 <body>
 
-    <!-- Banner con Entregas Personales -->
     <div class="promo-banner">
         ✨ Entregas personales en Monterrey • Pide directo por DM 💖
     </div>
@@ -258,7 +211,6 @@
         <h1>ANTARA</h1>
         <p class="subtitle">Maquillaje • Skincare • Accesorios</p>
 
-        <!-- Filtros Rápidos por Categoría -->
         <div class="filter-container">
             <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ Todo</button>
             <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 Maquillaje</button>
@@ -271,7 +223,6 @@
         <div class="loading">Cargando colección desde tu hoja... ✨</div>
     </div>
 
-    <!-- Visor de Imagen en Grande (Zoom) -->
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
         <img id="imgZoom" src="" alt="Vista previa">
@@ -294,7 +245,6 @@
         </div>
     </div>
 
-    <!-- Script conectado a tu Google Sheet para jalar tus imágenes reales -->
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp1DP4PFs8v0H5osvm29B5oJsQDc0rNyf4jFlEbHNbIUDwRHtRluwlFsxywODRGzLe/exec";
         
@@ -315,20 +265,31 @@
             const script = document.createElement('script');
             script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo`;
             script.onerror = function() {
-                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica permisos de Apps Script.</p>`;
+                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo.</p>`;
             };
             document.body.appendChild(script);
         }
 
         function procesarDatosCatalogo(datosCrudos) {
-            datosOriginales = datosCrudos.map(item => ({
-                nombre: item.producto || item.nombre || "Producto",
-                categoria: item.categoria || "",
-                precio: Number(item.precio) || 0,
-                desc: item['detalles / tono'] || item.detalles || item.desc || "",
-                imagen: item.imagen || "",
-                existencia: Number(item.existencia) !== undefined ? Number(item.existencia) : 1
-            }));
+            console.log("Datos recibidos de la hoja:", datosCrudos); // Para revisar en consola si es necesario
+            
+            datosOriginales = datosCrudos.map(item => {
+                // Buscamos las propiedades sin importar cómo se llamen exactamente las columnas
+                let keys = Object.keys(item);
+                let getVal = (keywords) => {
+                    let foundKey = keys.find(k => keywords.some(kw => k.toLowerCase().includes(kw)));
+                    return foundKey ? item[foundKey] : "";
+                };
+
+                return {
+                    nombre: getVal(["producto", "nombre"]) || "Producto",
+                    categoria: getVal(["categoria", "categoría"]) || "General",
+                    precio: Number(getVal(["precio"])) || 0,
+                    desc: getVal(["detalles", "tono", "desc"]) || "",
+                    imagen: getVal(["imagen", "foto", "url"]) || "",
+                    existencia: 1
+                };
+            });
 
             renderizarCatalogo();
         }
@@ -354,19 +315,22 @@
 
                 let productosFiltrados = datosOriginales.filter(item => {
                     let c = item.categoria ? item.categoria.trim().toLowerCase() : "";
-                    return c.includes(cat.toLowerCase());
+                    return c.includes(cat.toLowerCase()) || categoriaActiva === 'todos';
                 });
 
-                if (productosFiltrados.length > 0) {
+                // Si en 'todos' agrupamos por categoría detectada:
+                if (categoriaActiva === 'todos') {
+                    // Mostrar todos sin filtrar estricto si la categoría no coincide exacto
+                    productosFiltrados = datosOriginales;
+                }
+
+                if (productosFiltrados.length > 0 && categoriaActiva !== 'todos') {
                     hayProductos = true;
-                    html += `<div class="category-header"><h2>${categoriasMap[cat]} ${cat}</h2></div>`;
+                    html += `<div class="category-header"><h2>${categoriasMap[cat] || '✨'} ${cat}</h2></div>`;
                     
                     productosFiltrados.forEach(item => {
                         let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
-                        let enStock = item.existencia > 0;
-                        let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out">Agotado</span>`;
-                        let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
-
+                        
                         html += `
                             <div class="product-card">
                                 ${imagenHtml}
@@ -375,15 +339,39 @@
                                     <p>${item.desc}</p>
                                     <div class="product-meta">
                                         <span class="price">$${item.precio} MXN</span>
-                                        ${stockHtml}
+                                        <span class="stock-tag">Disponible</span>
                                     </div>
                                 </div>
-                                ${botonHtml}
+                                <button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>
                             </div>
                         `;
                     });
                 }
             });
+
+            // Si está en modo "Todos", mostramos todos los productos juntos ordenados
+            if (categoriaActiva === 'todos' && datosOriginales.length > 0) {
+                hayProductos = true;
+                html += `<div class="category-header"><h2>✨ Catálogo General</h2></div>`;
+                datosOriginales.forEach(item => {
+                    let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
+                    
+                    html += `
+                        <div class="product-card">
+                            ${imagenHtml}
+                            <div class="product-info">
+                                <h3>${item.nombre}</h3>
+                                <p>${item.desc}</p>
+                                <div class="product-meta">
+                                    <span class="price">$${item.precio} MXN</span>
+                                    <span class="stock-tag">Disponible</span>
+                                </div>
+                            </div>
+                            <button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>
+                        </div>
+                    `;
+                });
+            }
 
             if (!hayProductos) {
                 html = `<p style="text-align:center; color:var(--text-muted); padding:40px;">No hay productos en esta categoría.</p>`;
@@ -393,8 +381,6 @@
         }
 
         function agregarAlCarrito(item, event) {
-            animarItemAlCarrito(event.target);
-
             let encontrado = carrito.find(i => i.nombre === item.nombre && i.desc === item.desc);
             if (encontrado) {
                 encontrado.cantidad += 1;
@@ -406,26 +392,7 @@
                     cantidad: 1
                 });
             }
-
             actualizarCarritoUI();
-        }
-
-        function animarItemAlCarrito(boton) {
-            let rect = boton.getBoundingClientRect();
-            let anim = document.createElement('div');
-            anim.className = 'item-volador';
-            anim.innerHTML = '✨';
-            anim.style.left = (rect.left + rect.width / 2 - 12) + 'px';
-            anim.style.top = (rect.top) + 'px';
-            document.body.appendChild(anim);
-
-            setTimeout(() => {
-                let barra = document.getElementById('barraCarrito');
-                barra.style.transform = 'scale(1.02)';
-                setTimeout(() => { barra.style.transform = 'scale(1)'; }, 150);
-            }, 500);
-
-            setTimeout(() => { anim.remove(); }, 650);
         }
 
         function cambiarCantidad(nombre, desc, cambio) {
