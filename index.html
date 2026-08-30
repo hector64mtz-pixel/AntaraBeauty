@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANTARA - Maquillaje y Skincare</title>
     
-    <!-- Configuración de Vista Previa -->
     <meta property="og:title" content="ANTARA - Catálogo y Pedidos">
     <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
     <meta property="og:type" content="website">
 
-    <!-- Configuración para App Móvil (PWA) -->
     <meta name="theme-color" content="#fbf9f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
-    <!-- Tipografía moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -205,7 +202,6 @@
         <div class="loading">Cargando colección... ✨</div>
     </div>
 
-    <!-- Visor de Imagen en Grande (Zoom) -->
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
         <img id="imgZoom" src="" alt="Vista previa">
@@ -242,8 +238,7 @@
     </div>
 
     <script>
-        // PEGA AQUÍ EL ENLACE DE APPS SCRIPT DE TU HOJA DE ANTARA
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPaj6h1Mn0P4dNRKIoRNVUNjKr1nUTX9_IJxU3wd9iLpJyaqwBp2DNh3itGtm1S3stoQ/exec"; 
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzANIhd7-OA6CJ9JT6IOWPwFsVj9bf7EkVeTPB4TapmZ398bq5F4s3yzN6cp8Dfhiyj/exec"; 
         
         let catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
         let carrito = [];
@@ -281,7 +276,7 @@
                 renderizarCatalogo();
             } catch (error) {
                 console.error("Error al cargar el catálogo:", error);
-                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica tu URL o permisos de Apps Script.</p>`;
+                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica permisos de Apps Script.</p>`;
             }
         }
 
