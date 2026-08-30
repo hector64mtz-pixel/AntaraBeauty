@@ -188,7 +188,6 @@
         .btn-primary:hover { background: var(--primary-hover); }
 
         .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
-        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
     </style>
 </head>
 <body>
@@ -199,8 +198,7 @@
     </header>
 
     <div class="catalog-container" id="catalog">
-        <div class="loading">Cargando colección... ✨</div>
-    </div>
+        </div>
 
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
@@ -238,8 +236,45 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzANIhd7-OA6CJ9JT6IOWPwFsVj9bf7EkVeTPB4TapmZ398bq5F4s3yzN6cp8Dfhiyj/exec"; 
-        
+        // BASE DE DATOS LOCAL DE ANTARA (Tomada de tu inventario)
+        const productosAntara = [
+            {
+                nombre: "Tinta de Labios Rom&nd",
+                categoria: "Maquillaje",
+                precio: 185,
+                desc: "Acabado jugoso, alta duración y no reseca los labios.",
+                imagen: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                nombre: "Lip Gloss Hidratante Glass",
+                categoria: "Maquillaje",
+                precio: 140,
+                desc: "Efecto espejo súper brillante con sensación ligera no pegajosa.",
+                imagen: "https://images.unsplash.com/photo-1599733589046-10c005739ef9?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                nombre: "Sérum Facial Ácido Hialurónico",
+                categoria: "Skincare",
+                precio: 250,
+                desc: "Hidratación profunda, suaviza líneas de expresión y da luminosidad.",
+                imagen: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                nombre: "Protector Solar Facial Toque Seco",
+                categoria: "Skincare",
+                precio: 290,
+                desc: "FPS 50+, sin efecto blanco, ideal para uso diario bajo el maquillaje.",
+                imagen: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                nombre: "Cosmetiquera Minimalista Elegante",
+                categoria: "Accesorios",
+                precio: 220,
+                desc: "Material suave, impermeable y con excelente espacio de almacenamiento.",
+                imagen: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80"
+            }
+        ];
+
         let catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
         let carrito = [];
         let productoEnEdicion = null;
@@ -253,31 +288,21 @@
             document.getElementById('modalZoom').style.display = 'none';
         }
 
-        async function cargarCatalogo() {
-            try {
-                let respuesta = await fetch(SCRIPT_URL);
-                let datosCrudos = await respuesta.json();
+        function cargarCatalogoLocal() {
+            catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
+            
+            productosAntara.forEach(item => {
+                let cat = item.categoria ? item.categoria.trim() : "";
+                if (cat.toLowerCase().includes("maquillaje")) {
+                    catalogData.Maquillaje.push(item);
+                } else if (cat.toLowerCase().includes("skincare")) {
+                    catalogData.Skincare.push(item);
+                } else if (cat.toLowerCase().includes("accesorio")) {
+                    catalogData.Accesorios.push(item);
+                }
+            });
 
-                catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
-                
-                datosCrudos.forEach(item => {
-                    item.precio = Number(item.precio);
-                    let cat = item.categoria ? item.categoria.trim() : "";
-                    
-                    if (cat.toLowerCase().includes("maquillaje")) {
-                        catalogData.Maquillaje.push(item);
-                    } else if (cat.toLowerCase().includes("skincare")) {
-                        catalogData.Skincare.push(item);
-                    } else if (cat.toLowerCase().includes("accesorio")) {
-                        catalogData.Accesorios.push(item);
-                    }
-                });
-
-                renderizarCatalogo();
-            } catch (error) {
-                console.error("Error al cargar el catálogo:", error);
-                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica permisos de Apps Script.</p>`;
-            }
+            renderizarCatalogo();
         }
 
         function renderizarCatalogo() {
@@ -448,7 +473,7 @@
             });
         }
 
-        cargarCatalogo();
+        cargarCatalogoLocal();
     </script>
 
 </body>
