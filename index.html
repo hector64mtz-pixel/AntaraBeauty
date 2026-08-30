@@ -5,29 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANTARA - Maquillaje y Skincare</title>
     
-    <!-- Configuración de Vista Previa al Compartir en Redes -->
+    <!-- Configuración de Vista Previa -->
     <meta property="og:title" content="ANTARA - Catálogo y Pedidos">
     <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
     <meta property="og:type" content="website">
 
     <!-- Configuración para App Móvil (PWA) -->
-    <meta name="theme-color" content="#1a1a1a">
+    <meta name="theme-color" content="#fbf9f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
     <!-- Tipografía moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f0f0f;
-            --card-bg: #181818;
-            --text-main: #fcfcfc;
-            --text-muted: #a0a0a0;
-            --primary-pink: #e07a93;
-            --primary-pink-hover: #c9647e;
-            --accent-gold: #d4af37;
-            --border-color: #262626;
+            --bg-color: #fbf9f6; /* Fondo blanco marfil / minimalista */
+            --card-bg: #ffffff;  /* Tarjetas blancas puras */
+            --text-main: #2c2c2c; /* Texto principal oscuro y elegante */
+            --text-muted: #7d7d7d; /* Texto secundario suave */
+            --primary-tone: #b8977e; /* Tono beige arena / elegante */
+            --primary-hover: #9c7b63;
+            --border-color: #eee4dc; /* Bordes sutiles tono arena */
         }
 
         body { 
@@ -38,28 +37,28 @@
             color: var(--text-main); 
         }
         
-        /* Encabezado Estilo Boutique */
+        /* Encabezado Minimalista Chic */
         header { 
-            background-color: #141414; 
-            padding: 30px 15px; 
+            background-color: #ffffff; 
+            padding: 35px 15px; 
             text-align: center; 
-            border-bottom: 2px solid var(--border-color); 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            border-bottom: 1px solid var(--border-color); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
         header h1 {
             margin: 0;
             font-size: 26px;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: var(--text-main);
             text-transform: uppercase;
         }
         p.subtitle { 
-            color: var(--primary-pink); 
+            color: var(--primary-tone); 
             margin: 8px 0 0 0; 
-            font-weight: 500; 
-            font-size: 13px; 
-            letter-spacing: 2px; 
+            font-weight: 600; 
+            font-size: 12px; 
+            letter-spacing: 2.5px; 
             text-transform: uppercase; 
         }
 
@@ -78,27 +77,28 @@
         .category-header h2 { 
             color: var(--text-main); 
             margin: 0; 
-            font-size: 20px; 
+            font-size: 18px; 
             font-weight: 600; 
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
-        /* Tarjetas de Productos Elegantes */
+        /* Tarjetas de Productos Minimalistas */
         .product-card { 
             background-color: var(--card-bg); 
             border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            padding: 15px; 
+            border-radius: 14px; 
+            padding: 16px; 
             margin-bottom: 15px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             gap: 15px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .product-card:hover {
-            border-color: #444;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
             transform: translateY(-2px);
         }
         .product-thumb { 
@@ -106,20 +106,20 @@
             height: 85px; 
             object-fit: cover; 
             border-radius: 10px; 
-            border: 1px solid #333; 
+            border: 1px solid #f0eae1; 
             flex-shrink: 0; 
-            background: #222; 
+            background: #f9f6f0; 
             cursor: pointer; 
             transition: transform 0.2s; 
         }
         .product-thumb:hover { transform: scale(1.03); }
         .product-info { flex-grow: 1; }
-        .product-info h3 { margin: 0 0 4px 0; font-size: 15px; font-weight: 600; color: #fff; }
+        .product-info h3 { margin: 0 0 4px 0; font-size: 15px; font-weight: 600; color: #2c2c2c; }
         .product-info p { margin: 0; color: var(--text-muted); font-size: 12px; line-height: 1.4; }
-        .price { font-weight: 700; color: var(--primary-pink); font-size: 14px; display: block; margin-top: 6px; }
+        .price { font-weight: 700; color: var(--primary-tone); font-size: 14px; display: block; margin-top: 6px; }
         
         .btn-add { 
-            background: var(--primary-pink); 
+            background: var(--text-main); 
             color: white; 
             border: none; 
             padding: 9px 18px; 
@@ -128,9 +128,9 @@
             font-size: 13px; 
             font-weight: 600; 
             transition: background 0.2s, transform 0.1s; 
-            box-shadow: 0 2px 8px rgba(224, 122, 147, 0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .btn-add:hover { background: var(--primary-pink-hover); }
+        .btn-add:hover { background: var(--primary-tone); }
         .btn-add:active { transform: scale(0.95); }
 
         /* Animación de producto volando al carrito */
@@ -148,47 +148,49 @@
             animation: volarAlCarrito 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* Modales Estilizados */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(5px); }
-        .modal-content { background: #181818; color: #fcfcfc; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid var(--border-color); }
+        /* Modales Estilizados Minimalistas */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(4px); }
+        .modal-content { background: #ffffff; color: #2c2c2c; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
         
-        .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; z-index: 300; text-align: center; }
-        .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.7); }
+        .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 300; text-align: center; }
+        .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
         .cerrar-zoom { position: absolute; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: bold; cursor: pointer; }
 
-        .textarea-notes { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #333; background: #222; color: #fff; border-radius: 8px; margin-top: 5px; resize: vertical; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .textarea-notes:focus { border-color: var(--primary-pink); outline: none; }
+        .textarea-notes { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #dcd6ce; background: #faf8f5; color: #2c2c2c; border-radius: 8px; margin-top: 5px; resize: vertical; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .textarea-notes:focus { border-color: var(--primary-tone); outline: none; }
 
-        /* Barra de Carrito Inferior */
+        /* Barra de Carrito Inferior Estilo Boutique */
         .cart-bar { 
             position: fixed; 
             bottom: 0; 
             left: 0; 
             width: 100%; 
-            background: #1c1c1c; 
+            background: #ffffff; 
             border-top: 1px solid var(--border-color);
-            color: white; 
+            color: var(--text-main); 
             padding: 16px; 
             text-align: center; 
             font-weight: 600; 
             cursor: pointer; 
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5); 
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05); 
             font-size: 15px; 
             z-index: 100; 
             transition: background 0.2s; 
         }
-        .cart-bar:hover { background: #242424; }
+        .cart-bar:hover { background: #f9f6f0; }
         
-        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #262626; padding: 12px 0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0eae1; padding: 12px 0; }
         .cart-controls { display: flex; align-items: center; gap: 8px; }
-        .btn-qty { background: #2a2a2a; color: #fff; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 6px; }
-        .btn-remove { background: #822; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 6px; font-size: 11px; }
+        .btn-qty { background: #f0eae1; color: #2c2c2c; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 6px; }
+        .btn-remove { background: #e0b1b1; color: #5a1a1a; border: none; padding: 5px 8px; cursor: pointer; border-radius: 6px; font-size: 11px; }
         
-        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.3); margin-top: 15px; transition: opacity 0.2s; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2); margin-top: 15px; transition: opacity 0.2s; }
         .btn-instagram:hover { opacity: 0.9; }
         
-        .btn-primary { background: var(--primary-pink); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 15px; }
-        .btn-close { background: #333; color: white; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
+        .btn-primary { background: var(--primary-tone); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 15px; }
+        .btn-primary:hover { background: var(--primary-hover); }
+
+        .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
         .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
     </style>
 </head>
@@ -200,7 +202,7 @@
     </header>
 
     <div class="catalog-container" id="catalog">
-        <div class="loading">Cargando catálogo... 💄✨</div>
+        <div class="loading">Cargando colección... ✨</div>
     </div>
 
     <!-- Visor de Imagen en Grande (Zoom) -->
@@ -215,10 +217,10 @@
 
     <div class="modal" id="modalPersonalizar">
         <div class="modal-content">
-            <h2 id="modal-titulo-producto" style="margin-top:0; color:var(--primary-pink);">Detalle del producto</h2>
+            <h2 id="modal-titulo-producto" style="margin-top:0; color:var(--primary-tone); font-size: 18px;">Detalle del producto</h2>
             <p id="modal-desc-producto" style="font-size: 13px; color: var(--text-muted);"></p>
             
-            <label style="font-size: 13px; font-weight: 600; display: block; margin-top: 15px; color: #ddd;">Notas especiales (Tono, variante, etc.):</label>
+            <label style="font-size: 13px; font-weight: 600; display: block; margin-top: 15px; color: #444;">Notas especiales (Tono, variante, etc.):</label>
             <textarea id="input-notas" class="textarea-notes" rows="2" placeholder="Ej. Tono nude, sellado para regalo..."></textarea>
 
             <button class="btn-primary" onclick="confirmarPersonalizacion()">Agregar al Carrito</button>
@@ -228,11 +230,11 @@
 
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
-            <h2 style="margin-top:0;">Tu Carrito de Compras</h2>
+            <h2 style="margin-top:0; font-size: 18px;">Tu Carrito de Compras</h2>
             <div id="lista-carrito-modal">
                 <p>Tu carrito está vacío.</p>
             </div>
-            <h3 style="margin-bottom: 5px; margin-top: 15px;">Total: $<span id="total-modal">0</span> MXN</h3>
+            <h3 style="margin-bottom: 5px; margin-top: 15px; font-size: 16px;">Total: $<span id="total-modal">0</span> MXN</h3>
             
             <button class="btn-instagram" onclick="enviarPedidoInstagram()">📸 Enviar Pedido por Instagram DM</button>
             <button class="btn-close" onclick="cerrarCarrito()">Cerrar y seguir viendo</button>
@@ -240,7 +242,6 @@
     </div>
 
     <script>
-        // Tu API de Google Sheets conectada a ANTARA
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPaj6h1Mn0P4dNRKIoRNVUNjKr1nUTX9_IJxU3wd9iLpJyaqwBp2DNh3itGtm1S3stoQ/exec"; 
         
         let catalogData = { Maquillaje: [], Skincare: [], Accesorios: [] };
@@ -267,7 +268,6 @@
                     item.precio = Number(item.precio);
                     let cat = item.categoria ? item.categoria.trim() : "";
                     
-                    // Normalizar categorías para que coincidan exactamente
                     if (cat.toLowerCase().includes("maquillaje")) {
                         catalogData.Maquillaje.push(item);
                     } else if (cat.toLowerCase().includes("skincare")) {
@@ -280,7 +280,7 @@
                 renderizarCatalogo();
             } catch (error) {
                 console.error("Error al cargar el catálogo:", error);
-                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-pink); text-align:center;">Error al conectar con la hoja de cálculo. Verifica tu URL.</p>`;
+                document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo. Verifica tu URL o permisos.</p>`;
             }
         }
 
@@ -410,12 +410,12 @@
                 html += `
                     <div class="cart-item">
                         <div>
-                            <strong style="color:#fff; font-size: 14px;">${item.nombreCompleto}</strong><br>
-                            <small style="color:#aaa;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
+                            <strong style="color:#2c2c2c; font-size: 14px;">${item.nombreCompleto}</strong><br>
+                            <small style="color:#7d7d7d;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
                         </div>
                         <div class="cart-controls">
                             <button class="btn-qty" onclick="cambiarCantidad('${item.nombreCompleto.replace(/'/g, "\\'")}', -1)">-</button>
-                            <span style="color:#fff; font-weight:600;">${item.cantidad}</span>
+                            <span style="color:#2c2c2c; font-weight:600;">${item.cantidad}</span>
                             <button class="btn-qty" onclick="cambiarCantidad('${item.nombreCompleto.replace(/'/g, "\\'")}', 1)">+</button>
                             <button class="btn-remove" onclick="cambiarCantidad('${item.nombreCompleto.replace(/'/g, "\\'")}', -${item.cantidad})">✕</button>
                         </div>
@@ -442,11 +442,8 @@
 
             mensaje += `\n🛍️ *TOTAL A PAGAR:* *${totalGeneral} MXN*\n\n¿Me confirman disponibilidad y datos por favor? 💖`;
 
-            // Enlace directo al perfil de Instagram (las usuarias pueden mandar el DM pegando el texto)
-            // Nota: Instagram abre la app y permite chatear directo al perfil de @antara_beautyy
             let url = `https://www.instagram.com/antara_beautyy/`;
             
-            // Copiar el mensaje automáticamente al portapapeles para facilitarles la vida a las clientas
             navigator.clipboard.writeText(mensaje).then(() => {
                 alert("¡Pedido copiado al portapapeles! Ahora se abrirá Instagram de ANTARA para que lo pegues en el chat y nos lo envíes. 💖");
                 window.open(url, '_blank');
