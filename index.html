@@ -11,228 +11,305 @@
 
     <meta name="theme-color" content="#fbf9f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fbf9f6; 
-            --card-bg: #ffffff;  
-            --text-main: #000000; /* Negro profundo puro */
-            --text-muted: #555555; /* Gris más oscuro y legible */
+            --text-main: #000000; 
+            --text-muted: #555555; 
             --primary-tone: #a88267; 
-            --border-color: #e6dad0; 
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Fondo Animado Vivo */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body { 
-            background-color: var(--bg-color); 
+            background: linear-gradient(-45deg, #fbf9f6, #f3ece4, #ffffff, #fdf8f5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             margin: 0; 
             padding: 0; 
             color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Banner Superior con Negro Profundo */
         .promo-banner {
-            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #000000;
             color: #ffffff;
             text-align: center;
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 1.5px;
-            padding: 9px 10px;
+            padding: 10px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 50;
         }
         
-        /* Encabezado con Logo Ampliado y sin márgenes vacíos */
+        /* Encabezado Glassmorphism pegajoso */
         header { 
-            background-color: #ffffff; 
-            padding: 30px 15px 20px 15px; 
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 20px 15px 15px 15px; 
             text-align: center; 
-            border-bottom: 1px solid var(--border-color); 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            overflow: hidden;
+            border-bottom: 1px solid var(--glass-border); 
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
         .logo-img {
-            max-width: 280px; /* Tamaño grande de impacto */
+            max-width: 240px; 
             width: 100%;
             height: auto;
             display: block;
-            margin: -15px auto; /* Sube la imagen para recortar el aire sobrante de arriba y abajo */
-            transform: scale(1.3); /* Expande la imagen para que ocupe todo el protagonismo */
+            margin: -10px auto -5px auto; 
+            transform: scale(1.2); 
+            transition: transform 0.3s ease;
         }
 
         .catalog-container { 
-            max-width: 750px; 
+            max-width: 1000px; 
             margin: 0 auto; 
-            padding: 10px 15px 100px 15px; 
+            padding: 20px 20px 120px 20px; 
         }
 
-        /* Filtros Rápidos */
         .filter-container {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin: 22px 0 10px 0;
+            gap: 10px;
+            margin: 15px 0 5px 0;
             flex-wrap: wrap;
         }
         .filter-btn {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #ffffff;
+            background: transparent;
             border: 1.5px solid #000000;
-            color: #555555;
-            padding: 8px 16px;
-            border-radius: 20px;
+            color: #000000;
+            padding: 8px 18px;
+            border-radius: 30px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .filter-btn:hover, .filter-btn.active {
             background-color: #000000;
             color: #ffffff;
-            border-color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
-        /* Títulos de Categorías (Negro puro) */
         .category-header { 
-            border-bottom: 1.5px solid #000000; 
-            padding-bottom: 6px; 
-            margin: 35px 0 15px 0; 
+            width: 100%;
+            margin: 40px 0 25px 0; 
+            text-align: center;
         }
         .category-header h2 { 
             font-family: 'Syne', sans-serif;
             color: #000000; 
             margin: 0; 
-            font-size: 20px; 
-            font-weight: 700; 
-            letter-spacing: 1px;
+            font-size: 28px; 
+            font-weight: 800; 
+            letter-spacing: 2px;
             text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+        .category-header h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: #000000;
+            bottom: -8px;
+            left: 25%;
+            border-radius: 2px;
         }
 
+        /* GRID INTERACTIVO */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        /* Animación de entrada en cascada */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tarjeta de Producto - Nuevo Formato */
         .product-card { 
-            background-color: var(--card-bg); 
-            border: 1px solid var(--border-color); 
-            border-radius: 14px; 
-            padding: 16px; 
-            margin-bottom: 15px; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); 
+            border-radius: 24px; 
+            padding: 15px; 
             display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0; 
+            animation: fadeInUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
         .product-card:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-            transform: translateY(-2px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Formato de ARCO para las imágenes */
+        .thumb-container {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 120px 120px 16px 16px; /* Forma de arco */
+            margin-bottom: 15px;
+            position: relative;
+            background: #f0eae1;
         }
         .product-thumb { 
-            width: 85px; 
-            height: 85px; 
+            width: 100%; 
+            height: 100%; 
             object-fit: cover; 
-            border-radius: 10px; 
-            border: 1px solid #f0eae1; 
-            flex-shrink: 0; 
-            background: #f9f6f0; 
             cursor: pointer; 
-            transition: transform 0.2s; 
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); 
         }
-        .product-thumb:hover { transform: scale(1.03); }
+        .product-card:hover .product-thumb { 
+            transform: scale(1.1); 
+        }
         
-        .product-info { flex-grow: 1; }
+        .product-info { 
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; 
+            text-align: center;
+        }
         
         .product-info h3 { 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0 0 3px 0; 
-            font-size: 15px; 
+            margin: 0 0 5px 0; 
+            font-size: 16px; 
             font-weight: 700; 
-            color: #000000; 
+            letter-spacing: 0.5px;
         }
         .product-info p { 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0 0 6px 0; 
+            margin: 0 0 15px 0; 
             color: var(--text-muted); 
-            font-size: 12px; 
-            line-height: 1.4; 
+            font-size: 13px; 
+            line-height: 1.5; 
         }
         
         .product-meta {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin-top: 4px;
+            margin-top: auto;
+            margin-bottom: 15px;
+            padding: 0 5px;
         }
         
         .price { 
             font-family: 'Syne', sans-serif;
-            font-weight: 700; 
-            color: #000000; 
-            font-size: 15px; 
+            font-weight: 800; 
+            font-size: 18px; 
         }
         .stock-tag { 
-            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 10px; 
-            font-weight: 600; 
-            padding: 2px 8px; 
-            border-radius: 6px; 
+            font-weight: 700; 
+            padding: 4px 10px; 
+            border-radius: 20px; 
             background: #e2f0d9; 
-            color: #275d29; 
+            color: #275d29;
+            text-transform: uppercase; 
         }
         
-        /* Botones de Agregar en Negro Sólido */
         .btn-add { 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: #000000; 
             color: white; 
             border: none; 
-            padding: 10px 18px; 
-            border-radius: 8px; 
+            padding: 14px; 
+            border-radius: 14px; 
             cursor: pointer; 
-            font-size: 13px; 
-            font-weight: 600; 
-            transition: background 0.2s, transform 0.1s; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-size: 14px; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease; 
         }
-        .btn-add:hover { background: #333333; }
-        .btn-add:active { transform: scale(0.95); }
+        .btn-add:hover { 
+            background: #333333; 
+            transform: scale(1.02);
+        }
+        .btn-add:active { transform: scale(0.96); }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(4px); }
-        .modal-content { background: #ffffff; color: #000000; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid var(--border-color); font-family: 'Plus Jakarta Sans', sans-serif; }
+        @keyframes volarAlCarrito {
+            0% { opacity: 1; transform: scale(1) translate(0, 0) rotate(0deg); }
+            50% { transform: scale(1.5) translate(0, -50px) rotate(15deg); }
+            100% { opacity: 0; transform: scale(0.2) translate(0, 200px) rotate(0deg); }
+        }
+        .item-volador {
+            position: fixed;
+            font-size: 30px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: volarAlCarrito 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(8px); }
+        .modal-content { background: rgba(255, 255, 255, 0.95); color: #000000; width: 90%; max-width: 480px; padding: 30px; border-radius: 24px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--glass-border); }
         
-        .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 300; text-align: center; }
-        .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+        .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 300; }
+        .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
         .cerrar-zoom { position: absolute; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: bold; cursor: pointer; }
 
-        /* Barra de Carrito con Negro Sólido */
         .cart-bar { 
-            font-family: 'Plus Jakarta Sans', sans-serif;
             position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            background: #000000; 
+            bottom: 20px; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 90%; 
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.9); 
+            backdrop-filter: blur(10px);
             color: #ffffff; 
             padding: 18px; 
             text-align: center; 
             font-weight: 600; 
             cursor: pointer; 
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
             font-size: 15px; 
             z-index: 100; 
-            transition: background 0.2s; 
+            border-radius: 30px;
+            transition: all 0.3s ease; 
         }
-        .cart-bar:hover { background: #222222; }
+        .cart-bar:hover { background: #000000; transform: translateX(-50%) scale(1.02); }
         
-        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0eae1; padding: 12px 0; }
-        .cart-controls { display: flex; align-items: center; gap: 8px; }
-        .btn-qty { background: #f0eae1; color: #000000; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 6px; }
-        .btn-remove { background: #fde8e8; color: #c53030; border: none; padding: 5px 8px; cursor: pointer; border-radius: 6px; font-size: 11px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; }
+        .cart-controls { display: flex; align-items: center; gap: 10px; }
+        .btn-qty { background: #f0eae1; color: #000000; border: none; padding: 6px 12px; cursor: pointer; font-weight: bold; border-radius: 8px; transition: 0.2s;}
+        .btn-qty:hover { background: #e0d6c8;}
+        .btn-remove { background: #fde8e8; color: #c53030; border: none; padding: 6px 10px; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight:bold;}
         
-        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; margin-top: 15px; }
-        .btn-close { background: #e8e2dc; color: #000000; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; font-weight: 600; }
-        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 700; border: none; padding: 15px; width: 100%; border-radius: 14px; cursor: pointer; font-size: 14px; text-align: center; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;}
+        .btn-instagram:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-close { background: #e8e2dc; color: #000000; border: none; padding: 12px; width: 100%; border-radius: 14px; cursor: pointer; margin-top: 10px; font-weight: 700; text-transform: uppercase;}
+        
+        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; font-weight: 600; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% {opacity: 0.5;} 50% {opacity: 1;} 100% {opacity: 0.5;} }
     </style>
 </head>
 <body>
@@ -242,19 +319,18 @@
     </div>
 
     <header>
-        <!-- Tu Logo Oficial en Imagen Ampliado -->
-        <img src="https://i.postimg.cc/XJRPn9hy/Disen-o-sin-ti-tulo-(2).png" alt="ANTARA Beauty Co." class="logo-img">
+        <img src="https://i.postimg.cc/yxGwgwkZ/Disen-o-sin-ti-tulo-(1).png" alt="ANTARA Beauty Co." class="logo-img">
 
         <div class="filter-container">
-            <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ Todo</button>
-            <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 Maquillaje</button>
-            <button class="filter-btn" onclick="filtrarCategoria('skincare', this)">💧 Skincare</button>
-            <button class="filter-btn" onclick="filtrarCategoria('accesorios', this)">👜 Accesorios</button>
+            <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ TODO</button>
+            <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 MAQUILLAJE</button>
+            <button class="filter-btn" onclick="filtrarCategoria('skincare', this)">💧 SKINCARE</button>
+            <button class="filter-btn" onclick="filtrarCategoria('accesorios', this)">👜 ACCESORIOS</button>
         </div>
     </header>
 
     <div class="catalog-container" id="catalog">
-        <div class="loading">Sincronizando inventario con Google Sheets... ✨</div>
+        <div class="loading">Preparando la experiencia ANTARA... ✨</div>
     </div>
 
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
@@ -263,19 +339,21 @@
     </div>
 
     <div class="cart-bar" id="barraCarrito" onclick="abrirCarrito()">
-        🛍️ Ver Carrito (<span id="contador-items">0</span> productos) • Total: $<span id="total-bar">0</span> MXN
+        🛍️ Ver Carrito (<span id="contador-items">0</span>) • $<span id="total-bar">0</span> MXN
     </div>
 
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
-            <h2 style="margin-top:0; font-size: 18px; color: #000000;">Tu Carrito de Compras</h2>
+            <h2 style="margin-top:0; font-size: 22px; font-family: 'Syne', sans-serif;">Tu Carrito 🛍️</h2>
             <div id="lista-carrito-modal">
-                <p>Tu carrito está vacío.</p>
+                <p style="text-align: center; padding: 20px 0;">Aún no tienes productos.</p>
             </div>
-            <h3 style="margin-bottom: 5px; margin-top: 15px; font-size: 16px; color: #000000;">Total: $<span id="total-modal">0</span> MXN</h3>
+            <h3 style="margin-bottom: 5px; margin-top: 20px; font-size: 18px; display: flex; justify-content: space-between;">
+                <span>Total:</span> <span>$<span id="total-modal">0</span> MXN</span>
+            </h3>
             
-            <button class="btn-instagram" onclick="enviarPedidoInstagram()">📸 Enviar Pedido por Instagram DM</button>
-            <button class="btn-close" onclick="cerrarCarrito()">Cerrar y seguir viendo</button>
+            <button class="btn-instagram" onclick="enviarPedidoInstagram()">Enviar Pedido por DM 📸</button>
+            <button class="btn-close" onclick="cerrarCarrito()">Seguir Explorando</button>
         </div>
     </div>
 
@@ -299,7 +377,7 @@
             const script = document.createElement('script');
             script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo&t=${new Date().getTime()}`;
             script.onerror = function() {
-                document.getElementById('catalog').innerHTML = `<p style="color:#000000; text-align:center;">Error al conectar con la hoja de cálculo.</p>`;
+                document.getElementById('catalog').innerHTML = `<p style="color:#000000; text-align:center;">Error de conexión.</p>`;
             };
             document.body.appendChild(script);
         }
@@ -313,7 +391,6 @@
                 imagen: item["imagen"] || "",
                 existencia: item["existencia"] !== undefined ? Number(item["existencia"]) : 1
             }));
-
             renderizarCatalogo();
         }
 
@@ -332,9 +409,7 @@
             let hayProductos = false;
 
             listaCategorias.forEach(cat => {
-                if (categoriaActiva !== 'todos' && categoriaActiva !== cat) {
-                    return;
-                }
+                if (categoriaActiva !== 'todos' && categoriaActiva !== cat) return;
 
                 let productosFiltrados = datosOriginales.filter(item => {
                     let c = item.categoria ? item.categoria.trim().toLowerCase() : "";
@@ -345,16 +420,20 @@
                     hayProductos = true;
                     let tituloCat = cat.charAt(0).toUpperCase() + cat.slice(1);
                     html += `<div class="category-header"><h2>${categoriasMap[cat]} ${tituloCat}</h2></div>`;
+                    html += `<div class="products-grid">`;
                     
-                    productosFiltrados.forEach(item => {
+                    productosFiltrados.forEach((item, index) => {
+                        let delay = index * 0.1; // Efecto cascada
                         let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
                         let enStock = item.existencia > 0;
                         let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out" style="background:#fde8e8; color:#c53030;">Agotado</span>`;
-                        let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
+                        let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar al carrito</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
 
                         html += `
-                            <div class="product-card">
-                                ${imagenHtml}
+                            <div class="product-card" style="animation-delay: ${delay}s">
+                                <div class="thumb-container">
+                                    ${imagenHtml}
+                                </div>
                                 <div class="product-info">
                                     <h3>${item.nombre}</h3>
                                     <p>${item.desc}</p>
@@ -367,38 +446,51 @@
                             </div>
                         `;
                     });
+                    html += `</div>`;
                 }
             });
 
             if (!hayProductos) {
-                html = `<p style="text-align:center; color:var(--text-muted); padding:40px;">No hay productos en esta categoría.</p>`;
+                html = `<p style="text-align:center; color:var(--text-muted); padding:40px; font-weight:600;">Explorando nuevas colecciones...</p>`;
             }
 
             contenedor.innerHTML = html;
         }
 
         function agregarAlCarrito(item, event) {
+            animarItemAlCarrito(event.target);
             let encontrado = carrito.find(i => i.nombre === item.nombre && i.desc === item.desc);
             if (encontrado) {
                 encontrado.cantidad += 1;
             } else {
-                carrito.push({
-                    nombre: item.nombre,
-                    precio: item.precio,
-                    desc: item.desc,
-                    cantidad: 1
-                });
+                carrito.push({ nombre: item.nombre, precio: item.precio, desc: item.desc, cantidad: 1 });
             }
             actualizarCarritoUI();
+        }
+
+        function animarItemAlCarrito(boton) {
+            let rect = boton.getBoundingClientRect();
+            let anim = document.createElement('div');
+            anim.className = 'item-volador';
+            anim.innerHTML = '✨';
+            anim.style.left = (rect.left + rect.width / 2 - 15) + 'px';
+            anim.style.top = (rect.top) + 'px';
+            document.body.appendChild(anim);
+
+            setTimeout(() => {
+                let barra = document.getElementById('barraCarrito');
+                barra.style.transform = 'translateX(-50%) scale(1.05)';
+                setTimeout(() => { barra.style.transform = 'translateX(-50%) scale(1)'; }, 200);
+            }, 500);
+
+            setTimeout(() => { anim.remove(); }, 700);
         }
 
         function cambiarCantidad(nombre, desc, cambio) {
             let item = carrito.find(i => i.nombre === nombre && i.desc === desc);
             if (item) {
                 item.cantidad += cambio;
-                if (item.cantidad <= 0) {
-                    carrito = carrito.filter(i => !(i.nombre === nombre && i.desc === desc));
-                }
+                if (item.cantidad <= 0) carrito = carrito.filter(i => !(i.nombre === nombre && i.desc === desc));
             }
             actualizarCarritoUI();
             actualizarModalCarrito();
@@ -407,9 +499,11 @@
         function actualizarCarritoUI() {
             let totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
             let totalPrice = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            
             document.getElementById('contador-items').innerText = totalItems;
             document.getElementById('total-bar').innerText = totalPrice;
+            
+            // Ocultar barra si no hay items
+            document.getElementById('barraCarrito').style.display = totalItems > 0 ? 'block' : 'none';
         }
 
         function abrirCarrito() {
@@ -427,22 +521,22 @@
             document.getElementById('total-modal').innerText = totalPrice;
 
             if (carrito.length === 0) {
-                contenedorModal.innerHTML = "<p style='color: #888; text-align: center;'>Tu carrito está vacío.</p>";
+                contenedorModal.innerHTML = "<p style='color: #888; text-align: center; padding:30px 0;'>Tu carrito está vacío. ¡Agrega tus favoritos!</p>";
                 return;
             }
 
             let html = "";
             carrito.forEach(item => {
-                let detalleStr = item.desc ? ` (${item.desc})` : '';
+                let detalleStr = item.desc ? ` <span style="color:#888; font-size:12px; font-weight:normal;">(${item.desc})</span>` : '';
                 html += `
                     <div class="cart-item">
                         <div>
                             <strong style="color:#000000; font-size: 14px;">${item.nombre}${detalleStr}</strong><br>
-                            <small style="color:#555555;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
+                            <small style="color:#555555; font-weight:600;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
                         </div>
                         <div class="cart-controls">
                             <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -1)">-</button>
-                            <span style="color:#000000; font-weight:600;">${item.cantidad}</span>
+                            <span style="color:#000000; font-weight:700;">${item.cantidad}</span>
                             <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', 1)">+</button>
                             <button class="btn-remove" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -${item.cantidad})">✕</button>
                         </div>
@@ -454,7 +548,7 @@
 
         function enviarPedidoInstagram() {
             if (carrito.length === 0) {
-                alert("Agrega productos al carrito primero.");
+                alert("Primero agrega tus productos favoritos al carrito ✨");
                 return;
             }
 
@@ -473,13 +567,15 @@
             let url = `https://www.instagram.com/antara_beautyy/`;
             
             navigator.clipboard.writeText(mensaje).then(() => {
-                alert("¡Pedido copiado al portapapeles! Ahora se abrirá Instagram de ANTARA para que lo pegues en el chat y nos lo envíes. 💖");
+                alert("¡Tu pedido se ha copiado! Se abrirá el chat de Instagram para que nos lo pegues y envíes. 💖");
                 window.open(url, '_blank');
             }).catch(err => {
                 window.open(url, '_blank');
             });
         }
 
+        // Inicializamos ocultando la barra del carrito
+        document.getElementById('barraCarrito').style.display = 'none';
         cargarCatalogo();
     </script>
 
