@@ -1,7 +1,7 @@
 {
   "name": "ANTARA Beauty Co.",
   "short_name": "ANTARA",
-  "start_url": "/",
+  "start_url": "/AntaraBeauty/",
   "display": "standalone",
   "background_color": "#fbf9f6",
   "theme_color": "#000000",
