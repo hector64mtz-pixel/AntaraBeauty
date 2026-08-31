@@ -14,7 +14,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tipografías editoriales y modernas inspiradas en tu referencia -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #fbf9f6; 
@@ -27,46 +28,38 @@
         }
 
         body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: var(--bg-color); 
             margin: 0; 
             padding: 0; 
             color: var(--text-main); 
         }
 
+        /* Banner Superior (Tipografía 1) */
         .promo-banner {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #2c2c2c;
             color: #fbf9f6;
             text-align: center;
             font-size: 11px;
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             padding: 8px 10px;
             text-transform: uppercase;
         }
         
+        /* Encabezado con Logotipo de Imagen */
         header { 
             background-color: #ffffff; 
-            padding: 25px 15px 15px 15px; 
+            padding: 20px 15px 15px 15px; 
             text-align: center; 
             border-bottom: 1px solid var(--border-color); 
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
-        header h1 {
-            margin: 0;
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: 4px;
-            color: var(--text-main);
-            text-transform: uppercase;
-        }
-        p.subtitle { 
-            color: var(--primary-tone); 
-            margin: 6px 0 0 0; 
-            font-weight: 600; 
-            font-size: 11px; 
-            letter-spacing: 2.5px; 
-            text-transform: uppercase; 
+        .logo-img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         .catalog-container { 
@@ -75,14 +68,16 @@
             padding: 10px 15px 100px 15px; 
         }
 
+        /* Filtros Rápidos */
         .filter-container {
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin: 25px 0 10px 0;
+            margin: 20px 0 10px 0;
             flex-wrap: wrap;
         }
         .filter-btn {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #ffffff;
             border: 1px solid var(--border-color);
             color: var(--text-muted);
@@ -92,7 +87,6 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .filter-btn:hover, .filter-btn.active {
             background-color: var(--text-main);
@@ -100,17 +94,19 @@
             border-color: var(--text-main);
         }
         
+        /* Títulos de Categorías (Tipografía 3 - Estilo Editorial Fuerte) */
         .category-header { 
             border-bottom: 1px solid var(--border-color); 
-            padding-bottom: 8px; 
+            padding-bottom: 6px; 
             margin: 35px 0 15px 0; 
         }
         .category-header h2 { 
+            font-family: 'Syne', sans-serif;
             color: var(--text-main); 
             margin: 0; 
-            font-size: 16px; 
-            font-weight: 600; 
-            letter-spacing: 1.5px;
+            font-size: 20px; 
+            font-weight: 700; 
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
 
@@ -143,9 +139,24 @@
             transition: transform 0.2s; 
         }
         .product-thumb:hover { transform: scale(1.03); }
+        
         .product-info { flex-grow: 1; }
-        .product-info h3 { margin: 0 0 3px 0; font-size: 15px; font-weight: 600; color: #2c2c2c; }
-        .product-info p { margin: 0 0 6px 0; color: var(--text-muted); font-size: 12px; line-height: 1.4; }
+        
+        /* Nombres de Productos (Tipografía 1 - Limpia y Moderna) */
+        .product-info h3 { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0 0 3px 0; 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: #2c2c2c; 
+        }
+        .product-info p { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0 0 6px 0; 
+            color: var(--text-muted); 
+            font-size: 12px; 
+            line-height: 1.4; 
+        }
         
         .product-meta {
             display: flex;
@@ -153,8 +164,16 @@
             gap: 10px;
             margin-top: 4px;
         }
-        .price { font-weight: 700; color: var(--primary-tone); font-size: 14px; }
+        
+        /* Precios (Tipografía 2 - Sólida y Destacada) */
+        .price { 
+            font-family: 'Syne', sans-serif;
+            font-weight: 700; 
+            color: var(--primary-tone); 
+            font-size: 15px; 
+        }
         .stock-tag { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 10px; 
             font-weight: 600; 
             padding: 2px 8px; 
@@ -162,16 +181,14 @@
             background: #edf7ed; 
             color: #2e7d32; 
         }
-        .stock-tag.out {
-            background: #fde8e8;
-            color: #c53030;
-        }
         
+        /* Botón Agregar (Tipografía 2 - Moderna y Limpia) */
         .btn-add { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--text-main); 
             color: white; 
             border: none; 
-            padding: 9px 18px; 
+            padding: 10px 18px; 
             border-radius: 8px; 
             cursor: pointer; 
             font-size: 13px; 
@@ -182,28 +199,15 @@
         .btn-add:hover { background: var(--primary-tone); }
         .btn-add:active { transform: scale(0.95); }
 
-        @keyframes volarAlCarrito {
-            0% { opacity: 1; transform: scale(1) translate(0, 0) rotate(0deg); }
-            50% { transform: scale(1.3) translate(-20px, -60px) rotate(-10deg); }
-            85% { transform: scale(0.8) translate(0, 120px) rotate(5deg); }
-            100% { opacity: 0; transform: scale(0.4) translate(0, 180px) rotate(0deg); }
-        }
-        .item-volador {
-            position: fixed;
-            font-size: 24px;
-            z-index: 9999;
-            pointer-events: none;
-            animation: volarAlCarrito 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(4px); }
-        .modal-content { background: #ffffff; color: #2c2c2c; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
+        .modal-content { background: #ffffff; color: #2c2c2c; width: 90%; max-width: 480px; padding: 25px; border-radius: 16px; max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid var(--border-color); font-family: 'Plus Jakarta Sans', sans-serif; }
         
         .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 300; text-align: center; }
         .modal-imagen img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
         .cerrar-zoom { position: absolute; top: 20px; right: 30px; color: white; font-size: 36px; font-weight: bold; cursor: pointer; }
 
         .cart-bar { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
             position: fixed; 
             bottom: 0; 
             left: 0; 
@@ -218,7 +222,6 @@
             box-shadow: 0 -4px 20px rgba(0,0,0,0.05); 
             font-size: 15px; 
             z-index: 100; 
-            transition: background 0.2s; 
         }
         .cart-bar:hover { background: #f9f6f0; }
         
@@ -227,11 +230,9 @@
         .btn-qty { background: #f0eae1; color: #2c2c2c; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 6px; }
         .btn-remove { background: #e0b1b1; color: #5a1a1a; border: none; padding: 5px 8px; cursor: pointer; border-radius: 6px; font-size: 11px; }
         
-        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2); margin-top: 15px; transition: opacity 0.2s; }
-        .btn-instagram:hover { opacity: 0.9; }
-
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 600; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: center; margin-top: 15px; }
         .btn-close { background: #e8e2dc; color: #5c554e; border: none; padding: 10px; width: 100%; border-radius: 10px; cursor: pointer; margin-top: 8px; }
-        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; }
+        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
 <body>
@@ -241,8 +242,8 @@
     </div>
 
     <header>
-        <h1>ANTARA</h1>
-        <p class="subtitle">Maquillaje • Skincare • Accesorios</p>
+        <!-- Tu Logo Oficial en Imagen -->
+        <img src="https://i.postimg.cc/tRFC0kng/Disen-o-sin-ti-tulo.png" alt="ANTARA Beauty Co." class="logo-img">
 
         <div class="filter-container">
             <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ Todo</button>
@@ -279,7 +280,6 @@
     </div>
 
     <script>
-        // Aquí está tu enlace exacto de Apps Script
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp1DP4PFs8v0H5osvm29B5oJsQDc0rNyf4jFlEbHNbIUDwRHtRluwlFsxywODRGzLe/exec";
         
         let datosOriginales = [];
@@ -297,7 +297,6 @@
 
         function cargarCatalogo() {
             const script = document.createElement('script');
-            // TRUCO DE ORO: Un número aleatorio al final rompe el caché del celular para forzar la actualización
             script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo&t=${new Date().getTime()}`;
             script.onerror = function() {
                 document.getElementById('catalog').innerHTML = `<p style="color:var(--primary-tone); text-align:center;">Error al conectar con la hoja de cálculo.</p>`;
@@ -306,17 +305,14 @@
         }
 
         function procesarDatosCatalogo(datosCrudos) {
-            datosOriginales = datosCrudos.map(item => {
-                // Aquí corregimos el detalle de los acentos leyendo exactamente tus nombres de columnas
-                return {
-                    nombre: item["producto"] || item["nombre"] || "Sin nombre",
-                    categoria: item["categoría"] || item["categoria"] || "", 
-                    precio: Number(item["precio"]) || 0,
-                    desc: item["detalles / tono"] || item["detalles"] || "",
-                    imagen: item["imagen"] || "",
-                    existencia: item["existencia"] !== undefined ? Number(item["existencia"]) : 1
-                };
-            });
+            datosOriginales = datosCrudos.map(item => ({
+                nombre: item["producto"] || item["nombre"] || "Sin nombre",
+                categoria: item["categoría"] || item["categoria"] || "", 
+                precio: Number(item["precio"]) || 0,
+                desc: item["detalles / tono"] || item["detalles"] || "",
+                imagen: item["imagen"] || "",
+                existencia: item["existencia"] !== undefined ? Number(item["existencia"]) : 1
+            }));
 
             renderizarCatalogo();
         }
@@ -342,20 +338,18 @@
 
                 let productosFiltrados = datosOriginales.filter(item => {
                     let c = item.categoria ? item.categoria.trim().toLowerCase() : "";
-                    // Con esto nos aseguramos que "Accesorios" y "Accesorio" funcionen igual
                     return c.includes(cat) || (cat === "accesorios" && c.includes("accesorio"));
                 });
 
                 if (productosFiltrados.length > 0) {
                     hayProductos = true;
-                    // Capitalizamos el nombre de la categoría para el título
                     let tituloCat = cat.charAt(0).toUpperCase() + cat.slice(1);
                     html += `<div class="category-header"><h2>${categoriasMap[cat]} ${tituloCat}</h2></div>`;
                     
                     productosFiltrados.forEach(item => {
                         let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
                         let enStock = item.existencia > 0;
-                        let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out">Agotado</span>`;
+                        let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out" style="background:#fde8e8; color:#c53030;">Agotado</span>`;
                         let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>Agregar</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
 
                         html += `
@@ -384,8 +378,6 @@
         }
 
         function agregarAlCarrito(item, event) {
-            animarItemAlCarrito(event.target);
-
             let encontrado = carrito.find(i => i.nombre === item.nombre && i.desc === item.desc);
             if (encontrado) {
                 encontrado.cantidad += 1;
@@ -397,26 +389,7 @@
                     cantidad: 1
                 });
             }
-
             actualizarCarritoUI();
-        }
-
-        function animarItemAlCarrito(boton) {
-            let rect = boton.getBoundingClientRect();
-            let anim = document.createElement('div');
-            anim.className = 'item-volador';
-            anim.innerHTML = '✨';
-            anim.style.left = (rect.left + rect.width / 2 - 12) + 'px';
-            anim.style.top = (rect.top) + 'px';
-            document.body.appendChild(anim);
-
-            setTimeout(() => {
-                let barra = document.getElementById('barraCarrito');
-                barra.style.transform = 'scale(1.02)';
-                setTimeout(() => { barra.style.transform = 'scale(1)'; }, 150);
-            }, 500);
-
-            setTimeout(() => { anim.remove(); }, 650);
         }
 
         function cambiarCantidad(nombre, desc, cambio) {
@@ -507,7 +480,6 @@
             });
         }
 
-        // Llamamos a la función de carga al iniciar
         cargarCatalogo();
     </script>
 
