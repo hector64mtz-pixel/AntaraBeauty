@@ -5,14 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANTARA - Maquillaje y Skincare</title>
     
-    <meta property="og:title" content="ANTARA - Catálogo y Pedidos">
-    <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
-    <meta property="og:type" content="website">
-
-    <meta name="theme-color" content="#fbf9f6">
+    <!-- Configuración para PWA / Instalar como App -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Optimizaciones especiales para iOS (iPhone / iPad) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/Mpf9t9pN/Logo-app.png">
+
+    <meta property="og:title" content="ANTARA - Catálogo y Pedidos">
+    <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
+    <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -139,7 +144,6 @@
             gap: 25px;
         }
 
-        /* Se eliminó la animación fadeInUp de entrada para evitar saltos molestos al scrollear */
         .product-card { 
             background: var(--glass-bg); 
             backdrop-filter: blur(10px);
@@ -195,7 +199,6 @@
             padding: 0 5px;
         }
         
-        /* Formato de precio limpio y unificado */
         .price { 
             font-family: 'Syne', sans-serif; 
             font-weight: 800; 
