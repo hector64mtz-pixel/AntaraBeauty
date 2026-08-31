@@ -1,0 +1,16 @@
+{
+  "name": "ANTARA Beauty Co.",
+  "short_name": "ANTARA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf9f6",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/Mpf9t9pN/Logo-app.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
