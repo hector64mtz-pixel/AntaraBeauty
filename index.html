@@ -45,19 +45,22 @@
             text-transform: uppercase;
         }
         
-        /* Encabezado con Logo Ampliado */
+        /* Encabezado con Logo Ampliado y sin márgenes vacíos */
         header { 
             background-color: #ffffff; 
-            padding: 25px 15px 18px 15px; 
+            padding: 30px 15px 20px 15px; 
             text-align: center; 
             border-bottom: 1px solid var(--border-color); 
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            overflow: hidden;
         }
         .logo-img {
-            max-width: 210px; /* Logo más grande y elegante */
+            max-width: 280px; /* Tamaño grande de impacto */
+            width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
+            margin: -15px auto; /* Sube la imagen para recortar el aire sobrante de arriba y abajo */
+            transform: scale(1.3); /* Expande la imagen para que ocupe todo el protagonismo */
         }
 
         .catalog-container { 
@@ -145,7 +148,7 @@
             margin: 0 0 3px 0; 
             font-size: 15px; 
             font-weight: 700; 
-            color: #000000; /* Nombres en negro puro */
+            color: #000000; 
         }
         .product-info p { 
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -165,7 +168,7 @@
         .price { 
             font-family: 'Syne', sans-serif;
             font-weight: 700; 
-            color: #000000; /* Precios en negro sólido */
+            color: #000000; 
             font-size: 15px; 
         }
         .stock-tag { 
@@ -239,7 +242,7 @@
     </div>
 
     <header>
-        <!-- Tu Logo Oficial en Imagen con Mayor Tamaño -->
+        <!-- Tu Logo Oficial en Imagen Ampliado -->
         <img src="https://i.postimg.cc/tRFC0kng/Disen-o-sin-ti-tulo.png" alt="ANTARA Beauty Co." class="logo-img">
 
         <div class="filter-container">
