@@ -139,11 +139,7 @@
             gap: 25px;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* Se eliminó la animación fadeInUp de entrada para evitar saltos molestos al scrollear */
         .product-card { 
             background: var(--glass-bg); 
             backdrop-filter: blur(10px);
@@ -155,8 +151,6 @@
             flex-direction: column;
             box-shadow: 0 10px 30px rgba(0,0,0,0.04);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            opacity: 0; 
-            animation: fadeInUp 0.6s forwards;
         }
         .product-card:hover {
             transform: translateY(-8px);
@@ -201,7 +195,13 @@
             padding: 0 5px;
         }
         
-        .price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; }
+        /* Formato de precio limpio y unificado */
+        .price { 
+            font-family: 'Syne', sans-serif; 
+            font-weight: 800; 
+            font-size: 18px; 
+            color: var(--text-main);
+        }
         .stock-tag { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: #e2f0d9; color: #275d29; text-transform: uppercase; }
         
         .btn-add { 
@@ -216,7 +216,7 @@
         /* ====== AJUSTES CELULAR (2 COLUMNAS) ====== */
         @media (max-width: 600px) {
             .products-grid {
-                grid-template-columns: repeat(2, 1fr); /* ¡Magia! 2 columnas en celular */
+                grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
             .product-card {
@@ -224,7 +224,7 @@
                 border-radius: 18px;
             }
             .thumb-container {
-                height: 160px; /* Imagen mucho más pequeña y fina */
+                height: 160px; 
                 border-radius: 60px 60px 10px 10px; 
                 margin-bottom: 10px;
             }
@@ -236,7 +236,7 @@
             .btn-add { padding: 10px; font-size: 11px; letter-spacing: 0.5px; border-radius: 10px; }
         }
 
-        /* ====== NOTIFICACIÓN TOAST (NUEVO EFECTO) ====== */
+        /* ====== NOTIFICACIÓN TOAST ====== */
         .toast-container {
             position: fixed;
             bottom: 90px;
@@ -416,16 +416,14 @@
                     html += `<div class="products-grid">`;
                     
                     productosFiltrados.forEach((item, index) => {
-                        let delay = index * 0.1;
                         let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
                         let enStock = item.existencia > 0;
                         let stockHtml = enStock ? `<span class="stock-tag">Disponible</span>` : `<span class="stock-tag out" style="background:#fde8e8; color:#c53030;">Agotado</span>`;
-                        // Cambio en el botón: en móvil "AGREGAR", en PC "AGREGAR AL CARRITO"
                         let botonText = window.innerWidth > 600 ? "Agregar al carrito" : "Agregar";
                         let botonHtml = enStock ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>${botonText}</button>` : `<button class="btn-add" style="background:#ccc; cursor:not-allowed;" disabled>Agotado</button>`;
 
                         html += `
-                            <div class="product-card" style="animation-delay: ${delay}s">
+                            <div class="product-card">
                                 <div class="thumb-container">
                                     ${imagenHtml}
                                 </div>
@@ -460,10 +458,9 @@
                 carrito.push({ nombre: item.nombre, precio: item.precio, desc: item.desc, cantidad: 1 });
             }
             actualizarCarritoUI();
-            mostrarToast(item.nombre); // Llamamos a la notificación elegante
+            mostrarToast(item.nombre);
         }
 
-        // Función para crear la Notificación Toast
         function mostrarToast(nombreProducto) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -473,7 +470,7 @@
             
             setTimeout(() => {
                 toast.remove();
-            }, 3000); // Desaparece a los 3 segundos
+            }, 3000);
         }
 
         function cambiarCantidad(nombre, desc, cambio) {
@@ -565,7 +562,6 @@
 
         document.getElementById('barraCarrito').style.display = 'none';
         
-        // Listener para que al redimensionar la ventana se actualicen los textos de los botones (PC vs Móvil)
         window.addEventListener('resize', renderizarCatalogo);
         
         cargarCatalogo();
