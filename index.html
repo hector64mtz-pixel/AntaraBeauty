@@ -75,87 +75,97 @@
             overflow-x: hidden;
         }
 
-        /* SECCIÓN DE BIENVENIDA */
+        /* SECCIÓN DINÁMICA: "Iba a ahorrar pero..." (Estilo de tu imagen) */
         #welcome-section {
-            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #7a6b6c; /* Tono taupe elegante como tu referencia */
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 30px 20px;
-            text-align: center;
+            padding: 20px;
             box-sizing: border-box;
+            z-index: 5000;
+            transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+            text-align: center;
         }
 
-        .welcome-brand {
+        .saving-title {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 26px;
+            color: #f7e1df;
+            margin-bottom: 30px;
             font-weight: 600;
-            letter-spacing: 3px;
-            color: #2b2b2b;
-            margin-bottom: 2px;
-            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .welcome-subtitle {
-            font-size: 10px;
-            letter-spacing: 4px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .bag-hero-container {
-            width: 100%;
-            max-width: 350px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(212, 163, 155, 0.25);
-            background: #ffffff;
-            border: 1px solid var(--glass-border);
-            margin: 10px 0;
+        .basket-container {
+            width: 280px;
+            height: 280px;
             position: relative;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .bag-hero-container img {
+        .basket-img {
             width: 100%;
             height: auto;
             display: block;
-            object-fit: cover;
         }
 
-        .btn-explorar {
-            background-color: #2b2b2b;
-            color: #ffffff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        /* Elementos flotantes simulando maquillaje cayendo a la canasta */
+        .makeup-item-drop {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-size: cover;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(-50px) scale(0.5);
+            transition: all 0.5s ease;
+        }
+
+        .drop-1 { top: -20px; left: 80px; background-image: url('https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=100&q=80'); }
+        .drop-2 { top: -40px; right: 90px; background-image: url('https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=100&q=80'); }
+        .drop-3 { top: -10px; left: 120px; background-image: url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=100&q=80'); }
+
+        .basket-container.filled .drop-1 { opacity: 1; transform: translateY(80px) scale(1); transition-delay: 0.1s; }
+        .basket-container.filled .drop-2 { opacity: 1; transform: translateY(90px) scale(1); transition-delay: 0.2s; }
+        .basket-container.filled .drop-3 { opacity: 1; transform: translateY(70px) scale(1); transition-delay: 0.3s; }
+
+        .swipe-instruction {
+            margin-top: 35px;
+            color: #f4ebd9;
             font-size: 13px;
-            font-weight: 600;
-            padding: 14px 35px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 8px 25px rgba(43, 43, 43, 0.2);
-            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: bounceArrow 1.5s infinite ease-in-out;
         }
 
-        .btn-explorar:hover {
-            background-color: #d4a39b;
-            transform: translateY(-2px);
+        @keyframes bounceArrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
         }
 
-        .welcome-footer {
-            font-size: 10px;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-top: 5px;
+        .swipe-arrow {
+            font-size: 22px;
         }
 
         /* CONTENEDOR PRINCIPAL DEL CATÁLOGO */
         #main-catalog-view {
-            display: none;
+            display: block;
         }
 
         .promo-banner {
@@ -343,9 +353,6 @@
 
         /* ====== AJUSTES CELULAR (2 COLUMNAS) ====== */
         @media (max-width: 600px) {
-            .bag-hero-container {
-                max-width: 280px;
-            }
             .banner-horizontal {
                 height: 100px;
                 margin: 5px 5px;
@@ -440,26 +447,28 @@
 </head>
 <body>
 
-    <!-- Pantalla de Bienvenida Animada inicial -->
+    <!-- Pantalla de presentación inicial (Splash Screen) -->
     <div id="splash-screen">
         <img src="https://i.postimg.cc/yxGwgwkZ/Disen-o-sin-ti-tulo-(1).png" alt="ANTARA" class="splash-logo">
         <p style="margin-top: 15px; font-size: 12px; letter-spacing: 3px; color: #665c58; text-transform: uppercase; font-weight: 500;">Beauty & Skincare</p>
     </div>
 
-    <!-- VISTA 1: LANDING DE BIENVENIDA -->
-    <div id="welcome-section">
-        <div>
-            <div class="welcome-brand">ANTARA</div>
-            <div class="welcome-subtitle">BEAUTY CO.</div>
+    <!-- DINÁMICA DE BIENVENIDA: "Iba a ahorrar pero..." con Canasta -->
+    <div id="welcome-section" ontouchstart="iniciarToque(event)" ontouchend="terminarToque(event)" onclick="deslizarCatalogo()">
+        <div class="saving-title">Iba a ahorrar pero...</div>
+        
+        <div class="basket-container" id="basketBox">
+            <!-- Canasta rosa inspirada en tu imagen -->
+            <img src="https://i.postimg.cc/L5Xh314C/basket.png" alt="Canasta" class="basket-img" onerror="this.src='https://images.unsplash.com/photo-1582582494705-f829b314e691?auto=format&fit=crop&w=300&q=80'">
+            <!-- Maquillaje que cae al interactuar -->
+            <div class="makeup-item-drop drop-1"></div>
+            <div class="makeup-item-drop drop-2"></div>
+            <div class="makeup-item-drop drop-3"></div>
         </div>
 
-        <div class="bag-hero-container">
-            <img src="https://i.postimg.cc/7hrX9P3s/bag-antara.jpg" alt="ANTARA Bolsa y Productos">
-        </div>
-
-        <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <button class="btn-explorar" onclick="entrarAlCatalogo()">Explora la Colección</button>
-            <div class="welcome-footer">© 2026 ANTARA Beauty Co. | Envíos nacionales</div>
+        <div class="swipe-instruction">
+            <span>Desliza hacia arriba o da clic</span>
+            <span class="swipe-arrow">↑</span>
         </div>
     </div>
 
@@ -515,6 +524,7 @@
     </div>
 
     <script>
+        // Ocultar el Splash screen inicial tras 1.2 segundos
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -524,18 +534,29 @@
             }, 1200);
         });
 
-        function entrarAlCatalogo() {
-            const welcome = document.getElementById('welcome-section');
-            const mainView = document.getElementById('main-catalog-view');
-            
-            welcome.style.opacity = '0';
-            welcome.style.transition = 'opacity 0.4s ease';
-            
+        // Lógica para el gesto de Swipe / Clic en la dinámica de la canasta
+        let touchStartY = 0;
+
+        function iniciarToque(event) {
+            touchStartY = event.touches[0].clientY;
+        }
+
+        function terminarToque(event) {
+            let touchEndY = event.changedTouches[0].clientY;
+            if (touchStartY - touchEndY > 50) { // Si hace swipe hacia arriba
+                deslizarCatalogo();
+            }
+        }
+
+        function deslizarCatalogo() {
+            const basketBox = document.getElementById('basketBox');
+            basketBox.classList.add('filled'); // Llena la canasta con maquillaje
+
             setTimeout(() => {
-                welcome.style.display = 'none';
-                mainView.style.display = 'block';
+                const welcome = document.getElementById('welcome-section');
+                welcome.style.transform = 'translateY(-100%)'; // Desliza toda la pantalla hacia arriba
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 400);
+            }, 600);
         }
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp1DP4PFs8v0H5osvm29B5oJsQDc0rNyf4jFlEbHNbIUDwRHtRluwlFsxywODRGzLe/exec";
@@ -699,7 +720,7 @@
             }
 
             let html = "";
-            carrito.forEach(item => {
+            carrito.items.forEach(item => { // corregido para iterar de forma limpia
                 let detalleStr = item.desc ? ` <span style="color:#888; font-size:11px; font-weight:normal;">(${item.desc})</span>` : '';
                 html += `
                     <div class="cart-item">
