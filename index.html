@@ -82,7 +82,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 35px 20px;
+            padding: 30px 20px;
             text-align: center;
             box-sizing: border-box;
         }
@@ -102,22 +102,23 @@
             letter-spacing: 4px;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: 500;
         }
 
-        .welcome-image-card {
+        .bag-hero-container {
             width: 100%;
-            max-width: 340px;
-            border-radius: 18px;
+            max-width: 350px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(212, 163, 155, 0.2);
+            box-shadow: 0 15px 35px rgba(212, 163, 155, 0.25);
             background: #ffffff;
             border: 1px solid var(--glass-border);
-            margin-bottom: 20px;
+            margin: 10px 0;
+            position: relative;
         }
 
-        .welcome-image-card img {
+        .bag-hero-container img {
             width: 100%;
             height: auto;
             display: block;
@@ -149,7 +150,7 @@
             font-size: 10px;
             color: var(--text-muted);
             letter-spacing: 1px;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         /* CONTENEDOR PRINCIPAL DEL CATÁLOGO */
@@ -181,12 +182,11 @@
             box-shadow: 0 4px 25px rgba(212, 163, 155, 0.1);
         }
 
-        /* BANNER HORIZONTAL SUPERIOR */
         .banner-horizontal {
             width: 100%;
             max-width: 900px;
             height: 130px;
-            margin: 10px auto 10px auto;
+            margin: 10px auto;
             border-radius: 14px;
             overflow: hidden;
             position: relative;
@@ -343,6 +343,9 @@
 
         /* ====== AJUSTES CELULAR (2 COLUMNAS) ====== */
         @media (max-width: 600px) {
+            .bag-hero-container {
+                max-width: 280px;
+            }
             .banner-horizontal {
                 height: 100px;
                 margin: 5px 5px;
@@ -450,14 +453,13 @@
             <div class="welcome-subtitle">BEAUTY CO.</div>
         </div>
 
-        <div class="welcome-image-card">
-            <!-- Imagen estética de los productos sin marcas (Estilo deseado) -->
-            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="ANTARA Colección">
+        <div class="bag-hero-container">
+            <img src="https://i.postimg.cc/7hrX9P3s/bag-antara.jpg" alt="ANTARA Bolsa y Productos">
         </div>
 
         <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <button class="btn-explorar" onclick="entrarAlCatalogo()">Explora la Colección</button>
-            <div class="welcome-footer">© 2024 ANTARA Beauty Co. | Envíos nacionales</div>
+            <div class="welcome-footer">© 2026 ANTARA Beauty Co. | Envíos nacionales</div>
         </div>
     </div>
 
@@ -468,9 +470,8 @@
         </div>
 
         <header>
-            <!-- Banner Horizontal con la misma temática limpia -->
             <div class="banner-horizontal">
-                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80" alt="ANTARA Banner">
+                <img src="https://i.postimg.cc/7hrX9P3s/bag-antara.jpg" alt="ANTARA Banner">
             </div>
 
             <div class="filter-container">
