@@ -29,9 +29,11 @@
             --accent-sand: #f4ebd9;
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(230, 215, 210, 0.6);
+            --bg-taupe: #7a6b6c;
+            --text-taupe-light: #f4ebd9;
         }
 
-        /* Pantalla de presentación inicial */
+        /* Pantalla de presentación inicial (Splash Screen) */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -75,95 +77,86 @@
             overflow-x: hidden;
         }
 
-        /* SECCIÓN DINÁMICA: "Iba a ahorrar pero..." (Estilo de tu imagen) */
+        /* SECCIÓN DE BIENVENIDA (LANDING PAGE MODIFICADA) */
         #welcome-section {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: #7a6b6c; /* Tono taupe elegante como tu referencia */
+            background: var(--bg-taupe);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 30px 20px;
+            text-align: center;
             box-sizing: border-box;
             z-index: 5000;
-            transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
-            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+            cursor: pointer;
         }
 
-        .saving-title {
+        .welcome-title-text {
             font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            color: #f7e1df;
-            margin-bottom: 30px;
-            font-weight: 600;
+            font-size: 24px;
+            color: var(--text-taupe-light);
+            margin-bottom: 20px;
+            font-weight: 500;
             letter-spacing: 1px;
         }
 
-        .basket-container {
-            width: 280px;
-            height: 280px;
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .cart-image-container {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            background: #ffffff;
+            margin-bottom: 20px;
+            border: 3px solid #e0d6d4;
         }
 
-        .basket-img {
+        .cart-image-container img {
             width: 100%;
             height: auto;
             display: block;
+            object-fit: cover;
         }
 
-        /* Elementos flotantes simulando maquillaje cayendo a la canasta */
-        .makeup-item-drop {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-size: cover;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            opacity: 0;
-            transform: translateY(-50px) scale(0.5);
-            transition: all 0.5s ease;
-        }
-
-        .drop-1 { top: -20px; left: 80px; background-image: url('https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=100&q=80'); }
-        .drop-2 { top: -40px; right: 90px; background-image: url('https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=100&q=80'); }
-        .drop-3 { top: -10px; left: 120px; background-image: url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=100&q=80'); }
-
-        .basket-container.filled .drop-1 { opacity: 1; transform: translateY(80px) scale(1); transition-delay: 0.1s; }
-        .basket-container.filled .drop-2 { opacity: 1; transform: translateY(90px) scale(1); transition-delay: 0.2s; }
-        .basket-container.filled .drop-3 { opacity: 1; transform: translateY(70px) scale(1); transition-delay: 0.3s; }
-
-        .swipe-instruction {
-            margin-top: 35px;
-            color: #f4ebd9;
+        .instructions-area {
+            color: var(--text-taupe-light);
+            max-width: 360px;
+            line-height: 1.5;
             font-size: 13px;
-            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        .instructions-area h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .continue-hint {
+            margin-top: 25px;
+            color: rgba(244, 235, 217, 0.8);
+            font-size: 11px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 500;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            animation: bounceArrow 1.5s infinite ease-in-out;
+            animation: pulseHint 1.5s infinite alternate;
         }
 
-        @keyframes bounceArrow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(8px); }
+        @keyframes pulseHint {
+            0% { opacity: 0.4; transform: translateY(0); }
+            100% { opacity: 1; transform: translateY(5px); }
         }
 
-        .swipe-arrow {
-            font-size: 22px;
-        }
-
-        /* CONTENEDOR PRINCIPAL DEL CATÁLOGO */
+        /* CATÁLOGO PRINCIPAL */
         #main-catalog-view {
             display: block;
         }
@@ -453,22 +446,22 @@
         <p style="margin-top: 15px; font-size: 12px; letter-spacing: 3px; color: #665c58; text-transform: uppercase; font-weight: 500;">Beauty & Skincare</p>
     </div>
 
-    <!-- DINÁMICA DE BIENVENIDA: "Iba a ahorrar pero..." con Canasta -->
+    <!-- SECCIÓN DE BIENVENIDA DINÁMICA -->
     <div id="welcome-section" ontouchstart="iniciarToque(event)" ontouchend="terminarToque(event)" onclick="deslizarCatalogo()">
-        <div class="saving-title">Iba a ahorrar pero...</div>
+        <div class="welcome-title-text">Iba a ahorrar dinero pero...</div>
         
-        <div class="basket-container" id="basketBox">
-            <!-- Canasta rosa inspirada en tu imagen -->
-            <img src="https://i.postimg.cc/L5Xh314C/basket.png" alt="Canasta" class="basket-img" onerror="this.src='https://images.unsplash.com/photo-1582582494705-f829b314e691?auto=format&fit=crop&w=300&q=80'">
-            <!-- Maquillaje que cae al interactuar -->
-            <div class="makeup-item-drop drop-1"></div>
-            <div class="makeup-item-drop drop-2"></div>
-            <div class="makeup-item-drop drop-3"></div>
+        <div class="cart-image-container">
+            <img src="https://i.postimg.cc/g0xgsGNc/ef32d4fdddccc421ca8820984cf1ce61.jpg" alt="ANTARA Carrito de Maquillaje">
         </div>
 
-        <div class="swipe-instruction">
+        <div class="instructions-area">
+            <h3>Métodos de Compra y Entrega</h3>
+            <p>Elige tus favoritos, arma tu carrito y envíanos tu pedido directo por DM. Hacemos entregas personales en Monterrey y Santiago. 💖</p>
+        </div>
+
+        <div class="continue-hint">
             <span>Desliza hacia arriba o da clic</span>
-            <span class="swipe-arrow">↑</span>
+            <div style="font-size: 18px; margin-top: 4px;">↑</div>
         </div>
     </div>
 
@@ -524,7 +517,7 @@
     </div>
 
     <script>
-        // Ocultar el Splash screen inicial tras 1.2 segundos
+        // Ocultar la pantalla de carga inicial tras 1.2 segundos
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -534,7 +527,7 @@
             }, 1200);
         });
 
-        // Lógica para el gesto de Swipe / Clic en la dinámica de la canasta
+        // Lógica para deslizar la pantalla de bienvenida al hacer swipe o clic
         let touchStartY = 0;
 
         function iniciarToque(event) {
@@ -543,20 +536,15 @@
 
         function terminarToque(event) {
             let touchEndY = event.changedTouches[0].clientY;
-            if (touchStartY - touchEndY > 50) { // Si hace swipe hacia arriba
+            if (touchStartY - touchEndY > 40) {
                 deslizarCatalogo();
             }
         }
 
         function deslizarCatalogo() {
-            const basketBox = document.getElementById('basketBox');
-            basketBox.classList.add('filled'); // Llena la canasta con maquillaje
-
-            setTimeout(() => {
-                const welcome = document.getElementById('welcome-section');
-                welcome.style.transform = 'translateY(-100%)'; // Desliza toda la pantalla hacia arriba
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 600);
+            const welcome = document.getElementById('welcome-section');
+            welcome.style.transform = 'translateY(-100%)';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp1DP4PFs8v0H5osvm29B5oJsQDc0rNyf4jFlEbHNbIUDwRHtRluwlFsxywODRGzLe/exec";
@@ -720,7 +708,7 @@
             }
 
             let html = "";
-            carrito.items.forEach(item => { // corregido para iterar de forma limpia
+            carrito.forEach(item => {
                 let detalleStr = item.desc ? ` <span style="color:#888; font-size:11px; font-weight:normal;">(${item.desc})</span>` : '';
                 html += `
                     <div class="cart-item">
