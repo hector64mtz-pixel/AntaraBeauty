@@ -82,39 +82,39 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 20px;
+            padding: 35px 20px;
             text-align: center;
             box-sizing: border-box;
         }
 
         .welcome-brand {
             font-family: 'Playfair Display', serif;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 600;
             letter-spacing: 3px;
             color: #2b2b2b;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
             text-transform: uppercase;
         }
 
         .welcome-subtitle {
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 4px;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-weight: 500;
         }
 
         .welcome-image-card {
             width: 100%;
-            max-width: 380px;
-            border-radius: 20px;
+            max-width: 340px;
+            border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(212, 163, 155, 0.2);
             background: #ffffff;
             border: 1px solid var(--glass-border);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .welcome-image-card img {
@@ -128,9 +128,9 @@
             background-color: #2b2b2b;
             color: #ffffff;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            padding: 15px 40px;
+            padding: 14px 35px;
             border-radius: 30px;
             border: none;
             cursor: pointer;
@@ -146,13 +146,13 @@
         }
 
         .welcome-footer {
-            font-size: 10.5px;
+            font-size: 10px;
             color: var(--text-muted);
             letter-spacing: 1px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
-        /* CONTENEDOR PRINCIPAL DEL CATÁLOGO (OCULTO AL INICIO HASTA DAR CLIC) */
+        /* CONTENEDOR PRINCIPAL DEL CATÁLOGO */
         #main-catalog-view {
             display: none;
         }
@@ -173,7 +173,7 @@
         header { 
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            padding: 15px 15px 15px 15px; 
+            padding: 15px; 
             text-align: center; 
             border-bottom: 1px solid var(--glass-border); 
             position: relative; 
@@ -181,12 +181,12 @@
             box-shadow: 0 4px 25px rgba(212, 163, 155, 0.1);
         }
 
-        /* ESTILO BANNER HORIZONTAL (ESTILO FOTO 2) */
+        /* BANNER HORIZONTAL SUPERIOR */
         .banner-horizontal {
             width: 100%;
             max-width: 900px;
-            height: 140px;
-            margin: 15px auto 10px auto;
+            height: 130px;
+            margin: 10px auto 10px auto;
             border-radius: 14px;
             overflow: hidden;
             position: relative;
@@ -323,7 +323,7 @@
             padding: 0 5px;
         }
         
-        /* Precios modernos y sutiles */
+        /* Precios sutiles y limpios */
         .price { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             font-weight: 600; 
@@ -345,9 +345,9 @@
         /* ====== AJUSTES CELULAR (2 COLUMNAS) ====== */
         @media (max-width: 600px) {
             .banner-horizontal {
-                height: 105px;
-                margin: 10px 10px;
-                width: calc(100% - 20px);
+                height: 100px;
+                margin: 5px 5px;
+                width: calc(100% - 10px);
             }
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -438,17 +438,17 @@
 </head>
 <body>
 
-    <!-- Pantalla de Bienvenida Animada (Splash Screen inicial) -->
+    <!-- Pantalla de Bienvenida Animada inicial -->
     <div id="splash-screen">
         <img src="https://i.postimg.cc/yxGwgwkZ/Disen-o-sin-ti-tulo-(1).png" alt="ANTARA" class="splash-logo">
         <p style="margin-top: 15px; font-size: 12px; letter-spacing: 3px; color: #665c58; text-transform: uppercase; font-weight: 500;">Beauty & Skincare</p>
     </div>
 
-    <!-- VISTA 1: LANDING DE BIENVENIDA (ESTILO FOTO 1) -->
+    <!-- VISTA 1: LANDING DE BIENVENIDA -->
     <div id="welcome-section">
         <div>
             <div class="welcome-brand">ANTARA</div>
-            <div class="welcome-subtitle">Beauty Co.</div>
+            <div class="welcome-subtitle">BEAUTY CO.</div>
         </div>
 
         <div class="welcome-image-card">
@@ -457,18 +457,18 @@
 
         <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <button class="btn-explorar" onclick="entrarAlCatalogo()">Explora la Colección</button>
-            <div class="welcome-footer">© 2026 ANTARA Beauty Co. | Envíos nacionales</div>
+            <div class="welcome-footer">© 2024 ANTARA Beauty Co. | Envíos nacionales</div>
         </div>
     </div>
 
-    <!-- VISTA 2: CATÁLOGO PRINCIPAL (OCULTO HASTA DAR CLIC, CON BANNER HORIZONTAL DE FOTO 2) -->
+    <!-- VISTA 2: CATÁLOGO PRINCIPAL -->
     <div id="main-catalog-view">
         <div class="promo-banner">
             ✨ Entregas personales en Santiago y Monterrey • Pide directo por DM 💖
         </div>
 
         <header>
-            <!-- Banner Horizontal (Estilo Foto 2) -->
+            <!-- Banner Horizontal con la misma foto -->
             <div class="banner-horizontal">
                 <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&w=1200&q=80" alt="ANTARA Banner">
             </div>
@@ -514,7 +514,6 @@
     </div>
 
     <script>
-        // Ocultar la pantalla de carga inicial después de 1.2 segundos
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -524,7 +523,6 @@
             }, 1200);
         });
 
-        // Función para pasar de la Vista de Bienvenida al Catálogo Principal
         function entrarAlCatalogo() {
             const welcome = document.getElementById('welcome-section');
             const mainView = document.getElementById('main-catalog-view');
