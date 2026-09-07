@@ -14,7 +14,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
-    <!-- Fuentes Elegantes: Playfair Display, Plus Jakarta Sans y Cinzel para números -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -22,26 +21,17 @@
             --text-main: #000000; 
             --text-muted: #555555; 
             --primary-tone: #a88267; 
-            --glass-bg: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.9);
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        /* FONDO FIJO Y LIMPIO PARA EVITAR CUALQUIER PARPADEO EN CELULARES */
         body { 
-            background: linear-gradient(-45deg, #fbf9f6, #f3ece4, #ffffff, #fdf8f5);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: #fbf9f6;
             margin: 0; 
             padding: 0; 
             color: var(--text-main); 
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            padding-top: 35px; /* Espacio para la barra promocional superior */
+            padding-top: 35px; 
         }
 
         /* ====== BARRA SUPERIOR ESTILO FATE (URGENCIA) ====== */
@@ -73,13 +63,13 @@
         }
 
         header { 
-            background: rgba(255, 255, 255, 0.85);
+            background: #ffffff;
             padding: 20px 15px 15px 15px; 
             text-align: center; 
-            border-bottom: 1px solid var(--glass-border); 
+            border-bottom: 1px solid #eee; 
             position: relative; 
             z-index: 40;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
         }
         .logo-img {
             max-width: 240px; 
@@ -88,7 +78,6 @@
             display: block;
             margin: -10px auto -5px auto; 
             transform: scale(1.2); 
-            transition: transform 0.3s ease;
         }
 
         .catalog-container { 
@@ -114,13 +103,12 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.3s ease;
         }
         .filter-btn:hover, .filter-btn.active {
             background-color: #000000;
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .category-header { 
@@ -156,29 +144,20 @@
             gap: 25px;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* TARJETAS OPTIMIZADAS SIN ANIMACIÓN DE ENTRADA PESADA PARA EVITAR PARPADEOS */
         .product-card { 
-            background: var(--glass-bg); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border); 
+            background: #ffffff; 
+            border: 1px solid #eae5df; 
             border-radius: 24px; 
             padding: 15px; 
             display: flex; 
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            opacity: 0; 
-            animation: fadeInUp 0.6s forwards;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
         }
 
         .thumb-container {
@@ -195,9 +174,9 @@
             height: 100%; 
             object-fit: cover; 
             cursor: pointer; 
-            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); 
+            transition: transform 0.5s ease; 
         }
-        .product-card:hover .product-thumb { transform: scale(1.1); }
+        .product-card:hover .product-thumb { transform: scale(1.05); }
         
         .product-info { 
             display: flex;
@@ -209,7 +188,6 @@
         .product-info h3 { margin: 0 0 5px 0; font-size: 16px; font-weight: 700; letter-spacing: 0.5px; }
         .product-info p { margin: 0 0 15px 0; color: var(--text-muted); font-size: 13px; line-height: 1.5; }
         
-        /* TEXTO DE STOCK AGOTADO */
         .stock-info {
             font-size: 10px; 
             font-weight: 700; 
@@ -242,11 +220,10 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: #000000; color: white; border: none; padding: 14px; border-radius: 14px; 
             cursor: pointer; font-size: 13px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; transition: all 0.3s ease; 
+            letter-spacing: 1px; transition: background 0.2s ease; 
         }
-        .btn-add:hover { background: #333333; transform: scale(1.02); }
-        .btn-add:active { transform: scale(0.96); }
-        .btn-add:disabled { background: #cccccc; cursor: not-allowed; transform: none; }
+        .btn-add:hover { background: #333333; }
+        .btn-add:disabled { background: #cccccc; cursor: not-allowed; }
 
         @media (max-width: 600px) {
             .products-grid {
@@ -268,36 +245,25 @@
         .popup-overlay {
             display: none;
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.6); 
             z-index: 2000; justify-content: center; align-items: center;
-            animation: fadeIn 0.3s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
         .popup-box {
             background: #ffffff; color: #000000; width: 90%; max-width: 400px;
             padding: 30px; border-radius: 24px; text-align: center; position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.25); font-family: 'Plus Jakarta Sans', sans-serif;
-            animation: scaleUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
         .popup-close {
             position: absolute; top: 15px; right: 20px; background: none; border: none;
             font-size: 22px; cursor: pointer; color: #888;
         }
-        .popup-close:hover { color: #000; }
-
-        .popup-box h2 {
-            font-family: 'Playfair Display', serif; font-size: 24px;
-            margin-top: 10px; margin-bottom: 5px; font-weight: 700;
-        }
+        .popup-box h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-top: 10px; margin-bottom: 5px; font-weight: 700; }
         .popup-box p { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; }
 
         .popup-input {
             width: 100%; padding: 12px 15px; margin-bottom: 12px; border: 1.5px solid #ddd;
             border-radius: 12px; font-size: 14px; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif;
-            outline: none; transition: 0.2s;
+            outline: none;
         }
         .popup-input:focus { border-color: #000; }
 
@@ -313,9 +279,8 @@
         .btn-claim {
             background: #000000; color: #ffffff; border: none; width: 100%; padding: 14px;
             border-radius: 14px; font-size: 13px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; cursor: pointer; transition: 0.2s;
+            letter-spacing: 1px; cursor: pointer;
         }
-        .btn-claim:hover { background: #333; }
         .btn-decline { background: none; border: none; color: #888; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 12px; text-decoration: underline; }
 
         /* ====== ZOOM DE IMÁGENES ====== */
@@ -326,26 +291,22 @@
         /* ====== TOAST ====== */
         .toast-container { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
         .toast {
-            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); color: #ffffff;
+            background: rgba(0, 0, 0, 0.9); color: #ffffff;
             padding: 12px 20px; border-radius: 30px; font-size: 12px; font-weight: 600;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideUpFade 0.4s ease forwards, fadeOut 0.4s ease 2.5s forwards;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             display: flex; align-items: center; gap: 8px; text-align: center;
         }
-        @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
 
         /* ====== CARRITO ====== */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(5px); }
-        .modal-content { background: rgba(255, 255, 255, 0.98); color: #000000; width: 90%; max-width: 520px; padding: 30px; border-radius: 24px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 200; }
+        .modal-content { background: #ffffff; color: #000000; width: 90%; max-width: 520px; padding: 30px; border-radius: 24px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         
         .cart-bar { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 400px; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px);
+            width: 90%; max-width: 400px; background: #000000;
             color: #ffffff; padding: 18px; text-align: center; font-weight: 600; cursor: pointer; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-size: 15px; z-index: 100; border-radius: 30px;
-            transition: all 0.3s ease; 
         }
-        .cart-bar:hover { background: #000000; transform: translateX(-50%) scale(1.02); }
         
         .cart-discount-banner {
             background: #e2f0d9; color: #275d29; padding: 10px 15px; border-radius: 12px;
@@ -355,22 +316,16 @@
 
         .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; gap: 10px; }
         .cart-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .btn-qty { background: #f0eae1; color: #000000; border: none; padding: 6px 12px; cursor: pointer; font-weight: bold; border-radius: 8px; transition: 0.2s;}
-        .btn-qty:hover { background: #e0d6c8;}
+        .btn-qty { background: #f0eae1; color: #000000; border: none; padding: 6px 12px; cursor: pointer; font-weight: bold; border-radius: 8px;}
         .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-remove { background: #fde8e8; color: #c53030; border: none; padding: 6px 10px; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight:bold;}
         
         .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 700; border: none; padding: 15px; width: 100%; border-radius: 14px; cursor: pointer; font-size: 14px; text-align: center; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;}
-        .btn-instagram:hover { opacity: 0.9; transform: translateY(-2px); }
         .btn-close { background: #e8e2dc; color: #000000; border: none; padding: 12px; width: 100%; border-radius: 14px; cursor: pointer; margin-top: 10px; font-weight: 700; text-transform: uppercase;}
-        
-        .loading { text-align: center; font-size: 16px; color: var(--text-muted); padding: 50px; font-weight: 600; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% {opacity: 0.5;} 50% {opacity: 1;} 100% {opacity: 0.5;} }
     </style>
 </head>
 <body>
 
-    <!-- Barra de Urgencia Global Fija -->
     <div class="top-urgency-bar" id="topPromoBar" style="display: none;">
         <span>✨ 10% OFF EN TU PRIMERA COMPRA ✨</span>
         <div class="top-timer" id="topTimerDisplay">72:00:00</div>
@@ -387,10 +342,9 @@
     </header>
 
     <div class="catalog-container" id="catalog">
-        <div class="loading">Sincronizando inventario ANTARA... ✨</div>
+        <div style="text-align: center; padding: 50px; font-weight: 600;">Sincronizando inventario ANTARA... ✨</div>
     </div>
 
-    <!-- POPUP CON REGISTRO DE WHATSAPP -->
     <div id="popupOverlay" class="popup-overlay">
         <div class="popup-box">
             <button class="popup-close" onclick="cerrarPopup()">&times;</button>
@@ -424,7 +378,6 @@
 
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- MODAL DE ZOOM -->
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
         <img id="imgZoom" src="" alt="Vista previa">
@@ -457,18 +410,14 @@
         let datosOriginales = [];
         let categoriaActiva = 'todos';
         let carrito = [];
-        // Cargar los datos guardados en el dispositivo
         let descuentoData = JSON.parse(localStorage.getItem('antaraPromo')) || null;
         let temporizadorInterval;
 
-        // INICIALIZACIÓN
         window.addEventListener('DOMContentLoaded', () => {
             if (descuentoData && descuentoData.activo) {
-                // Si ya está registrado, reanudamos el timer y mostramos la barra superior
                 iniciarTemporizadorGlobal(descuentoData.endTime);
                 document.getElementById('topPromoBar').style.display = 'flex';
             } else {
-                // Si es nuevo, mostramos el popup a los 10 segundos
                 setTimeout(() => {
                     if (!document.getElementById('popupOverlay').style.display.includes('flex')) {
                         document.getElementById('popupOverlay').style.display = 'flex';
@@ -491,9 +440,7 @@
                 return;
             }
 
-            // Calculamos 72 horas en el futuro a partir de ahora
             let endTime = new Date().getTime() + (72 * 3600 * 1000); 
-            
             descuentoData = { activo: true, nombre: nombre, telefono: tel, endTime: endTime };
             localStorage.setItem('antaraPromo', JSON.stringify(descuentoData));
 
@@ -505,7 +452,6 @@
             actualizarCarritoUI();
         }
 
-        // Timer decorativo del popup
         function iniciarTemporizadorVisualPopup() {
             let totalSeconds = 72 * 3600;
             setInterval(() => {
@@ -520,7 +466,6 @@
             }, 1000);
         }
 
-        // Timer real guardado en memoria para la barra superior
         function iniciarTemporizadorGlobal(endTime) {
             clearInterval(temporizadorInterval);
             temporizadorInterval = setInterval(() => {
@@ -555,9 +500,6 @@
         function cargarCatalogo() {
             const script = document.createElement('script');
             script.src = `${SCRIPT_URL}?callback=procesarDatosCatalogo&t=${new Date().getTime()}`;
-            script.onerror = function() {
-                document.getElementById('catalog').innerHTML = `<p style="color:#000000; text-align:center;">Error de conexión.</p>`;
-            };
             document.body.appendChild(script);
         }
 
@@ -568,7 +510,7 @@
                 precio: Number(item["precio"]) || 0,
                 desc: item["detalles / tono"] || item["detalles"] || "",
                 imagen: item["imagen"] || "",
-                existencia: Number(item["existencia"]) || 0 // Capturamos las piezas exactas
+                existencia: Number(item["existencia"]) || 0 
             }));
             renderizarCatalogo();
         }
@@ -600,23 +542,17 @@
                     html += `<div class="category-header"><h2>${categoriasMap[cat]}</h2></div>`;
                     html += `<div class="products-grid">`;
                     
-                    productosFiltrados.forEach((item, index) => {
-                        let delay = index * 0.1;
+                    productosFiltrados.forEach((item) => {
                         let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
                         let enStock = item.existencia > 0;
-                        
-                        // TEXTO DE STOCK DINÁMICO (Ocultado el de disponible, solo muestra Agotado)
-                        let stockText = enStock 
-                            ? `` 
-                            : `<div class="stock-info" style="color:#c53030;">Agotado</div>`;
-
+                        let stockText = enStock ? `` : `<div class="stock-info" style="color:#c53030;">Agotado</div>`;
                         let botonText = window.innerWidth > 600 ? "Agregar al carrito" : "Agregar";
                         let botonHtml = enStock 
                             ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>${botonText}</button>` 
                             : `<button class="btn-add" disabled>Agotado</button>`;
 
                         html += `
-                            <div class="product-card" style="animation-delay: ${delay}s">
+                            <div class="product-card">
                                 <div class="thumb-container">
                                     ${imagenHtml}
                                 </div>
@@ -637,28 +573,26 @@
             });
 
             if (!hayProductos) {
-                html = `<p style="text-align:center; color:var(--text-muted); padding:40px; font-weight:600;">Explorando nuevas colecciones...</p>`;
+                html = `<p style="text-align:center; padding:40px; font-weight:600;">Explorando nuevas colecciones...</p>`;
             }
 
             contenedor.innerHTML = html;
         }
 
-        function agregarAlCarrito(item, event) {
+        function agregarAlCarrito(item) {
             let encontrado = carrito.find(i => i.nombre === item.nombre && i.desc === item.desc);
             
-            // VALIDACIÓN ESTRICTA DE INVENTARIO AL AGREGAR
             if (encontrado) {
                 if (encontrado.cantidad >= item.existencia) {
-                    mostrarToast(`⚠️ Alcanzaste el límite de stock (${item.existencia} disponibles)`);
+                    mostrarToast(`⚠️ Límite alcanzado (${item.existencia} disponibles)`);
                     return;
                 }
                 encontrado.cantidad += 1;
             } else {
-                // Guardamos la imagen en el carrito para mostrarla después
                 carrito.push({ nombre: item.nombre, precio: item.precio, desc: item.desc, cantidad: 1, existencia: item.existencia, imagen: item.imagen });
             }
             actualizarCarritoUI();
-            mostrarToast(`Se agregó ${item.nombre} a tu bolsa`);
+            mostrarToast(`Se agregó ${item.nombre}`);
         }
 
         function mostrarToast(texto) {
@@ -673,9 +607,8 @@
         function cambiarCantidad(nombre, desc, cambio, existenciaMax) {
             let item = carrito.find(i => i.nombre === nombre && i.desc === desc);
             if (item) {
-                // NO DEJAR SUPERAR EL STOCK DESDE EL BOTÓN +
                 if (cambio > 0 && item.cantidad >= existenciaMax) {
-                    mostrarToast(`⚠️ Alcanzaste el límite de stock (${existenciaMax})`);
+                    mostrarToast(`⚠️ Límite alcanzado (${existenciaMax})`);
                     return;
                 }
                 item.cantidad += cambio;
@@ -731,10 +664,7 @@
             let html = "";
             carrito.forEach(item => {
                 let detalleStr = item.desc ? ` <span style="color:#888; font-size:12px; font-weight:normal;">(${item.desc})</span>` : '';
-                // Apagar el botón "+" si ya se llegó al stock límite
                 let disabledPlus = (item.cantidad >= item.existencia) ? "disabled" : "";
-                
-                // Miniatura de la imagen
                 let imgTag = item.imagen ? `<img src="${item.imagen}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; flex-shrink: 0; background: #f0eae1;">` : '';
 
                 html += `
