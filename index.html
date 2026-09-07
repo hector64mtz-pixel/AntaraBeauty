@@ -14,8 +14,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
-    <!-- Fuentes Originales: Playfair Display y Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fuentes Elegantes: Playfair Display, Plus Jakarta Sans y Cinzel para números -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -107,7 +107,6 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
-        /* Tipografía original Playfair Display para Categorías */
         .category-header { 
             width: 100%;
             margin: 35px 0 25px 0; 
@@ -203,7 +202,13 @@
             padding: 0 5px;
         }
         
-        .price { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 19px; }
+        /* Precios con tipografía minimalista y elegante (Cinzel) */
+        .price { 
+            font-family: 'Cinzel', serif; 
+            font-weight: 600; 
+            font-size: 17px; 
+            letter-spacing: 0.5px;
+        }
         .stock-tag { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: #e2f0d9; color: #275d29; text-transform: uppercase; }
         
         .btn-add { 
@@ -225,12 +230,12 @@
             .category-header h2 { font-size: 22px; }
             .product-info h3 { font-size: 12px; line-height: 1.3; }
             .product-info p { font-size: 10px; margin-bottom: 10px; }
-            .price { font-size: 15px; }
+            .price { font-size: 14px; }
             .stock-tag { padding: 3px 6px; font-size: 8px; }
             .btn-add { padding: 10px; font-size: 11px; letter-spacing: 0.5px; border-radius: 10px; }
         }
 
-        /* ====== POPUP CON REGISTRO DE TELÉFONO Y TIMER ====== */
+        /* ====== POPUP CON ESTILO FORMAL ====== */
         .popup-overlay {
             display: none;
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -272,7 +277,13 @@
             padding: 12px; border-radius: 16px; border: 1px solid #f0eae1; margin-bottom: 20px;
         }
         .timer-block { display: flex; flex-direction: column; align-items: center; }
-        .timer-number { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #000000; }
+        /* Números del temporizador minimalistas */
+        .timer-number { 
+            font-family: 'Cinzel', serif; 
+            font-size: 19px; 
+            font-weight: 600; 
+            color: #000000; 
+        }
         .timer-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 700; }
         .timer-divider { font-size: 18px; font-weight: 700; color: #ccc; align-self: center; }
 
@@ -390,7 +401,7 @@
     </div>
 
     <div class="cart-bar" id="barraCarrito" onclick="abrirCarrito()">
-        🛍️ Ver Carrito (<span id="contador-items">0</span>) • $<span id="total-bar">0</span> MXN
+        🛍️ Ver Carrito (<span id="contador-items" style="font-family: 'Cinzel', serif;">0</span>) • $<span id="total-bar" style="font-family: 'Cinzel', serif;">0</span> MXN
     </div>
 
     <div class="modal" id="modalCarrito">
@@ -619,7 +630,7 @@
             if (descuentoAplicado && carrito.length > 0) {
                 bannerDiv.style.display = 'flex';
                 bannerDiv.className = 'cart-discount-banner';
-                bannerDiv.innerHTML = `<span>⏱️ 10% de descuento (72h)</span> <span>-$${descuentoMonto.toFixed(2)} MXN</span>`;
+                bannerDiv.innerHTML = `<span>⏱️ 10% de descuento (72h)</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>`;
             } else {
                 bannerDiv.style.display = 'none';
             }
@@ -637,11 +648,11 @@
                     <div class="cart-item">
                         <div>
                             <strong style="color:#000000; font-size: 14px;">${item.nombre}${detalleStr}</strong><br>
-                            <small style="color:#555555; font-weight:600;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
+                            <small style="color:#555555; font-weight:600; font-family: 'Cinzel', serif;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
                         </div>
                         <div class="cart-controls">
                             <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -1)">-</button>
-                            <span style="color:#000000; font-weight:700;">${item.cantidad}</span>
+                            <span style="color:#000000; font-weight:700; font-family: 'Cinzel', serif;">${item.cantidad}</span>
                             <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', 1)">+</button>
                             <button class="btn-remove" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -${item.cantidad})">✕</button>
                         </div>
@@ -652,19 +663,19 @@
 
             let resumenHtml = `
                 <div style="display: flex; justify-content: space-between; font-size: 13px; color: #555; margin-bottom: 5px;">
-                    <span>Subtotal</span> <span>$${subtotal.toFixed(2)} MXN</span>
+                    <span>Subtotal</span> <span style="font-family: 'Cinzel', serif;">$${subtotal.toFixed(2)} MXN</span>
                 </div>
             `;
             if (descuentoAplicado) {
                 resumenHtml += `
                     <div style="display: flex; justify-content: space-between; font-size: 13px; color: #275d29; font-weight: 600; margin-bottom: 8px;">
-                        <span>Descuento 10% (Registrado)</span> <span>-$${descuentoMonto.toFixed(2)} MXN</span>
+                        <span>Descuento 10% (Registrado)</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>
                     </div>
                 `;
             }
             resumenHtml += `
                 <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; font-family: 'Playfair Display', serif; color: #000; margin-top: 10px;">
-                    <span>Total</span> <span>$${totalFinal.toFixed(2)} MXN</span>
+                    <span>Total</span> <span style="font-family: 'Cinzel', serif;">$${totalFinal.toFixed(2)} MXN</span>
                 </div>
             `;
             resumenDiv.innerHTML = resumenHtml;
