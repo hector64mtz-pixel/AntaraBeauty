@@ -103,7 +103,7 @@
             background-color: #ff3b30;
             border-radius: 50%;
             border: 2px solid #ffffff;
-            display: none; /* Se activa por JS cuando hay items */
+            display: none; 
         }
 
         .catalog-container { 
@@ -360,7 +360,7 @@
             <h2 style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
             
             <div class="coupon-box">
-                <input type="text" id="couponInput" class="coupon-input" placeholder="Código de descuento (ej. ANTARA10)">
+                <input type="text" id="couponInput" class="coupon-input" placeholder="Ingresa tu código">
                 <button class="btn-apply-coupon" onclick="aplicarCupon()">Aplicar</button>
             </div>
 
@@ -383,7 +383,7 @@
         let datosOriginales = [];
         let categoriaActiva = 'todos';
         let carrito = [];
-        let cuponAplicado = false; // Control del cupón ANTARA10
+        let cuponAplicado = false; 
 
         function abrirZoom(urlImagen) {
             document.getElementById('imgZoom').src = urlImagen;
@@ -519,17 +519,15 @@
             let codigo = document.getElementById('couponInput').value.trim().toUpperCase();
             if (codigo === "ANTARA10") {
                 cuponAplicado = true;
-                mostrarToast("✨ ¡Código ANTARA10 aplicado con éxito!");
+                mostrarToast("✨ ¡Código aplicado con éxito!");
                 actualizarModalCarrito();
             } else {
-                alert("Código no válido. Prueba con ANTARA10 💖");
+                alert("Código no válido. Verifica el código de la dinámica de Instagram 💖");
             }
         }
 
         function actualizarCarritoUI() {
             let totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-            
-            // Activar o desactivar el puntito rojo flotante
             let dotBadge = document.getElementById('cartDot');
             if (totalItems > 0) {
                 dotBadge.style.display = 'block';
@@ -559,7 +557,7 @@
             if (cuponAplicado && carrito.length > 0) {
                 bannerDiv.style.display = 'flex';
                 bannerDiv.className = 'cart-discount-banner';
-                bannerDiv.innerHTML = `<span>✨ ANTARA10 (10% OFF + Regalo)</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>`;
+                bannerDiv.innerHTML = `<span>✨ 10% OFF + Regalo Activado</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>`;
             } else {
                 bannerDiv.style.display = 'none';
             }
@@ -604,7 +602,7 @@
             if (cuponAplicado) {
                 resumenHtml += `
                     <div style="display: flex; justify-content: space-between; font-size: 13px; color: #275d29; font-weight: 600; margin-bottom: 8px;">
-                        <span>Descuento Código ANTARA10</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>
+                        <span>Descuento Promoción</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>
                     </div>
                 `;
             }
@@ -628,7 +626,7 @@
 
             let mensaje = "✨ *NUEVO PEDIDO - ANTARA* ✨\n\n";
             if (cuponAplicado) {
-                mensaje += `🎁 ¡Código aplicado: ANTARA10 (10% OFF + Mascarilla de regalo)!\n\n`;
+                mensaje += `🎁 ¡Código promocional aplicado (10% OFF + Mascarilla de regalo)!\n\n`;
             }
             mensaje += "Hola, me gustaría apartar / comprar los siguientes productos:\n\n";
             
@@ -640,14 +638,14 @@
 
             mensaje += `\nSubtotal: $${subtotal.toFixed(2)} MXN`;
             if (cuponAplicado) {
-                mensaje += `\n🏷️ *Descuento ANTARA10:* -$${descuentoMonto.toFixed(2)} MXN`;
+                mensaje += `\n🏷️ *Descuento aplicado:* -$${descuentoMonto.toFixed(2)} MXN`;
             }
             mensaje += `\n🛍️ *TOTAL A PAGAR:* *$${totalGeneral.toFixed(2)} MXN*\n\n¿Me confirman disponibilidad para coordinar la entrega? 💖`;
 
             let url = `https://www.instagram.com/antara_beautyy/`;
             
             navigator.clipboard.writeText(mensaje).then(() => {
-                alert("¡Tu pedido con el código ANTARA10 se ha copiado! Se abrirá Instagram para que nos lo envíes por DM. 💖");
+                alert("¡Tu pedido se ha copiado con éxito! Se abrirá Instagram para que nos lo envíes por DM. 💖");
                 window.open(url, '_blank');
             }).catch(err => {
                 window.open(url, '_blank');
