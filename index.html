@@ -14,7 +14,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Fuentes Originales: Playfair Display y Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --text-main: #000000; 
@@ -105,18 +107,19 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
+        /* Tipografía original Playfair Display para Categorías */
         .category-header { 
             width: 100%;
-            margin: 30px 0 25px 0; 
+            margin: 35px 0 25px 0; 
             text-align: center;
         }
         .category-header h2 { 
-            font-family: 'Syne', sans-serif;
+            font-family: 'Playfair Display', serif;
             color: #000000; 
             margin: 0; 
-            font-size: 28px; 
-            font-weight: 800; 
-            letter-spacing: 2px;
+            font-size: 30px; 
+            font-weight: 700; 
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             position: relative;
             display: inline-block;
@@ -124,11 +127,11 @@
         .category-header h2::after {
             content: '';
             position: absolute;
-            width: 50%;
-            height: 3px;
+            width: 60%;
+            height: 2px;
             background: #000000;
-            bottom: -8px;
-            left: 25%;
+            bottom: -6px;
+            left: 20%;
             border-radius: 2px;
         }
 
@@ -200,7 +203,7 @@
             padding: 0 5px;
         }
         
-        .price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; }
+        .price { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 19px; }
         .stock-tag { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: #e2f0d9; color: #275d29; text-transform: uppercase; }
         
         .btn-add { 
@@ -219,151 +222,79 @@
             }
             .product-card { padding: 10px; border-radius: 18px; }
             .thumb-container { height: 160px; border-radius: 60px 60px 10px 10px; margin-bottom: 10px; }
-            .category-header h2 { font-size: 20px; }
+            .category-header h2 { font-size: 22px; }
             .product-info h3 { font-size: 12px; line-height: 1.3; }
             .product-info p { font-size: 10px; margin-bottom: 10px; }
-            .price { font-size: 14px; }
+            .price { font-size: 15px; }
             .stock-tag { padding: 3px 6px; font-size: 8px; }
             .btn-add { padding: 10px; font-size: 11px; letter-spacing: 0.5px; border-radius: 10px; }
         }
 
-        /* ====== POPUP EMERGENTE ESTILO PRO (IMAGEN 2) ====== */
+        /* ====== POPUP CON REGISTRO DE TELÉFONO Y TIMER ====== */
         .popup-overlay {
             display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(6px);
-            z-index: 500;
-            justify-content: center;
-            align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+            z-index: 500; justify-content: center; align-items: center;
             animation: fadeIn 0.3s ease;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .popup-box {
-            background: #ffffff;
-            color: #000000;
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            border-radius: 24px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #ffffff; color: #000000; width: 90%; max-width: 400px;
+            padding: 30px; border-radius: 24px; text-align: center; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25); font-family: 'Plus Jakarta Sans', sans-serif;
             animation: scaleUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         .popup-close {
-            position: absolute;
-            top: 15px; right: 20px;
-            background: none; border: none;
+            position: absolute; top: 15px; right: 20px; background: none; border: none;
             font-size: 22px; cursor: pointer; color: #888;
         }
         .popup-close:hover { color: #000; }
 
         .popup-box h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif; font-size: 24px;
+            margin-top: 10px; margin-bottom: 5px; font-weight: 700;
         }
-        .popup-box p {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
+        .popup-box p { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; }
 
-        /* Contadores de cuenta regresiva */
+        .popup-input {
+            width: 100%; padding: 12px 15px; margin-bottom: 12px; border: 1.5px solid #ddd;
+            border-radius: 12px; font-size: 14px; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif;
+            outline: none; transition: 0.2s;
+        }
+        .popup-input:focus { border-color: #000; }
+
         .timer-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            background: #fbf9f6;
-            padding: 15px;
-            border-radius: 16px;
-            border: 1px solid #f0eae1;
-            margin-bottom: 20px;
+            display: flex; justify-content: center; gap: 15px; background: #fbf9f6;
+            padding: 12px; border-radius: 16px; border: 1px solid #f0eae1; margin-bottom: 20px;
         }
-        .timer-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .timer-number {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            color: #000000;
-        }
-        .timer-label {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666;
-            font-weight: 700;
-        }
-        .timer-divider {
-            font-size: 20px;
-            font-weight: 700;
-            color: #ccc;
-            align-self: center;
-        }
+        .timer-block { display: flex; flex-direction: column; align-items: center; }
+        .timer-number { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #000000; }
+        .timer-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 700; }
+        .timer-divider { font-size: 18px; font-weight: 700; color: #ccc; align-self: center; }
 
         .btn-claim {
-            background: #000000;
-            color: #ffffff;
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: 0.2s;
+            background: #000000; color: #ffffff; border: none; width: 100%; padding: 14px;
+            border-radius: 14px; font-size: 13px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; cursor: pointer; transition: 0.2s;
         }
         .btn-claim:hover { background: #333; }
-        .btn-decline {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 12px;
-            text-decoration: underline;
-        }
+        .btn-decline { background: none; border: none; color: #888; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 12px; text-decoration: underline; }
 
-        /* Estilo Banner Descuento Carrito (Imagen 1) */
         .cart-discount-banner {
-            background: #e2f0d9;
-            color: #275d29;
-            padding: 10px 15px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            border: 1px solid #c8e6b8;
+            background: #e2f0d9; color: #275d29; padding: 10px 15px; border-radius: 12px;
+            font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 15px; border: 1px solid #c8e6b8;
         }
 
-        /* Toast de notificación */
-        .toast-container {
-            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
-            z-index: 1000; display: flex; flex-direction: column; gap: 10px; pointer-events: none;
-        }
+        .toast-container { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
         .toast {
             background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); color: #ffffff;
             padding: 12px 20px; border-radius: 30px; font-size: 12px; font-weight: 600;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: slideUpFade 0.4s ease forwards, fadeOut 0.4s ease 2.5s forwards;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideUpFade 0.4s ease forwards, fadeOut 0.4s ease 2.5s forwards;
             display: flex; align-items: center; gap: 8px; text-align: center;
         }
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -416,16 +347,19 @@
     </header>
 
     <div class="catalog-container" id="catalog">
-        <div class="loading">Preparando la experiencia ANTARA... ✨</div>
+        <div class="loading">Sincronizando inventario ANTARA... ✨</div>
     </div>
 
-    <!-- ====== POPUP EMERGENTE A LOS 10 SEGUNDOS (IMAGEN 2) ====== -->
+    <!-- POPUP CON REGISTRO DE WHATSAPP -->
     <div id="popupOverlay" class="popup-overlay">
         <div class="popup-box">
             <button class="popup-close" onclick="cerrarPopup()">&times;</button>
             <h2>¡10% de Descuento!</h2>
-            <p>Desbloquea 10% OFF en toda tu primera orden de skincare y maquillaje.</p>
+            <p>Ingresa tus datos para registrar tu 10% OFF exclusivo de 72 horas.</p>
             
+            <input type="text" id="nombreCliente" class="popup-input" placeholder="Tu Nombre">
+            <input type="tel" id="telefonoCliente" class="popup-input" placeholder="Tu Número de WhatsApp (10 dígitos)">
+
             <div class="timer-container">
                 <div class="timer-block">
                     <span id="popupHours" class="timer-number">72</span>
@@ -443,7 +377,7 @@
                 </div>
             </div>
 
-            <button class="btn-claim" onclick="aceptarDescuento()">Aceptar mi 10% OFF ✨</button>
+            <button class="btn-claim" onclick="registrarYDesbloquear()">Desbloquear mi 10% OFF ✨</button>
             <button class="btn-decline" onclick="cerrarPopup()">No, gracias</button>
         </div>
     </div>
@@ -461,9 +395,8 @@
 
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
-            <h2 style="margin-top:0; font-size: 22px; font-family: 'Syne', sans-serif;">Tu Carrito 🛍️</h2>
+            <h2 style="margin-top:0; font-size: 22px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
             
-            <!-- Banner de Descuento Activo en Carrito (Imagen 1) -->
             <div id="carritoBannerDescuento" style="display:none;"></div>
 
             <div id="lista-carrito-modal">
@@ -483,9 +416,10 @@
         let datosOriginales = [];
         let categoriaActiva = 'todos';
         let carrito = [];
-        let descuentoAplicado = false; // Estado del descuento del popup
+        let descuentoAplicado = false;
+        let clienteRegistrado = { nombre: "", telefono: "" };
 
-        // 1. Mostrar Popup a los 10 segundos (solo una vez por visita)
+        // Mostrar Popup a los 10 segundos
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 if (!sessionStorage.getItem('popupVisto')) {
@@ -493,21 +427,29 @@
                     iniciarTemporizadorPopup();
                     sessionStorage.setItem('popupVisto', 'true');
                 }
-            }, 10000); // 10,000 ms = 10 segundos
+            }, 10000);
         });
 
         function cerrarPopup() {
             document.getElementById('popupOverlay').style.display = 'none';
         }
 
-        function aceptarDescuento() {
+        function registrarYDesbloquear() {
+            let nombre = document.getElementById('nombreCliente').value.trim();
+            let tel = document.getElementById('telefonoCliente').value.trim();
+
+            if (!nombre || !tel) {
+                alert("Por favor ingresa tu nombre y número de WhatsApp para aplicar el descuento.");
+                return;
+            }
+
+            clienteRegistrado = { nombre: nombre, telefono: tel };
             descuentoAplicado = true;
             cerrarPopup();
-            mostrarToast("🎉 ¡10% de descuento aplicado a tu bolsa!");
+            mostrarToast(`🎉 ¡Descuento de 72h activado para ${nombre}!`);
             actualizarCarritoUI();
         }
 
-        // Temporizador de 72 horas simulado estético
         function iniciarTemporizadorPopup() {
             let totalSeconds = 72 * 3600;
             setInterval(() => {
@@ -674,11 +616,10 @@
             let descuentoMonto = descuentoAplicado ? subtotal * 0.1 : 0;
             let totalFinal = subtotal - descuentoMonto;
 
-            // Mostrar banner verde si aceptó el descuento (Imagen 1)
             if (descuentoAplicado && carrito.length > 0) {
                 bannerDiv.style.display = 'flex';
                 bannerDiv.className = 'cart-discount-banner';
-                bannerDiv.innerHTML = `<span>⏱️ 10% de descuento aplicado</span> <span>-$${descuentoMonto.toFixed(2)} MXN</span>`;
+                bannerDiv.innerHTML = `<span>⏱️ 10% de descuento (72h)</span> <span>-$${descuentoMonto.toFixed(2)} MXN</span>`;
             } else {
                 bannerDiv.style.display = 'none';
             }
@@ -709,7 +650,6 @@
             });
             contenedorModal.innerHTML = html;
 
-            // Desglose final idéntico a la estructura pro
             let resumenHtml = `
                 <div style="display: flex; justify-content: space-between; font-size: 13px; color: #555; margin-bottom: 5px;">
                     <span>Subtotal</span> <span>$${subtotal.toFixed(2)} MXN</span>
@@ -718,12 +658,12 @@
             if (descuentoAplicado) {
                 resumenHtml += `
                     <div style="display: flex; justify-content: space-between; font-size: 13px; color: #275d29; font-weight: 600; margin-bottom: 8px;">
-                        <span>Descuento Especial (10%)</span> <span>-$${descuentoMonto.toFixed(2)} MXN</span>
+                        <span>Descuento 10% (Registrado)</span> <span>-$${descuentoMonto.toFixed(2)} MXN</span>
                     </div>
                 `;
             }
             resumenHtml += `
-                <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; font-family: 'Syne', sans-serif; color: #000; margin-top: 10px;">
+                <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; font-family: 'Playfair Display', serif; color: #000; margin-top: 10px;">
                     <span>Total</span> <span>$${totalFinal.toFixed(2)} MXN</span>
                 </div>
             `;
@@ -740,7 +680,11 @@
             let descuentoMonto = descuentoAplicado ? subtotal * 0.1 : 0;
             let totalGeneral = subtotal - descuentoMonto;
 
-            let mensaje = "✨ *NUEVO PEDIDO - ANTARA* ✨\n\nHola, me gustaría apartar / comprar los siguientes productos:\n\n";
+            let mensaje = "✨ *NUEVO PEDIDO - ANTARA* ✨\n\n";
+            if (clienteRegistrado.nombre) {
+                mensaje += `👤 Cliente: ${clienteRegistrado.nombre}\n📱 WhatsApp: ${clienteRegistrado.telefono}\n\n`;
+            }
+            mensaje += "Hola, me gustaría apartar / comprar los siguientes productos:\n\n";
             
             carrito.forEach((item, index) => {
                 let sub = item.precio * item.cantidad;
@@ -757,7 +701,7 @@
             let url = `https://www.instagram.com/antara_beautyy/`;
             
             navigator.clipboard.writeText(mensaje).then(() => {
-                alert("¡Tu pedido con el descuento se ha copiado! Se abrirá Instagram para que nos lo envíes por DM. 💖");
+                alert("¡Tu pedido se ha copiado con tus datos de registro! Se abrirá Instagram para que nos lo envíes por DM. 💖");
                 window.open(url, '_blank');
             }).catch(err => {
                 window.open(url, '_blank');
