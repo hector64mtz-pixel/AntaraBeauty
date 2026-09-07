@@ -9,7 +9,7 @@
     <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
     <meta property="og:type" content="website">
 
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#fbf9f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
@@ -23,7 +23,7 @@
             --primary-tone: #a88267; 
         }
 
-        /* FONDO FIJO Y LIMPIO PARA EVITAR CUALQUIER PARPADEO EN CELULARES */
+        /* FONDO FIJO Y LIMPIO */
         body { 
             background-color: #fbf9f6;
             margin: 0; 
@@ -34,7 +34,7 @@
             padding-top: 35px; 
         }
 
-        /* ====== BARRA SUPERIOR ESTILO FATE (URGENCIA) ====== */
+        /* ====== BARRA SUPERIOR ====== */
         .top-urgency-bar {
             position: fixed;
             top: 0; 
@@ -52,14 +52,6 @@
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-        }
-        .top-timer {
-            display: flex; 
-            gap: 5px; 
-            color: #a88267; 
-            font-family: 'Cinzel', serif; 
-            font-size: 13px;
-            font-weight: 700;
         }
 
         header { 
@@ -144,7 +136,6 @@
             gap: 25px;
         }
 
-        /* TARJETAS OPTIMIZADAS SIN ANIMACIÓN DE ENTRADA PESADA PARA EVITAR PARPADEOS */
         .product-card { 
             background: #ffffff; 
             border: 1px solid #eae5df; 
@@ -226,10 +217,7 @@
         .btn-add:disabled { background: #cccccc; cursor: not-allowed; }
 
         @media (max-width: 600px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .product-card { padding: 10px; border-radius: 18px; }
             .thumb-container { height: 160px; border-radius: 60px 60px 10px 10px; margin-bottom: 10px; }
             .category-header h2 { font-size: 22px; }
@@ -237,8 +225,8 @@
             .product-info p { font-size: 10px; margin-bottom: 10px; }
             .price { font-size: 14px; }
             .btn-add { padding: 10px; font-size: 11px; letter-spacing: 0.5px; border-radius: 10px; }
-            .top-urgency-bar { font-size: 9px; flex-direction: column; gap: 2px; padding: 5px; }
-            body { padding-top: 40px; }
+            .top-urgency-bar { font-size: 10px; padding: 10px; }
+            body { padding-top: 38px; }
         }
 
         /* ====== POPUP ====== */
@@ -249,39 +237,31 @@
             z-index: 2000; justify-content: center; align-items: center;
         }
         .popup-box {
-            background: #ffffff; color: #000000; width: 90%; max-width: 400px;
-            padding: 30px; border-radius: 24px; text-align: center; position: relative;
+            background: #ffffff; color: #000000; width: 90%; max-width: 420px;
+            padding: 35px 30px; border-radius: 24px; text-align: center; position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.25); font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .popup-close {
             position: absolute; top: 15px; right: 20px; background: none; border: none;
             font-size: 22px; cursor: pointer; color: #888;
         }
-        .popup-box h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-top: 10px; margin-bottom: 5px; font-weight: 700; }
-        .popup-box p { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; }
+        .popup-box h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-top: 10px; margin-bottom: 8px; font-weight: 700; line-height: 1.2; }
+        .popup-box p { color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px; line-height: 1.4; }
+        .popup-small-print { display: block; font-size: 10px; color: #999; margin-top: 8px; font-style: italic; }
 
         .popup-input {
-            width: 100%; padding: 12px 15px; margin-bottom: 12px; border: 1.5px solid #ddd;
+            width: 100%; padding: 13px 15px; margin-bottom: 12px; border: 1.5px solid #ddd;
             border-radius: 12px; font-size: 14px; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif;
             outline: none;
         }
         .popup-input:focus { border-color: #000; }
 
-        .timer-container {
-            display: flex; justify-content: center; gap: 15px; background: #fbf9f6;
-            padding: 12px; border-radius: 16px; border: 1px solid #f0eae1; margin-bottom: 20px;
-        }
-        .timer-block { display: flex; flex-direction: column; align-items: center; }
-        .timer-number { font-family: 'Cinzel', serif; font-size: 19px; font-weight: 600; color: #000000; }
-        .timer-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 700; }
-        .timer-divider { font-size: 18px; font-weight: 700; color: #ccc; align-self: center; }
-
         .btn-claim {
-            background: #000000; color: #ffffff; border: none; width: 100%; padding: 14px;
+            background: #000000; color: #ffffff; border: none; width: 100%; padding: 15px;
             border-radius: 14px; font-size: 13px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; cursor: pointer;
+            letter-spacing: 1px; cursor: pointer; margin-top: 10px;
         }
-        .btn-decline { background: none; border: none; color: #888; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 12px; text-decoration: underline; }
+        .btn-decline { background: none; border: none; color: #888; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 15px; text-decoration: underline; }
 
         /* ====== ZOOM DE IMÁGENES ====== */
         .modal-imagen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 3000; }
@@ -327,8 +307,7 @@
 <body>
 
     <div class="top-urgency-bar" id="topPromoBar" style="display: none;">
-        <span>✨ 10% OFF EN TU PRIMERA COMPRA ✨</span>
-        <div class="top-timer" id="topTimerDisplay">72:00:00</div>
+        <span>✨ 10% OFF + MASCARILLA GRATIS EN TU PRIMER COMPRA ✨</span>
     </div>
 
     <header>
@@ -348,30 +327,14 @@
     <div id="popupOverlay" class="popup-overlay">
         <div class="popup-box">
             <button class="popup-close" onclick="cerrarPopup()">&times;</button>
-            <h2>¡10% de Descuento!</h2>
-            <p>Ingresa tus datos para registrar tu 10% OFF exclusivo de 72 horas.</p>
+            <h2>¡10% OFF + Regalo! 🎁</h2>
+            <p>Ingresa tus datos para registrar tu 10% de descuento y llévate una <strong>mascarilla facial coreana GRATIS</strong> en tu primera compra desde la web.</p>
             
             <input type="text" id="nombreCliente" class="popup-input" placeholder="Tu Nombre">
             <input type="tel" id="telefonoCliente" class="popup-input" placeholder="Tu Número de WhatsApp (10 dígitos)">
 
-            <div class="timer-container">
-                <div class="timer-block">
-                    <span id="popupHours" class="timer-number">72</span>
-                    <span class="timer-label">Horas</span>
-                </div>
-                <div class="timer-divider">:</div>
-                <div class="timer-block">
-                    <span id="popupMins" class="timer-number">00</span>
-                    <span class="timer-label">Minutos</span>
-                </div>
-                <div class="timer-divider">:</div>
-                <div class="timer-block">
-                    <span id="popupSecs" class="timer-number">00</span>
-                    <span class="timer-label">Segundos</span>
-                </div>
-            </div>
-
             <button class="btn-claim" onclick="registrarYDesbloquear()">Desbloquear mi 10% OFF ✨</button>
+            <span class="popup-small-print">*Válido en tu primera compra. Mascarilla gratis hasta agotar existencias.</span>
             <button class="btn-decline" onclick="cerrarPopup()">No, gracias</button>
         </div>
     </div>
@@ -411,19 +374,16 @@
         let categoriaActiva = 'todos';
         let carrito = [];
         let descuentoData = JSON.parse(localStorage.getItem('antaraPromo')) || null;
-        let temporizadorInterval;
 
         window.addEventListener('DOMContentLoaded', () => {
             if (descuentoData && descuentoData.activo) {
-                iniciarTemporizadorGlobal(descuentoData.endTime);
                 document.getElementById('topPromoBar').style.display = 'flex';
             } else {
                 setTimeout(() => {
                     if (!document.getElementById('popupOverlay').style.display.includes('flex')) {
                         document.getElementById('popupOverlay').style.display = 'flex';
-                        iniciarTemporizadorVisualPopup();
                     }
-                }, 10000);
+                }, 8000); // 8 segundos para que aparezca
             }
         });
 
@@ -436,56 +396,18 @@
             let tel = document.getElementById('telefonoCliente').value.trim();
 
             if (!nombre || !tel) {
-                alert("Por favor ingresa tu nombre y número de WhatsApp para aplicar el descuento.");
+                alert("Por favor ingresa tu nombre y número de WhatsApp para aplicar el descuento y regalo.");
                 return;
             }
 
-            let endTime = new Date().getTime() + (72 * 3600 * 1000); 
-            descuentoData = { activo: true, nombre: nombre, telefono: tel, endTime: endTime };
+            descuentoData = { activo: true, nombre: nombre, telefono: tel };
             localStorage.setItem('antaraPromo', JSON.stringify(descuentoData));
 
             cerrarPopup();
             document.getElementById('topPromoBar').style.display = 'flex';
-            mostrarToast(`🎉 ¡Descuento de 72h activado para ${nombre}!`);
+            mostrarToast(`🎉 ¡Descuento y regalo activados para ${nombre}!`);
             
-            iniciarTemporizadorGlobal(endTime);
             actualizarCarritoUI();
-        }
-
-        function iniciarTemporizadorVisualPopup() {
-            let totalSeconds = 72 * 3600;
-            setInterval(() => {
-                if (totalSeconds <= 0) return;
-                totalSeconds--;
-                let h = Math.floor(totalSeconds / 3600);
-                let m = Math.floor((totalSeconds % 3600) / 60);
-                let s = totalSeconds % 60;
-                document.getElementById('popupHours').innerText = String(h).padStart(2, '0');
-                document.getElementById('popupMins').innerText = String(m).padStart(2, '0');
-                document.getElementById('popupSecs').innerText = String(s).padStart(2, '0');
-            }, 1000);
-        }
-
-        function iniciarTemporizadorGlobal(endTime) {
-            clearInterval(temporizadorInterval);
-            temporizadorInterval = setInterval(() => {
-                let now = new Date().getTime();
-                let distance = endTime - now;
-                
-                if (distance < 0) {
-                    clearInterval(temporizadorInterval);
-                    localStorage.removeItem('antaraPromo');
-                    descuentoData = null;
-                    document.getElementById('topPromoBar').style.display = 'none';
-                    actualizarCarritoUI();
-                    return;
-                }
-                
-                let h = Math.floor((distance % (1000 * 60 * 60 * 24 * 4)) / (1000 * 60 * 60));
-                let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                let s = Math.floor((distance % (1000 * 60)) / 1000);
-                document.getElementById('topTimerDisplay').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-            }, 1000);
         }
 
         function abrirZoom(urlImagen) {
@@ -548,7 +470,7 @@
                         let stockText = enStock ? `` : `<div class="stock-info" style="color:#c53030;">Agotado</div>`;
                         let botonText = window.innerWidth > 600 ? "Agregar al carrito" : "Agregar";
                         let botonHtml = enStock 
-                            ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)}, event)'>${botonText}</button>` 
+                            ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)})'>${botonText}</button>` 
                             : `<button class="btn-add" disabled>Agotado</button>`;
 
                         html += `
@@ -650,7 +572,7 @@
             if (aplicaDescuento && carrito.length > 0) {
                 bannerDiv.style.display = 'flex';
                 bannerDiv.className = 'cart-discount-banner';
-                bannerDiv.innerHTML = `<span>⏱️ 10% de descuento (Activo)</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>`;
+                bannerDiv.innerHTML = `<span>✨ 10% OFF + Regalo Activado</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>`;
             } else {
                 bannerDiv.style.display = 'none';
             }
@@ -695,7 +617,7 @@
             if (aplicaDescuento) {
                 resumenHtml += `
                     <div style="display: flex; justify-content: space-between; font-size: 13px; color: #275d29; font-weight: 600; margin-bottom: 8px;">
-                        <span>Descuento 10% (Registrado)</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>
+                        <span>Descuento 10% (Primera Compra)</span> <span style="font-family: 'Cinzel', serif;">-$${descuentoMonto.toFixed(2)} MXN</span>
                     </div>
                 `;
             }
@@ -720,7 +642,7 @@
 
             let mensaje = "✨ *NUEVO PEDIDO - ANTARA* ✨\n\n";
             if (aplicaDescuento) {
-                mensaje += `👤 Cliente: ${descuentoData.nombre}\n📱 WhatsApp: ${descuentoData.telefono}\n\n`;
+                mensaje += `👤 Cliente: ${descuentoData.nombre}\n📱 WhatsApp: ${descuentoData.telefono}\n🎁 ¡Aplica 10% OFF + Mascarilla de regalo!\n\n`;
             }
             mensaje += "Hola, me gustaría apartar / comprar los siguientes productos:\n\n";
             
