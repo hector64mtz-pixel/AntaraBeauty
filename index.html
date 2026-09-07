@@ -209,31 +209,17 @@
         .product-info h3 { margin: 0 0 5px 0; font-size: 16px; font-weight: 700; letter-spacing: 0.5px; }
         .product-info p { margin: 0 0 15px 0; color: var(--text-muted); font-size: 13px; line-height: 1.5; }
         
-        /* TEXTO DE STOCK ESTILO FATE */
+        /* TEXTO DE STOCK AGOTADO */
         .stock-info {
             font-size: 10px; 
             font-weight: 700; 
-            color: #a88267; 
             text-transform: uppercase; 
             letter-spacing: 1px; 
-            margin-bottom: 15px; 
+            margin-bottom: 10px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             gap: 5px;
-        }
-        .stock-dot { 
-            width: 6px; 
-            height: 6px; 
-            background-color: #a88267; 
-            border-radius: 50%; 
-            display: inline-block; 
-            animation: pulseDot 2s infinite;
-        }
-        @keyframes pulseDot { 
-            0% { opacity: 1; } 
-            50% { opacity: 0.4; } 
-            100% { opacity: 1; } 
         }
 
         .product-meta {
@@ -350,7 +336,7 @@
 
         /* ====== CARRITO ====== */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 200; backdrop-filter: blur(5px); }
-        .modal-content { background: rgba(255, 255, 255, 0.98); color: #000000; width: 90%; max-width: 480px; padding: 30px; border-radius: 24px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .modal-content { background: rgba(255, 255, 255, 0.98); color: #000000; width: 90%; max-width: 520px; padding: 30px; border-radius: 24px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         
         .cart-bar { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
@@ -367,8 +353,8 @@
             margin-bottom: 15px; border: 1px solid #c8e6b8;
         }
 
-        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; }
-        .cart-controls { display: flex; align-items: center; gap: 10px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; gap: 10px; }
+        .cart-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .btn-qty { background: #f0eae1; color: #000000; border: none; padding: 6px 12px; cursor: pointer; font-weight: bold; border-radius: 8px; transition: 0.2s;}
         .btn-qty:hover { background: #e0d6c8;}
         .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -450,7 +436,7 @@
 
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
-            <h2 style="margin-top:0; font-size: 22px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
+            <h2 style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
             
             <div id="carritoBannerDescuento" style="display:none;"></div>
 
@@ -619,9 +605,9 @@
                         let imagenHtml = item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}" class="product-thumb" onclick="abrirZoom('${item.imagen}')">` : '';
                         let enStock = item.existencia > 0;
                         
-                        // TEXTO DE STOCK DINÁMICO
+                        // TEXTO DE STOCK DINÁMICO (Ocultado el de disponible, solo muestra Agotado)
                         let stockText = enStock 
-                            ? `<div class="stock-info"><span class="stock-dot"></span> Quedan ${item.existencia} en stock</div>` 
+                            ? `` 
                             : `<div class="stock-info" style="color:#c53030;">Agotado</div>`;
 
                         let botonText = window.innerWidth > 600 ? "Agregar al carrito" : "Agregar";
@@ -668,7 +654,8 @@
                 }
                 encontrado.cantidad += 1;
             } else {
-                carrito.push({ nombre: item.nombre, precio: item.precio, desc: item.desc, cantidad: 1, existencia: item.existencia });
+                // Guardamos la imagen en el carrito para mostrarla después
+                carrito.push({ nombre: item.nombre, precio: item.precio, desc: item.desc, cantidad: 1, existencia: item.existencia, imagen: item.imagen });
             }
             actualizarCarritoUI();
             mostrarToast(`Se agregó ${item.nombre} a tu bolsa`);
@@ -747,11 +734,17 @@
                 // Apagar el botón "+" si ya se llegó al stock límite
                 let disabledPlus = (item.cantidad >= item.existencia) ? "disabled" : "";
                 
+                // Miniatura de la imagen
+                let imgTag = item.imagen ? `<img src="${item.imagen}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; flex-shrink: 0; background: #f0eae1;">` : '';
+
                 html += `
                     <div class="cart-item">
-                        <div>
-                            <strong style="color:#000000; font-size: 14px;">${item.nombre}${detalleStr}</strong><br>
-                            <small style="color:#555555; font-weight:600; font-family: 'Cinzel', serif;">$${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad} MXN</small>
+                        <div style="display: flex; align-items: center; gap: 12px; flex: 1; padding-right: 10px;">
+                            ${imgTag}
+                            <div>
+                                <strong style="color:#000000; font-size: 13px; line-height: 1.3; display: block; margin-bottom: 4px;">${item.nombre}${detalleStr}</strong>
+                                <small style="color:#555555; font-weight:600; font-family: 'Cinzel', serif;">$${item.precio} x ${item.cantidad}</small>
+                            </div>
                         </div>
                         <div class="cart-controls">
                             <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -1, ${item.existencia})">-</button>
