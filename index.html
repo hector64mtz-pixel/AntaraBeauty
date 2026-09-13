@@ -14,6 +14,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
+    <!-- Fuentes Elegantes -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -259,7 +260,7 @@
             font-weight: 600; 
             font-size: 17px; 
             letter-spacing: 0.5px;
-            color: #c53030; /* Rojo elegante para el precio en oferta */
+            color: #c53030; /* Rojo elegante para la oferta */
         }
         .price-old {
             font-family: 'Cinzel', serif;
@@ -360,6 +361,7 @@
 </head>
 <body>
 
+    <!-- Barra Superior con Carrusel y Contador -->
     <div class="top-urgency-bar">
         <div class="urgency-slider">
             <div class="urgency-slide active">
@@ -371,6 +373,7 @@
         </div>
     </div>
 
+    <!-- BOTÓN FLOTANTE DE CARRITO -->
     <div class="floating-cart-btn" onclick="abrirCarrito()" title="Ver Carrito">
         🛍️
         <div class="cart-dot-badge" id="cartDot"></div>
@@ -392,11 +395,13 @@
 
     <div id="toast-container" class="toast-container"></div>
 
+    <!-- MODAL DE ZOOM -->
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
         <img id="imgZoom" src="" alt="Vista previa">
     </div>
 
+    <!-- MODAL DEL CARRITO -->
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
             <h2 style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
@@ -489,40 +494,15 @@
 
         function procesarDatosCatalogo(datosCrudos) {
             datosOriginales = datosCrudos.map(item => {
-                let precioOriginal = Number(item["precio"]) || 0;
-                let reglaColG = String(item["columna g"] || item["g"] || item["oferta"] || item[Object.keys(item)[6]] || "").trim().toLowerCase();
-                
-                let precioFinal = precioOriginal;
-                let precioTachado = 0;
-
-                if (reglaColG !== "") {
-                    if (reglaColG.includes("%")) {
-                        let porc = parseFloat(reglaColG.replace("%", ""));
-                        if (!isNaN(porc) && porc > 0) {
-                            precioTachado = precioOriginal;
-                            precioFinal = Math.round(precioOriginal * (1 - (porc / 100)));
-                        }
-                    } else if (reglaColG.includes("vender en") || reglaColG.includes("dejar en")) {
-                        let matchNum = reglaColG.match(/\d+/);
-                        if (matchNum) {
-                            let nuevoPrecioFijo = Number(matchNum[0]);
-                            if (nuevoPrecioFijo > 0 && nuevoPrecioFijo < precioOriginal) {
-                                precioTachado = precioOriginal;
-                                precioFinal = nuevoPrecioFijo;
-                            }
-                        }
-                    } else if (reglaColG.includes("bajarle el 10 dcto")) {
-                        precioTachado = precioOriginal;
-                        precioFinal = Math.round(precioOriginal * 0.9);
-                    }
-                }
+                let precioActual = Number(item["precio"]) || 0;
+                let precioAnteriorTachado = Number(item["precio anterior"]) || 0;
 
                 return {
-                    nombre: item["producto"] || item["nombre"] || "Sin nombre",
-                    categoria: item["categoría"] || item["categoria"] || "", 
-                    precio: precioFinal,
-                    precioAnterior: precioTachado,
-                    desc: item["detalles / tono"] || item["detalles"] || "",
+                    nombre: item["producto"] || "Sin nombre",
+                    categoria: item["categoría"] || "", 
+                    precio: precioActual,
+                    precioAnterior: precioAnteriorTachado,
+                    desc: item["detalles / tono"] || "",
                     imagen: item["imagen"] || "",
                     existencia: Number(item["existencia"]) || 0 
                 };
