@@ -420,7 +420,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp1DP4PFs8v0H5osvm29B5oJsQDc0rNyf4jFlEbHNbIUDwRHtRluwlFsxywODRGzLe/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvUPizshlJP3jy4qW-ryt_47DBW73PF2CKzMy5AQmjBa-hNV351ww1KO9FpA4CycIw/exec";
         
         let datosOriginales = [];
         let categoriaActiva = 'todos';
@@ -490,7 +490,6 @@
         function procesarDatosCatalogo(datosCrudos) {
             datosOriginales = datosCrudos.map(item => {
                 let precioOriginal = Number(item["precio"]) || 0;
-                // Columna G (columna extra de la derecha con notas/porcentajes/instrucciones)
                 let reglaColG = String(item["columna g"] || item["g"] || item["oferta"] || item[Object.keys(item)[6]] || "").trim().toLowerCase();
                 
                 let precioFinal = precioOriginal;
@@ -777,7 +776,7 @@
                 alert("¡Tu pedido se ha copiado con éxito! Se abrirá Instagram para que nos lo envíes por DM. 💖");
                 window.open(url, '_blank');
             }).catch(err => {
-                window.open(url, '_blank']);
+                window.open(url, '_blank');
             });
         }
 
