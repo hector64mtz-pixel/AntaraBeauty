@@ -33,7 +33,7 @@
             padding-top: 35px; 
         }
 
-        /* ====== BARRA SUPERIOR ELEGANTE ====== */
+        /* ====== BARRA SUPERIOR CON CARRUSEL Y CONTADOR ====== */
         .top-urgency-bar {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -42,13 +42,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            padding: 8px 10px;
+            height: 35px;
             z-index: 1000;
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
+            overflow: hidden;
+        }
+        .urgency-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .urgency-slide {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .urgency-slide.active {
+            opacity: 1;
+        }
+        .countdown-timer {
+            font-family: 'Cinzel', serif;
+            color: #ffd700;
+            letter-spacing: 0.5px;
         }
 
         header { 
@@ -69,7 +96,7 @@
             transform: scale(1.2); 
         }
 
-        /* ====== BOTÓN FLOTANTE DE CARRITO (ESQUINA SUPERIOR DERECHA) ====== */
+        /* ====== BOTÓN FLOTANTE DE CARRITO ====== */
         .floating-cart-btn {
             position: fixed;
             top: 50px;
@@ -93,7 +120,6 @@
             color: #ffffff;
             transform: scale(1.05);
         }
-        /* Puntito rojo dinámico */
         .cart-dot-badge {
             position: absolute;
             top: 4px;
@@ -220,8 +246,9 @@
 
         .product-meta {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 12px;
             margin-top: auto;
             margin-bottom: 15px;
             padding: 0 5px;
@@ -232,6 +259,13 @@
             font-weight: 600; 
             font-size: 17px; 
             letter-spacing: 0.5px;
+            color: #c53030; /* Rojo elegante para el precio en oferta */
+        }
+        .price-old {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            color: #888888;
+            text-decoration: line-through;
         }
         
         .btn-add { 
@@ -251,8 +285,9 @@
             .product-info h3 { font-size: 12px; line-height: 1.3; }
             .product-info p { font-size: 10px; margin-bottom: 10px; }
             .price { font-size: 14px; }
+            .price-old { font-size: 11px; }
             .btn-add { padding: 10px; font-size: 11px; letter-spacing: 0.5px; border-radius: 10px; }
-            .top-urgency-bar { font-size: 10px; padding: 8px; }
+            .top-urgency-bar { font-size: 10px; }
             body { padding-top: 38px; }
             .floating-cart-btn { top: 45px; right: 15px; width: 40px; height: 40px; }
         }
@@ -326,7 +361,14 @@
 <body>
 
     <div class="top-urgency-bar">
-        <span>✨ Entregas personales en Santiago y Monterrey 💖</span>
+        <div class="urgency-slider">
+            <div class="urgency-slide active">
+                <span>✨ Entregas personales en Santiago y Monterrey 💖</span>
+            </div>
+            <div class="urgency-slide">
+                <span>🔥 OFERTA FLASH: Termina en <span id="countdownDisplay" class="countdown-timer">--d --h --m --s</span></span>
+            </div>
+        </div>
     </div>
 
     <div class="floating-cart-btn" onclick="abrirCarrito()" title="Ver Carrito">
@@ -385,6 +427,51 @@
         let carrito = [];
         let cuponAplicado = false; 
 
+        let currentSlide = 0;
+        function initSlider() {
+            const slides = document.querySelectorAll('.urgency-slide');
+            if (slides.length === 0) return;
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 4000);
+        }
+
+        // CONTADOR HASTA EL MIÉRCOLES 11:59 PM
+        function initCountdown() {
+            const now = new Date();
+            const targetDate = new Date();
+            let dayOfWeek = now.getDay();
+            let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
+            if (daysUntilWednesday === 0 && (now.getHours() >= 23 && now.getMinutes() >= 59)) {
+                daysUntilWednesday = 7;
+            }
+            targetDate.setDate(now.getDate() + daysUntilWednesday);
+            targetDate.setHours(23, 59, 59, 999);
+
+            function updateTimer() {
+                const currentTime = new Date().getTime();
+                const distance = targetDate.getTime() - currentTime;
+
+                if (distance < 0) {
+                    document.getElementById("countdownDisplay").innerHTML = "¡FINALIZADO!";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                let timeString = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                const el = document.getElementById("countdownDisplay");
+                if (el) el.innerHTML = timeString;
+            }
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
         function abrirZoom(urlImagen) {
             document.getElementById('imgZoom').src = urlImagen;
             document.getElementById('modalZoom').style.display = 'flex';
@@ -401,14 +488,46 @@
         }
 
         function procesarDatosCatalogo(datosCrudos) {
-            datosOriginales = datosCrudos.map(item => ({
-                nombre: item["producto"] || item["nombre"] || "Sin nombre",
-                categoria: item["categoría"] || item["categoria"] || "", 
-                precio: Number(item["precio"]) || 0,
-                desc: item["detalles / tono"] || item["detalles"] || "",
-                imagen: item["imagen"] || "",
-                existencia: Number(item["existencia"]) || 0 
-            }));
+            datosOriginales = datosCrudos.map(item => {
+                let precioOriginal = Number(item["precio"]) || 0;
+                // Columna G (columna extra de la derecha con notas/porcentajes/instrucciones)
+                let reglaColG = String(item["columna g"] || item["g"] || item["oferta"] || item[Object.keys(item)[6]] || "").trim().toLowerCase();
+                
+                let precioFinal = precioOriginal;
+                let precioTachado = 0;
+
+                if (reglaColG !== "") {
+                    if (reglaColG.includes("%")) {
+                        let porc = parseFloat(reglaColG.replace("%", ""));
+                        if (!isNaN(porc) && porc > 0) {
+                            precioTachado = precioOriginal;
+                            precioFinal = Math.round(precioOriginal * (1 - (porc / 100)));
+                        }
+                    } else if (reglaColG.includes("vender en") || reglaColG.includes("dejar en")) {
+                        let matchNum = reglaColG.match(/\d+/);
+                        if (matchNum) {
+                            let nuevoPrecioFijo = Number(matchNum[0]);
+                            if (nuevoPrecioFijo > 0 && nuevoPrecioFijo < precioOriginal) {
+                                precioTachado = precioOriginal;
+                                precioFinal = nuevoPrecioFijo;
+                            }
+                        }
+                    } else if (reglaColG.includes("bajarle el 10 dcto")) {
+                        precioTachado = precioOriginal;
+                        precioFinal = Math.round(precioOriginal * 0.9);
+                    }
+                }
+
+                return {
+                    nombre: item["producto"] || item["nombre"] || "Sin nombre",
+                    categoria: item["categoría"] || item["categoria"] || "", 
+                    precio: precioFinal,
+                    precioAnterior: precioTachado,
+                    desc: item["detalles / tono"] || item["detalles"] || "",
+                    imagen: item["imagen"] || "",
+                    existencia: Number(item["existencia"]) || 0 
+                };
+            });
             renderizarCatalogo();
         }
 
@@ -448,6 +567,16 @@
                             ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)})'>${botonText}</button>` 
                             : `<button class="btn-add" disabled>Agotado</button>`;
 
+                        let preciosHtml = "";
+                        if (item.precioAnterior && item.precioAnterior > item.precio) {
+                            preciosHtml = `
+                                <span class="price-old">$${item.precioAnterior}</span>
+                                <span class="price">$${item.precio} MXN</span>
+                            `;
+                        } else {
+                            preciosHtml = `<span class="price" style="color:#000;">$${item.precio} MXN</span>`;
+                        }
+
                         html += `
                             <div class="product-card">
                                 <div class="thumb-container">
@@ -458,7 +587,7 @@
                                     <p>${item.desc}</p>
                                     ${stockText}
                                     <div class="product-meta">
-                                        <span class="price">$${item.precio} MXN</span>
+                                        ${preciosHtml}
                                     </div>
                                 </div>
                                 ${botonHtml}
@@ -648,11 +777,13 @@
                 alert("¡Tu pedido se ha copiado con éxito! Se abrirá Instagram para que nos lo envíes por DM. 💖");
                 window.open(url, '_blank');
             }).catch(err => {
-                window.open(url, '_blank');
+                window.open(url, '_blank']);
             });
         }
 
         window.addEventListener('resize', renderizarCatalogo);
+        initSlider();
+        initCountdown();
         cargarCatalogo();
     </script>
 
