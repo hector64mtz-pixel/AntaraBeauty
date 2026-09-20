@@ -14,7 +14,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
-    <!-- Fuentes Elegantes -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -34,7 +33,7 @@
             padding-top: 35px; 
         }
 
-        /* ====== BARRA SUPERIOR CON CARRUSEL Y CONTADOR ====== */
+        /* ====== BARRA SUPERIOR ELEGANTE ====== */
         .top-urgency-bar {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -49,34 +48,6 @@
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            overflow: hidden;
-        }
-        .urgency-slider {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .urgency-slide {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-        .urgency-slide.active {
-            opacity: 1;
-        }
-        .countdown-timer {
-            font-family: 'Cinzel', serif;
-            color: #ffd700;
-            letter-spacing: 0.5px;
         }
 
         header { 
@@ -249,7 +220,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
             margin-top: auto;
             margin-bottom: 15px;
             padding: 0 5px;
@@ -260,13 +230,7 @@
             font-weight: 600; 
             font-size: 17px; 
             letter-spacing: 0.5px;
-            color: #c53030; /* Rojo elegante para la oferta */
-        }
-        .price-old {
-            font-family: 'Cinzel', serif;
-            font-size: 13px;
-            color: #888888;
-            text-decoration: line-through;
+            color: #000000; /* Precio estándar limpio en negro */
         }
         
         .btn-add { 
@@ -286,7 +250,6 @@
             .product-info h3 { font-size: 12px; line-height: 1.3; }
             .product-info p { font-size: 10px; margin-bottom: 10px; }
             .price { font-size: 14px; }
-            .price-old { font-size: 11px; }
             .btn-add { padding: 10px; font-size: 11px; letter-spacing: 0.5px; border-radius: 10px; }
             .top-urgency-bar { font-size: 10px; }
             body { padding-top: 38px; }
@@ -361,19 +324,10 @@
 </head>
 <body>
 
-    <!-- Barra Superior con Carrusel y Contador -->
     <div class="top-urgency-bar">
-        <div class="urgency-slider">
-            <div class="urgency-slide active">
-                <span>✨ Entregas personales en Santiago y Monterrey 💖</span>
-            </div>
-            <div class="urgency-slide">
-                <span>🔥 OFERTA FLASH: Termina en <span id="countdownDisplay" class="countdown-timer">--d --h --m --s</span></span>
-            </div>
-        </div>
+        <span>✨ Entregas personales en Santiago y Monterrey 💖</span>
     </div>
 
-    <!-- BOTÓN FLOTANTE DE CARRITO -->
     <div class="floating-cart-btn" onclick="abrirCarrito()" title="Ver Carrito">
         🛍️
         <div class="cart-dot-badge" id="cartDot"></div>
@@ -395,13 +349,11 @@
 
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- MODAL DE ZOOM -->
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
         <img id="imgZoom" src="" alt="Vista previa">
     </div>
 
-    <!-- MODAL DEL CARRITO -->
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
             <h2 style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
@@ -432,51 +384,6 @@
         let carrito = [];
         let cuponAplicado = false; 
 
-        let currentSlide = 0;
-        function initSlider() {
-            const slides = document.querySelectorAll('.urgency-slide');
-            if (slides.length === 0) return;
-            setInterval(() => {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }, 4000);
-        }
-
-        // CONTADOR HASTA EL MIÉRCOLES 11:59 PM
-        function initCountdown() {
-            const now = new Date();
-            const targetDate = new Date();
-            let dayOfWeek = now.getDay();
-            let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
-            if (daysUntilWednesday === 0 && (now.getHours() >= 23 && now.getMinutes() >= 59)) {
-                daysUntilWednesday = 7;
-            }
-            targetDate.setDate(now.getDate() + daysUntilWednesday);
-            targetDate.setHours(23, 59, 59, 999);
-
-            function updateTimer() {
-                const currentTime = new Date().getTime();
-                const distance = targetDate.getTime() - currentTime;
-
-                if (distance < 0) {
-                    document.getElementById("countdownDisplay").innerHTML = "¡FINALIZADO!";
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                let timeString = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-                const el = document.getElementById("countdownDisplay");
-                if (el) el.innerHTML = timeString;
-            }
-            updateTimer();
-            setInterval(updateTimer, 1000);
-        }
-
         function abrirZoom(urlImagen) {
             document.getElementById('imgZoom').src = urlImagen;
             document.getElementById('modalZoom').style.display = 'flex';
@@ -493,20 +400,14 @@
         }
 
         function procesarDatosCatalogo(datosCrudos) {
-            datosOriginales = datosCrudos.map(item => {
-                let precioActual = Number(item["precio"]) || 0;
-                let precioAnteriorTachado = Number(item["precio anterior"]) || 0;
-
-                return {
-                    nombre: item["producto"] || "Sin nombre",
-                    categoria: item["categoría"] || "", 
-                    precio: precioActual,
-                    precioAnterior: precioAnteriorTachado,
-                    desc: item["detalles / tono"] || "",
-                    imagen: item["imagen"] || "",
-                    existencia: Number(item["existencia"]) || 0 
-                };
-            });
+            datosOriginales = datosCrudos.map(item => ({
+                nombre: item["producto"] || "Sin nombre",
+                categoria: item["categoría"] || "", 
+                precio: Number(item["precio"]) || 0,
+                desc: item["detalles / tono"] || "",
+                imagen: item["imagen"] || "",
+                existencia: Number(item["existencia"]) || 0 
+            }));
             renderizarCatalogo();
         }
 
@@ -546,16 +447,6 @@
                             ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)})'>${botonText}</button>` 
                             : `<button class="btn-add" disabled>Agotado</button>`;
 
-                        let preciosHtml = "";
-                        if (item.precioAnterior && item.precioAnterior > item.precio) {
-                            preciosHtml = `
-                                <span class="price-old">$${item.precioAnterior}</span>
-                                <span class="price">$${item.precio} MXN</span>
-                            `;
-                        } else {
-                            preciosHtml = `<span class="price" style="color:#000;">$${item.precio} MXN</span>`;
-                        }
-
                         html += `
                             <div class="product-card">
                                 <div class="thumb-container">
@@ -566,7 +457,7 @@
                                     <p>${item.desc}</p>
                                     ${stockText}
                                     <div class="product-meta">
-                                        ${preciosHtml}
+                                        <span class="price">$${item.precio} MXN</span>
                                     </div>
                                 </div>
                                 ${botonHtml}
@@ -761,8 +652,6 @@
         }
 
         window.addEventListener('resize', renderizarCatalogo);
-        initSlider();
-        initCountdown();
         cargarCatalogo();
     </script>
 
