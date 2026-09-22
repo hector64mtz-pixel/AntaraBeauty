@@ -51,7 +51,7 @@
             text-transform: uppercase;
         }
 
-        /* ====== ENCABEZADO CON VIDEO DE FONDO (STREAMABLE) ====== */
+        /* ====== ENCABEZADO CON VIDEO NATIVO LOCAL ====== */
         header { 
             position: relative;
             width: 100%;
@@ -67,33 +67,21 @@
             background: #f0eae1;
         }
 
-        /* Contenedor del video incrustado como fondo estético */
-        .header-bg-iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .header-bg-iframe iframe {
+        /* Video de fondo nativo de alta velocidad */
+        .header-bg-video {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 100vw;
-            height: 56.25vw; /* Ratio 16:9 por defecto o cubriendo pantalla */
-            min-height: 100%;
-            min-width: 100.5%;
             transform: translate(-50%, -50%);
-            border: none;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
             object-fit: cover;
-            pointer-events: none;
         }
 
-        /* Capa sutil translúcida para legibilidad */
+        /* Capa sutil translúcida para contraste elegante */
         .header-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -409,16 +397,16 @@
     </div>
 
     <header>
-        <!-- Video incrustado de Streamable (Fondo en bucle y autoplay) -->
-        <div class="header-bg-iframe">
-            <iframe allow="fullscreen;autoplay" allowfullscreen src="https://streamable.com/e/1535iv?autoplay=1&muted=1&nocontrols=1"></iframe>
-        </div>
-
+        <!-- Video nativo local alojado en GitHub -->
+        <video autoplay muted loop playsinline preload="auto" class="header-bg-video">
+            <source src="video-antara.mp4" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+        </video>
         <!-- Capa translúcida para contraste elegante -->
         <div class="header-overlay"></div>
 
         <!-- Logotipo discreto en la esquina superior izquierda -->
-        <img src="https://i.postimg.cc/jdwMrBsk/Nuevo-logo-ANTARA.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
+        <img src="logo-antara.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
 
         <!-- Contenido central superior -->
         <div class="header-content-inner">
