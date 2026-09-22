@@ -55,12 +55,12 @@
         header { 
             position: relative;
             width: 100%;
-            min-height: 380px;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
-            padding: 20px 15px 25px 15px;
+            padding: 30px 15px;
             overflow: hidden;
             border-bottom: 1px solid #eae5df;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
@@ -84,7 +84,7 @@
         .header-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.5);
             z-index: 2;
         }
 
@@ -97,7 +97,7 @@
             max-width: 110px;
             width: 100%;
             height: auto;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+            mix-blend-mode: multiply;
         }
 
         /* Contenido del Header */
@@ -113,14 +113,14 @@
 
         .header-title-aesthetic {
             font-family: 'Playfair Display', serif;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: #000000;
             margin: 0;
             text-align: center;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+            text-shadow: 0 2px 10px rgba(255,255,255,0.9);
         }
 
         /* ====== BOTÓN FLOTANTE DE CARRITO ====== */
@@ -300,9 +300,9 @@
         .btn-add:disabled { background: #cccccc; cursor: not-allowed; }
 
         @media (max-width: 600px) {
-            header { min-height: 320px; padding: 15px 10px 20px 10px; }
+            header { min-height: 340px; padding: 25px 10px; }
             .brand-logo-corner { max-width: 85px; top: 12px; left: 12px; }
-            .header-title-aesthetic { font-size: 20px; letter-spacing: 1.5px; }
+            .header-title-aesthetic { font-size: 22px; letter-spacing: 2px; }
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .product-card { padding: 10px; border-radius: 18px; }
             .thumb-container { height: 160px; border-radius: 60px 60px 10px 10px; margin-bottom: 10px; }
@@ -396,16 +396,16 @@
     </div>
 
     <header>
-        <!-- Video de Fondo Estético (Enlace directo desde Google Drive) -->
-        <video autoplay muted loop playsinline class="header-bg-video">
-            <source src="https://docs.google.com/uc?export=download&id=1F8M71mvUenSoZ5GTiSqoCiY4Won5ryZ3" type="video/mp4">
+        <!-- Video de Fondo Estético -->
+        <video autoplay muted loop playsinline preload="auto" class="header-bg-video">
+            <source src="video-antara.mp4" type="video/mp4">
             Tu navegador no soporta videos HTML5.
         </video>
         <!-- Capa translúcida para contraste elegante -->
         <div class="header-overlay"></div>
 
         <!-- Logotipo discreto en la esquina superior izquierda -->
-        <img src="https://i.postimg.cc/jdwMrBsk/Nuevo-logo-ANTARA.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
+        <img src="logo-antara.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
 
         <!-- Contenido central superior -->
         <div class="header-content-inner">
