@@ -14,6 +14,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ANTARA">
 
+    <!-- Fuentes Elegantes -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -50,22 +51,76 @@
             text-transform: uppercase;
         }
 
+        /* ====== ENCABEZADO CON VIDEO DE FONDO ====== */
         header { 
-            background: #ffffff;
-            padding: 20px 15px 15px 15px; 
-            text-align: center; 
-            border-bottom: 1px solid #eee; 
-            position: relative; 
-            z-index: 40;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            position: relative;
+            width: 100%;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px 15px 25px 15px;
+            overflow: hidden;
+            border-bottom: 1px solid #eae5df;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
-        .logo-img {
-            max-width: 240px; 
+
+        /* Video de fondo estético */
+        .header-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            object-fit: cover;
+        }
+
+        /* Capa sutil translúcida para legibilidad */
+        .header-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.45); /* Fondo claro difuminado para mantener la estética limpia */
+            z-index: 2;
+        }
+
+        /* Logotipo discreto en la esquina superior izquierda */
+        .brand-logo-corner {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            z-index: 10;
+            max-width: 95px;
             width: 100%;
             height: auto;
-            display: block;
-            margin: -10px auto -5px auto; 
-            transform: scale(1.2); 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+        }
+
+        /* Contenido del Header (Filtros encima del video) */
+        .header-content-inner {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-title-aesthetic {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #000000;
+            margin: 0;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
         }
 
         /* ====== BOTÓN FLOTANTE DE CARRITO ====== */
@@ -114,12 +169,12 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin: 15px 0 5px 0;
+            margin: 5px 0 0 0;
             flex-wrap: wrap;
         }
         .filter-btn {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.9);
             border: 1.5px solid #000000;
             color: #000000;
             padding: 8px 18px;
@@ -127,7 +182,9 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
+            backdrop-filter: blur(5px);
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .filter-btn:hover, .filter-btn.active {
             background-color: #000000;
@@ -230,7 +287,7 @@
             font-weight: 600; 
             font-size: 17px; 
             letter-spacing: 0.5px;
-            color: #000000; /* Precio estándar limpio en negro */
+            color: #000000;
         }
         
         .btn-add { 
@@ -243,6 +300,9 @@
         .btn-add:disabled { background: #cccccc; cursor: not-allowed; }
 
         @media (max-width: 600px) {
+            header { min-height: 320px; padding: 15px 10px 20px 10px; }
+            .brand-logo-corner { max-width: 75px; top: 12px; left: 12px; }
+            .header-title-aesthetic { font-size: 20px; letter-spacing: 1.5px; }
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .product-card { padding: 10px; border-radius: 18px; }
             .thumb-container { height: 160px; border-radius: 60px 60px 10px 10px; margin-bottom: 10px; }
@@ -324,22 +384,38 @@
 </head>
 <body>
 
+    <!-- Barra Superior -->
     <div class="top-urgency-bar">
         <span>✨ Entregas personales en Santiago y Monterrey 💖</span>
     </div>
 
+    <!-- BOTÓN FLOTANTE DE CARRITO -->
     <div class="floating-cart-btn" onclick="abrirCarrito()" title="Ver Carrito">
         🛍️
         <div class="cart-dot-badge" id="cartDot"></div>
     </div>
 
     <header>
-        <img src="https://i.postimg.cc/yxGwgwkZ/Disen-o-sin-ti-tulo-(1).png" alt="ANTARA Beauty Co." class="logo-img">
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ TODO</button>
-            <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 MAQUILLAJE</button>
-            <button class="filter-btn" onclick="filtrarCategoria('skincare', this)">💧 SKINCARE</button>
-            <button class="filter-btn" onclick="filtrarCategoria('accesorios', this)">👜 ACCESORIOS</button>
+        <!-- Video de Fondo Estético -->
+        <video autoplay muted loop playsinline class="header-bg-video">
+            <source src="https://storage.googleapis.com/aistudio-cms-prod/chat_files/f1503387-a2f7-4185-aa38-c6928e08d6d6.mp4" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+        </video>
+        <!-- Capa translúcida para contraste elegante -->
+        <div class="header-overlay"></div>
+
+        <!-- Logotipo discreto en la esquina superior izquierda -->
+        <img src="https://i.postimg.cc/1X9N0G3G/Nuevo-logo-ANTARA.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
+
+        <!-- Contenido central superior -->
+        <div class="header-content-inner">
+            <h1 class="header-title-aesthetic">ANTARA</h1>
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ TODO</button>
+                <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 MAQUILLAJE</button>
+                <button class="filter-btn" onclick="filtrarCategoria('skincare', this)">💧 SKINCARE</button>
+                <button class="filter-btn" onclick="filtrarCategoria('accesorios', this)">👜 ACCESORIOS</button>
+            </div>
         </div>
     </header>
 
@@ -349,11 +425,13 @@
 
     <div id="toast-container" class="toast-container"></div>
 
+    <!-- MODAL DE ZOOM -->
     <div class="modal-imagen" id="modalZoom" onclick="cerrarZoom()">
         <span class="cerrar-zoom">&times;</span>
         <img id="imgZoom" src="" alt="Vista previa">
     </div>
 
+    <!-- MODAL DEL CARRITO -->
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
             <h2 style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
