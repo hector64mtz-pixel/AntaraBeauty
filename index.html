@@ -55,19 +55,19 @@
         header { 
             position: relative;
             width: 100%;
-            min-height: 400px;
+            min-height: 320px; /* Altura compacta y armónica */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 30px 15px;
+            padding: 20px 10px;
             overflow: hidden;
             border-bottom: 1px solid #eae5df;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             background: #f0eae1;
         }
 
-        /* Video de fondo nativo de alta velocidad */
+        /* Video de fondo nativo ajustado para centrar perfectamente el encuadre */
         .header-bg-video {
             position: absolute;
             top: 50%;
@@ -75,13 +75,14 @@
             transform: translate(-50%, -50%);
             min-width: 100%;
             min-height: 100%;
-            width: auto;
-            height: auto;
+            width: 100%;
+            height: 100%;
             z-index: 1;
             object-fit: cover;
+            object-position: center;
         }
 
-        /* Capa sutil translúcida para contraste elegante */
+        /* Capa sutil translúcida para legibilidad */
         .header-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -114,9 +115,9 @@
 
         .header-title-aesthetic {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: #000000;
             margin: 0;
@@ -301,9 +302,19 @@
         .btn-add:disabled { background: #cccccc; cursor: not-allowed; }
 
         @media (max-width: 600px) {
-            header { min-height: 340px; padding: 25px 10px; }
-            .brand-logo-corner { max-width: 85px; top: 12px; left: 12px; }
-            .header-title-aesthetic { font-size: 22px; letter-spacing: 2px; }
+            header { 
+                min-height: 270px; /* Optimizado para verse estético en celular */
+                padding: 15px 10px; 
+            }
+            .brand-logo-corner { 
+                max-width: 75px; 
+                top: 10px; 
+                left: 12px; 
+            }
+            .header-title-aesthetic { 
+                font-size: 20px; 
+                letter-spacing: 2px; 
+            }
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .product-card { padding: 10px; border-radius: 18px; }
             .thumb-container { height: 160px; border-radius: 60px 60px 10px 10px; margin-bottom: 10px; }
@@ -397,7 +408,7 @@
     </div>
 
     <header>
-        <!-- Video nativo local alojado en GitHub -->
+        <!-- Video nativo local optimizado -->
         <video autoplay muted loop playsinline preload="auto" class="header-bg-video">
             <source src="video-antara.mp4" type="video/mp4">
             Tu navegador no soporta videos HTML5.
