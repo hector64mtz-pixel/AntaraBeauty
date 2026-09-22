@@ -84,7 +84,7 @@
         .header-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.45); /* Fondo claro difuminado para mantener la estética limpia */
+            background: rgba(255, 255, 255, 0.45);
             z-index: 2;
         }
 
@@ -94,13 +94,13 @@
             top: 15px;
             left: 20px;
             z-index: 10;
-            max-width: 95px;
+            max-width: 110px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
         }
 
-        /* Contenido del Header (Filtros encima del video) */
+        /* Contenido del Header */
         .header-content-inner {
             position: relative;
             z-index: 5;
@@ -301,7 +301,7 @@
 
         @media (max-width: 600px) {
             header { min-height: 320px; padding: 15px 10px 20px 10px; }
-            .brand-logo-corner { max-width: 75px; top: 12px; left: 12px; }
+            .brand-logo-corner { max-width: 85px; top: 12px; left: 12px; }
             .header-title-aesthetic { font-size: 20px; letter-spacing: 1.5px; }
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .product-card { padding: 10px; border-radius: 18px; }
@@ -396,16 +396,16 @@
     </div>
 
     <header>
-        <!-- Video de Fondo Estético -->
+        <!-- Video de Fondo Estético (Enlace directo desde Google Drive) -->
         <video autoplay muted loop playsinline class="header-bg-video">
-            <source src="https://storage.googleapis.com/aistudio-cms-prod/chat_files/f1503387-a2f7-4185-aa38-c6928e08d6d6.mp4" type="video/mp4">
+            <source src="https://docs.google.com/uc?export=download&id=1F8M71mvUenSoZ5GTiSqoCiY4Won5ryZ3" type="video/mp4">
             Tu navegador no soporta videos HTML5.
         </video>
         <!-- Capa translúcida para contraste elegante -->
         <div class="header-overlay"></div>
 
         <!-- Logotipo discreto en la esquina superior izquierda -->
-        <img src="https://i.postimg.cc/1X9N0G3G/Nuevo-logo-ANTARA.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
+        <img src="https://i.postimg.cc/jdwMrBsk/Nuevo-logo-ANTARA.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
 
         <!-- Contenido central superior -->
         <div class="header-content-inner">
