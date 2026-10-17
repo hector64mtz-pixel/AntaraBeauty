@@ -6,7 +6,7 @@
     <title>ANTARA - Maquillaje y Skincare</title>
     
     <meta property="og:title" content="ANTARA - Catálogo y Pedidos">
-    <meta property="og:description" content="Maquillaje, Skincare y Accesorios. Haz tu pedido directo por Instagram.">
+    <meta property="og:description" content="Maquillaje, Skincare, Perfumes y Accesorios. Haz tu pedido directo.">
     <meta property="og:type" content="website">
 
     <meta name="theme-color" content="#fbf9f6">
@@ -35,7 +35,7 @@
             padding-top: 35px; 
         }
 
-        /* Patrón otoñal con mayor transparencia (opacidad reducida al 12% para máxima legibilidad) */
+        /* Patrón otoñal sutilmente transparente */
         body::before {
             content: "";
             position: fixed;
@@ -208,7 +208,7 @@
         .filter-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             margin: 5px 0 0 0;
             flex-wrap: wrap;
         }
@@ -217,9 +217,9 @@
             background: rgba(255, 255, 255, 0.9);
             border: 1.5px solid #000000;
             color: #000000;
-            padding: 8px 18px;
+            padding: 8px 15px;
             border-radius: 30px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             backdrop-filter: blur(5px);
@@ -385,7 +385,7 @@
             display: flex; align-items: center; gap: 8px; text-align: center;
         }
 
-        /* ====== CARRITO MODAL Y CUPÓN ====== */
+        /* ====== CARRITO MODAL Y PAGO CON PAYPAL ====== */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 200; }
         .modal-content { background: #ffffff; color: #000000; width: 90%; max-width: 520px; padding: 30px; border-radius: 24px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         
@@ -433,7 +433,9 @@
         .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-remove { background: #fde8e8; color: #c53030; border: none; padding: 6px 10px; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight:bold;}
         
-        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 700; border: none; padding: 15px; width: 100%; border-radius: 14px; cursor: pointer; font-size: 14px; text-align: center; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;}
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 700; border: none; padding: 14px; width: 100%; border-radius: 14px; cursor: pointer; font-size: 13px; text-align: center; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;}
+        .btn-paypal { background: #0070ba; color: white; font-weight: 700; border: none; padding: 14px; width: 100%; border-radius: 14px; cursor: pointer; font-size: 13px; text-align: center; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;}
+        .btn-paypal:hover { background: #005ea6; }
         .btn-close { background: #e8e2dc; color: #000000; border: none; padding: 12px; width: 100%; border-radius: 14px; cursor: pointer; margin-top: 10px; font-weight: 700; text-transform: uppercase;}
     </style>
 </head>
@@ -465,13 +467,14 @@
         <!-- Logotipo discreto en la esquina superior izquierda -->
         <img src="logo-antara.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
 
-        <!-- Contenido central superior -->
+        <!-- Contenido central superior con la categoría de Perfumes -->
         <div class="header-content-inner">
             <h1 class="header-title-aesthetic">ANTARA</h1>
             <div class="filter-container">
                 <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">✨ TODO</button>
                 <button class="filter-btn" onclick="filtrarCategoria('maquillaje', this)">💄 MAQUILLAJE</button>
                 <button class="filter-btn" onclick="filtrarCategoria('skincare', this)">💧 SKINCARE</button>
+                <button class="filter-btn" onclick="filtrarCategoria('perfume', this)">🧴 PERFUMES</button>
                 <button class="filter-btn" onclick="filtrarCategoria('accesorios', this)">👜 ACCESORIOS</button>
             </div>
         </div>
@@ -489,7 +492,7 @@
         <img id="imgZoom" src="" alt="Vista previa">
     </div>
 
-    <!-- MODAL DEL CARRITO -->
+    <!-- MODAL DEL CARRITO Y PAGO CON PAYPAL -->
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
             <h2 style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
@@ -507,7 +510,9 @@
             
             <div id="resumenPreciosContainer" style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;"></div>
             
+            <!-- Botones de Acción (Instagram y Pago Automático con PayPal) -->
             <button class="btn-instagram" onclick="enviarPedidoInstagram()">Enviar Pedido por DM 📸</button>
+            <button class="btn-paypal" onclick="pagarConPayPal()">💳 Pagar con PayPal (Directo)</button>
             <button class="btn-close" onclick="cerrarCarrito()">Seguir Explorando</button>
         </div>
     </div>
@@ -529,7 +534,6 @@
                 setTimeout(() => { el.remove(); }, 3000);
             }, 400);
 
-            // Detener la animación por completo a los 3 segundos exactos
             setTimeout(() => {
                 clearInterval(intervalo);
             }, 3000);
@@ -583,9 +587,10 @@
             let categoriasMap = { 
                 "maquillaje": "💄 MAQUILLAJE 🦇", 
                 "skincare": "✨ SKINCARE 🎃", 
+                "perfume": "🧴 PERFUMES 🖤",
                 "accesorios": "👜 ACCESORIOS ✨" 
             };
-            let listaCategorias = ["maquillaje", "skincare", "accesorios"];
+            let listaCategorias = ["maquillaje", "skincare", "perfume", "accesorios"];
             let hayProductos = false;
 
             listaCategorias.forEach(cat => {
@@ -788,7 +793,7 @@
 
             let mensaje = "✨ *NUEVO PEDIDO - ANTARA* ✨\n\n";
             if (cuponAplicado) {
-                mensaje += `🎁 ¡Código promocional aplicado (10% OFF + Mascarilla de regalo)!\n\n`;
+                mensaje += `🎁 ¡Código promocional aplicado (10% OFF + Regalo Activado)!\n\n`;
             }
             mensaje += "Hola, me gustaría apartar / comprar los siguientes productos:\n\n";
             
@@ -812,6 +817,26 @@
             }).catch(err => {
                 window.open(url, '_blank');
             });
+        }
+
+        // Función para procesar el pago automático directo con la cuenta de PayPal de Maryan
+        function pagarConPayPal() {
+            if (carrito.length === 0) {
+                alert("Primero agrega tus productos favoritos al carrito ✨");
+                return;
+            }
+
+            let subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            let descuentoMonto = cuponAplicado ? subtotal * 0.1 : 0;
+            let totalGeneral = subtotal - descuentoMonto;
+            let emailPayPal = "Maryan_aguirre24@hotmail.com";
+
+            // Enlace oficial de pago rápido de PayPal con el monto y correo configurados
+            let urlPayPal = `https://www.paypal.com/paypalme/maryanaguirre24/${totalGeneral.toFixed(2)}MXN`;
+            
+            // Nota de respaldo: Redirige al link de pago o abre PayPal para transferir directo al correo de Maryan
+            alert(`Serás redireccionado a PayPal para completar tu pago por un total de $${totalGeneral.toFixed(2)} MXN a nombre de ANTARA (Cuenta: ${emailPayPal}). 💳✨`);
+            window.open(urlPayPal, '_blank');
         }
 
         window.addEventListener('resize', renderizarCatalogo);
