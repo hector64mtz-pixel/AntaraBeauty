@@ -510,7 +510,7 @@
             
             <div id="resumenPreciosContainer" style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;"></div>
             
-            <!-- Botones de Acción (Instagram y Pago Automático con PayPal) -->
+            <!-- Botones de Acción (Instagram y Pago Automático con PayPal corregido) -->
             <button class="btn-instagram" onclick="enviarPedidoInstagram()">Enviar Pedido por DM 📸</button>
             <button class="btn-paypal" onclick="pagarConPayPal()">💳 Pagar con PayPal (Directo)</button>
             <button class="btn-close" onclick="cerrarCarrito()">Seguir Explorando</button>
@@ -819,7 +819,7 @@
             });
         }
 
-        // Función para procesar el pago automático directo con la cuenta de PayPal de Maryan
+        // Función para procesar el pago automático directo con el correo de PayPal de Maryan
         function pagarConPayPal() {
             if (carrito.length === 0) {
                 alert("Primero agrega tus productos favoritos al carrito ✨");
@@ -831,11 +831,10 @@
             let totalGeneral = subtotal - descuentoMonto;
             let emailPayPal = "Maryan_aguirre24@hotmail.com";
 
-            // Enlace oficial de pago rápido de PayPal con el monto y correo configurados
-            let urlPayPal = `https://www.paypal.com/paypalme/maryanaguirre24/${totalGeneral.toFixed(2)}MXN`;
+            // Enlace universal de pago directo por correo de PayPal
+            let urlPayPal = `https://www.paypal.com/ncp/payment?hosted_button_id=&cmd=_xclick&business=${encodeURIComponent(emailPayPal)}&item_name=Compra+en+ANTARA+Beauty&amount=${totalGeneral.toFixed(2)}&currency_code=MXN`;
             
-            // Nota de respaldo: Redirige al link de pago o abre PayPal para transferir directo al correo de Maryan
-            alert(`Serás redireccionado a PayPal para completar tu pago por un total de $${totalGeneral.toFixed(2)} MXN a nombre de ANTARA (Cuenta: ${emailPayPal}). 💳✨`);
+            alert(`Te redirigiremos a la pasarela segura de PayPal para completar tu pago de $${totalGeneral.toFixed(2)} MXN. 💳✨`);
             window.open(urlPayPal, '_blank');
         }
 
