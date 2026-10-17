@@ -25,7 +25,11 @@
         }
 
         body { 
-            background-color: #fbf9f6;
+            /* Fondo con el patrón otoñal que subiste repetido en mosaico y un tono base suave */
+            background-color: #fcf8f2;
+            background-image: url('fondo-otono.png');
+            background-repeat: repeat;
+            background-size: 350px;
             margin: 0; 
             padding: 0; 
             color: var(--text-main); 
@@ -34,12 +38,12 @@
             padding-top: 35px; 
         }
 
-        /* ====== BARRA SUPERIOR ELEGANTE ====== */
+        /* ====== BARRA SUPERIOR OTOÑAL ====== */
         .top-urgency-bar {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #1a1a1a;
+            color: #ffb74d;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -55,19 +59,18 @@
         header { 
             position: relative;
             width: 100%;
-            min-height: 320px; /* Altura compacta y armónica */
+            min-height: 320px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px 10px;
             overflow: hidden;
-            border-bottom: 1px solid #eae5df;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            background: #f0eae1;
+            border-bottom: 2px solid #e2d2c3;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            background: rgba(240, 234, 225, 0.85);
         }
 
-        /* Video de fondo nativo ajustado para centrar perfectamente el encuadre */
         .header-bg-video {
             position: absolute;
             top: 50%;
@@ -82,7 +85,6 @@
             object-position: center;
         }
 
-        /* Capa sutil translúcida para legibilidad */
         .header-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -90,7 +92,6 @@
             z-index: 2;
         }
 
-        /* Logotipo discreto en la esquina superior izquierda */
         .brand-logo-corner {
             position: absolute;
             top: 15px;
@@ -102,7 +103,6 @@
             mix-blend-mode: multiply;
         }
 
-        /* Contenido del Header */
         .header-content-inner {
             position: relative;
             z-index: 5;
@@ -123,6 +123,34 @@
             margin: 0;
             text-align: center;
             text-shadow: 0 2px 10px rgba(255,255,255,0.9);
+        }
+
+        /* ====== EFECTO DE FANTASMITAS FLOTANTES (HALLOWEEN) ====== */
+        .ghost-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+        .floating-ghost {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            animation: floatUp 6s linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0;
+            }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% {
+                transform: translateY(-110vh) translateX(30px) scale(1.2);
+                opacity: 0;
+            }
         }
 
         /* ====== BOTÓN FLOTANTE DE CARRITO ====== */
@@ -227,19 +255,26 @@
             gap: 25px;
         }
 
+        /* Animación sutil de entrada para las tarjetas de productos */
         .product-card { 
-            background: #ffffff; 
-            border: 1px solid #eae5df; 
+            background: rgba(255, 255, 255, 0.92); 
+            backdrop-filter: blur(5px);
+            border: 1px solid #e2d2c3; 
             border-radius: 24px; 
             padding: 15px; 
             display: flex; 
             flex-direction: column;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInCard 0.8s ease-out;
+        }
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
         }
 
         .thumb-container {
@@ -303,7 +338,7 @@
 
         @media (max-width: 600px) {
             header { 
-                min-height: 270px; /* Optimizado para verse estético en celular */
+                min-height: 270px; 
                 padding: 15px 10px; 
             }
             .brand-logo-corner { 
@@ -396,9 +431,12 @@
 </head>
 <body>
 
+    <!-- Contenedor de Fantasmitas Flotantes -->
+    <div class="ghost-container" id="ghostContainer"></div>
+
     <!-- Barra Superior -->
     <div class="top-urgency-bar">
-        <span>✨ Entregas personales en Santiago y Monterrey 💖</span>
+        <span>🦇 Edición Otoño-Halloween: ¡Entregas en Santiago y Monterrey! 🎃</span>
     </div>
 
     <!-- BOTÓN FLOTANTE DE CARRITO -->
@@ -467,6 +505,27 @@
     </div>
 
     <script>
+        // Generador automático de fantasmitas y calabazas flotantes
+        function crearFantasmas() {
+            const container = document.getElementById('ghostContainer');
+            const simbolos = ['👻', '🎃', '🦇', '✨'];
+            
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'floating-ghost';
+                el.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Entre 4 y 7 segundos
+                el.style.fontSize = (Math.random() * 10 + 18) + 'px';
+                container.appendChild(el);
+
+                setTimeout(() => {
+                    el.remove();
+                }, 7000);
+            }, 600); // Aparece uno nuevo cada 0.6 segundos
+        }
+        crearFantasmas();
+
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvUPizshlJP3jy4qW-ryt_47DBW73PF2CKzMy5AQmjBa-hNV351ww1KO9FpA4CycIw/exec";
         
         let datosOriginales = [];
@@ -511,7 +570,11 @@
         function renderizarCatalogo() {
             const contenedor = document.getElementById('catalog');
             let html = "";
-            let categoriasMap = { "maquillaje": "💄 MAQUILLAJE", "skincare": "✨ SKINCARE", "accesorios": "👜 ACCESORIOS" };
+            let categoriasMap = { 
+                "maquillaje": "💄 MAQUILLAJE 🦇", 
+                "skincare": "✨ SKINCARE 🎃", 
+                "accesorios": "👜 ACCESORIOS ✨" 
+            };
             let listaCategorias = ["maquillaje", "skincare", "accesorios"];
             let hayProductos = false;
 
