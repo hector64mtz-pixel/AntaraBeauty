@@ -829,7 +829,7 @@
             let subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
             let descuentoMonto = cuponAplicado ? subtotal * 0.1 : 0;
             let totalGeneral = subtotal - descuentoMonto;
-            let emailPayPal = "Maryan_aguirre24@hotmail.com";
+            let emailPayPal = "maryan_aguirre24@hotmail.com";
 
             // Enlace universal de pago directo por correo de PayPal
             let urlPayPal = `https://www.paypal.com/ncp/payment?hosted_button_id=&cmd=_xclick&business=${encodeURIComponent(emailPayPal)}&item_name=Compra+en+ANTARA+Beauty&amount=${totalGeneral.toFixed(2)}&currency_code=MXN`;
