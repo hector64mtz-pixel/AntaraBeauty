@@ -25,17 +25,28 @@
         }
 
         body { 
-            /* Fondo con el patrón otoñal repetido en mosaico y un tono base suave */
-            background-color: #fcf8f2;
-            background-image: url('fondo-otono.png');
-            background-repeat: repeat;
-            background-size: 350px;
+            /* Fondo base limpio y elegante con el patrón otoñal sutilmente transparente */
+            background-color: #fbf9f6;
+            position: relative;
             margin: 0; 
             padding: 0; 
             color: var(--text-main); 
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             padding-top: 35px; 
+        }
+
+        /* Capa semitransparente para el patrón otoñal de fondo (para que no sature los textos) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('fondo-otono.png');
+            background-repeat: repeat;
+            background-size: 380px;
+            opacity: 0.22; /* Muy sutil y transparente como sugirió Maryan */
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* ====== BARRA SUPERIOR OTOÑAL ====== */
@@ -125,7 +136,7 @@
             text-shadow: 0 2px 10px rgba(255,255,255,0.9);
         }
 
-        /* ====== EFECTO DE FANTASMITAS FLOTANTES (DURACIÓN 5 SEGUNDOS) ====== */
+        /* ====== EFECTO DE EMOJIS MÁS GRANDES (DURACIÓN EXACTA 3 SEGUNDOS) ====== */
         .ghost-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -135,20 +146,20 @@
         }
         .floating-ghost {
             position: absolute;
-            bottom: -50px;
-            font-size: 24px;
-            animation: floatUp 4s linear forwards;
-            opacity: 0.9;
+            bottom: -60px;
+            font-size: 32px; /* Más grandes como pidió Maryan */
+            animation: floatUp 3s linear forwards;
+            opacity: 0.85;
         }
         @keyframes floatUp {
             0% {
-                transform: translateY(0) translateX(0) scale(0.8);
+                transform: translateY(0) translateX(0) scale(0.9);
                 opacity: 0;
             }
             20% { opacity: 0.9; }
             80% { opacity: 0.9; }
             100% {
-                transform: translateY(-100vh) translateX(20px) scale(1.2);
+                transform: translateY(-90vh) translateX(15px) scale(1.3);
                 opacity: 0;
             }
         }
@@ -255,10 +266,9 @@
             gap: 25px;
         }
 
-        /* Animación sutil de entrada para las tarjetas de productos */
+        /* Tarjetas con fondo blanco sólido para destacar perfectamente sobre el patrón sutil */
         .product-card { 
-            background: rgba(255, 255, 255, 0.92); 
-            backdrop-filter: blur(5px);
+            background: #ffffff; 
             border: 1px solid #e2d2c3; 
             border-radius: 24px; 
             padding: 15px; 
@@ -431,7 +441,7 @@
 </head>
 <body>
 
-    <!-- Contenedor de Fantasmitas Flotantes (Duración de 5 segundos) -->
+    <!-- Contenedor de Emojis Flotantes (Duración exacta de 3 segundos) -->
     <div class="ghost-container" id="ghostContainer"></div>
 
     <!-- Barra Superior -->
@@ -505,7 +515,7 @@
     </div>
 
     <script>
-        // Animación de bienvenida: Emojis flotantes durante exactamente 5 segundos
+        // Animación de bienvenida: Emojis más grandes durante exactamente 3 segundos
         function iniciarEfectoBienvenida() {
             const container = document.getElementById('ghostContainer');
             const simbolos = ['👻', '🎃', '🦇', '✨'];
@@ -515,17 +525,16 @@
                 el.className = 'floating-ghost';
                 el.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
                 el.style.left = Math.random() * 100 + 'vw';
-                el.style.animationDuration = '3.5s';
-                el.style.fontSize = (Math.random() * 10 + 18) + 'px';
+                el.style.animationDuration = '2.5s';
                 container.appendChild(el);
 
-                setTimeout(() => { el.remove(); }, 4000);
-            }, 500);
+                setTimeout(() => { el.remove(); }, 3000);
+            }, 400);
 
-            // Detener la creación de nuevos emojis a los 5 segundos
+            // Detener la animación por completo a los 3 segundos exactos
             setTimeout(() => {
                 clearInterval(intervalo);
-            }, 5000);
+            }, 3000);
         }
         iniciarEfectoBienvenida();
 
