@@ -25,7 +25,6 @@
         }
 
         body { 
-            /* Fondo base limpio y elegante con el patrón otoñal sutilmente transparente */
             background-color: #fbf9f6;
             position: relative;
             margin: 0; 
@@ -36,7 +35,7 @@
             padding-top: 35px; 
         }
 
-        /* Capa semitransparente para el patrón otoñal de fondo (para que no sature los textos) */
+        /* Patrón otoñal con mayor transparencia (opacidad reducida al 12% para máxima legibilidad) */
         body::before {
             content: "";
             position: fixed;
@@ -44,7 +43,7 @@
             background-image: url('fondo-otono.png');
             background-repeat: repeat;
             background-size: 380px;
-            opacity: 0.22; /* Muy sutil y transparente como sugirió Maryan */
+            opacity: 0.12; 
             pointer-events: none;
             z-index: -1;
         }
@@ -136,7 +135,7 @@
             text-shadow: 0 2px 10px rgba(255,255,255,0.9);
         }
 
-        /* ====== EFECTO DE EMOJIS MÁS GRANDES (DURACIÓN EXACTA 3 SEGUNDOS) ====== */
+        /* ====== EFECTO DE EMOJIS (3 SEGUNDOS) ====== */
         .ghost-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -147,7 +146,7 @@
         .floating-ghost {
             position: absolute;
             bottom: -60px;
-            font-size: 32px; /* Más grandes como pidió Maryan */
+            font-size: 32px;
             animation: floatUp 3s linear forwards;
             opacity: 0.85;
         }
@@ -266,7 +265,6 @@
             gap: 25px;
         }
 
-        /* Tarjetas con fondo blanco sólido para destacar perfectamente sobre el patrón sutil */
         .product-card { 
             background: #ffffff; 
             border: 1px solid #e2d2c3; 
@@ -515,7 +513,7 @@
     </div>
 
     <script>
-        // Animación de bienvenida: Emojis más grandes durante exactamente 3 segundos
+        // Animación de bienvenida: Emojis durante exactamente 3 segundos
         function iniciarEfectoBienvenida() {
             const container = document.getElementById('ghostContainer');
             const simbolos = ['👻', '🎃', '🦇', '✨'];
@@ -525,7 +523,7 @@
                 el.className = 'floating-ghost';
                 el.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
                 el.style.left = Math.random() * 100 + 'vw';
-                el.style.animationDuration = '2.5s';
+                el.style.animationDuration = '3s';
                 container.appendChild(el);
 
                 setTimeout(() => { el.remove(); }, 3000);
