@@ -811,7 +811,7 @@
             `;
             resumenDiv.innerHTML = resumenHtml;
 
-            // Lógica de botones según la cantidad de productos en el carrito (texto actualizado sin mención de enlace personalizado)
+            // Lógica de botones según la cantidad de productos en el carrito (mensaje actualizado)
             let accionesHtml = "";
             if (totalUnidades === 1 && carrito[0].enlaceStripe && carrito[0].enlaceStripe.trim() !== "") {
                 accionesHtml = `
@@ -821,7 +821,7 @@
                 accionesHtml = `
                     <div class="multi-item-guide">
                         <strong>🛍️ Compra de varios productos:</strong><br>
-                        Tu total es de <strong>$${totalFinal.toFixed(2)} MXN</strong>. Para pagar tus artículos juntos con tarjeta, envíanos tu pedido por Instagram. ✨
+                        Tu total es de <strong>$${totalFinal.toFixed(2)} MXN</strong>. Para pagar tus artículos juntos con tarjeta, envíanos tu pedido por Instagram y te enviaremos un link de pago personalizado. ✨
                     </div>
                 `;
             }
