@@ -344,6 +344,13 @@
         .btn-add:hover { background: #333333; }
         .btn-add:disabled { background: #cccccc; cursor: not-allowed; }
 
+        .btn-stripe {
+            background: #635bff; color: white; border: none; padding: 12px; border-radius: 14px;
+            cursor: pointer; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; margin-top: 8px; transition: background 0.2s ease;
+        }
+        .btn-stripe:hover { background: #5147e5; }
+
         @media (max-width: 600px) {
             header { 
                 min-height: 270px; 
@@ -433,6 +440,11 @@
         .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-remove { background: #fde8e8; color: #c53030; border: none; padding: 6px 10px; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight:bold;}
         
+        .multi-item-guide {
+            background: #fdf6ec; border: 1px solid #f3d1b0; padding: 12px 15px; border-radius: 14px;
+            font-size: 12px; color: #7a4f1e; margin-top: 15px; line-height: 1.5; text-align: left;
+        }
+
         .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-weight: 700; border: none; padding: 14px; width: 100%; border-radius: 14px; cursor: pointer; font-size: 13px; text-align: center; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;}
         .btn-close { background: #e8e2dc; color: #000000; border: none; padding: 12px; width: 100%; border-radius: 14px; cursor: pointer; margin-top: 10px; font-weight: 700; text-transform: uppercase;}
     </style>
@@ -508,7 +520,9 @@
             
             <div id="resumenPreciosContainer" style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;"></div>
             
-            <!-- Botón de Acción (Solo Instagram) -->
+            <!-- Contenedor dinámico para botones de pago o guía de varios productos -->
+            <div id="checkoutAccionesContainer"></div>
+
             <button class="btn-instagram" onclick="enviarPedidoInstagram()">Enviar Pedido por DM 📸</button>
             <button class="btn-close" onclick="cerrarCarrito()">Seguir Explorando</button>
         </div>
@@ -566,7 +580,8 @@
                 precio: Number(item["precio"]) || 0,
                 desc: item["detalles / tono"] || "",
                 imagen: item["imagen"] || "",
-                existencia: Number(item["existencia"]) || 0 
+                existencia: Number(item["existencia"]) || 0,
+                enlaceStripe: item["enlace_pago"] || item["link_stripe"] || ""
             }));
             renderizarCatalogo();
         }
@@ -608,9 +623,16 @@
                         let enStock = item.existencia > 0;
                         let stockText = enStock ? `` : `<div class="stock-info">Agotado</div>`;
                         let botonText = window.innerWidth > 600 ? "Agregar al carrito" : "Agregar";
-                        let botonHtml = enStock 
-                            ? `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)})'>${botonText}</button>` 
-                            : `<button class="btn-add" disabled>Agotado</button>`;
+                        
+                        let botonHtml = "";
+                        if (!enStock) {
+                            botonHtml = `<button class="btn-add" disabled>Agotado</button>`;
+                        } else {
+                            botonHtml = `<button class="btn-add" onclick='agregarAlCarrito(${JSON.stringify(item)})'>${botonText}</button>`;
+                            if (item.enlaceStripe && item.enlaceStripe.trim() !== "") {
+                                botonHtml += `<button class="btn-stripe" onclick="window.open('${item.enlaceStripe.trim()}', '_blank')">💳 Pagar con Tarjeta</button>`;
+                            }
+                        }
 
                         html += `
                             <div class="product-card">
@@ -650,7 +672,15 @@
                 }
                 encontrado.cantidad += 1;
             } else {
-                carrito.push({ nombre: item.nombre, precio: item.precio, desc: item.desc, cantidad: 1, existencia: item.existencia, imagen: item.imagen });
+                carrito.push({ 
+                    nombre: item.nombre, 
+                    precio: item.precio, 
+                    desc: item.desc, 
+                    cantidad: 1, 
+                    existencia: item.existencia, 
+                    imagen: item.imagen,
+                    enlaceStripe: item.enlaceStripe || ""
+                });
             }
             actualizarCarritoUI();
             mostrarToast(`Se agregó ${item.nombre}`);
@@ -665,11 +695,11 @@
             setTimeout(() => { toast.remove(); }, 3000);
         }
 
-        function cambiarCantidad(nombre, desc, cambio, existenciaMax) {
+        function cambiarCantidad(nombre, desc, cambio, existenceMax) {
             let item = carrito.find(i => i.nombre === nombre && i.desc === desc);
             if (item) {
-                if (cambio > 0 && item.cantidad >= existenciaMax) {
-                    mostrarToast(`⚠️ Límite alcanzado (${existenciaMax})`);
+                if (cambio > 0 && item.cantidad >= existenceMax) {
+                    mostrarToast(`⚠️ Límite alcanzado (${existenceMax})`);
                     return;
                 }
                 item.cantidad += cambio;
@@ -713,6 +743,7 @@
             const contenedorModal = document.getElementById('lista-carrito-modal');
             const bannerDiv = document.getElementById('carritoBannerDescuento');
             const resumenDiv = document.getElementById('resumenPreciosContainer');
+            const accionesDiv = document.getElementById('checkoutAccionesContainer');
 
             let subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
             let descuentoMonto = cuponAplicado ? subtotal * 0.1 : 0;
@@ -729,10 +760,13 @@
             if (carrito.length === 0) {
                 contenedorModal.innerHTML = "<p style='color: #888; text-align: center; padding:30px 0;'>Tu carrito está vacío. ¡Agrega tus favoritos!</p>";
                 resumenDiv.innerHTML = "";
+                accionesDiv.innerHTML = "";
                 return;
             }
 
             let html = "";
+            let totalUnidades = carrito.reduce((sum, i) => sum + i.cantidad, 0);
+
             carrito.forEach(item => {
                 let detalleStr = item.desc ? ` <span style="color:#888; font-size:12px; font-weight:normal;">(${item.desc})</span>` : '';
                 let disabledPlus = (item.cantidad >= item.existencia) ? "disabled" : "";
@@ -776,6 +810,22 @@
                 </div>
             `;
             resumenDiv.innerHTML = resumenHtml;
+
+            // Lógica de botones según la cantidad de productos en el carrito
+            let accionesHtml = "";
+            if (totalUnidades === 1 && carrito[0].enlaceStripe && carrito[0].enlaceStripe.trim() !== "") {
+                accionesHtml = `
+                    <button class="btn-stripe" style="width: 100%; padding: 14px; font-size: 13px; margin-top: 15px;" onclick="window.open('${carrito[0].enlaceStripe.trim()}', '_blank')">💳 Pagar este producto con Tarjeta</button>
+                `;
+            } else if (totalUnidades > 1) {
+                accionesHtml = `
+                    <div class="multi-item-guide">
+                        <strong>🛍️ Compra de varios productos:</strong><br>
+                        Tu total es de <strong>$${totalFinal.toFixed(2)} MXN</strong>. Para pagar tus artículos juntos con tarjeta, envíanos tu pedido por Instagram y te generaremos un enlace personalizado con tu total exacto. ✨
+                    </div>
+                `;
+            }
+            accionesDiv.innerHTML = accionesHtml;
         }
 
         function enviarPedidoInstagram() {
