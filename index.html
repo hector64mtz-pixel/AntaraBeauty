@@ -48,7 +48,7 @@
             z-index: -1;
         }
 
-        /* ====== BARRA SUPERIOR OTOÑAL ====== */
+        /* ====== BARRA SUPERIOR ====== */
         .top-urgency-bar {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -133,34 +133,6 @@
             margin: 0;
             text-align: center;
             text-shadow: 0 2px 10px rgba(255,255,255,0.9);
-        }
-
-        /* ====== EFECTO DE EMOJIS (3 SEGUNDOS) ====== */
-        .ghost-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 999;
-            overflow: hidden;
-        }
-        .floating-ghost {
-            position: absolute;
-            bottom: -60px;
-            font-size: 32px;
-            animation: floatUp 3s linear forwards;
-            opacity: 0.85;
-        }
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) translateX(0) scale(0.9);
-                opacity: 0;
-            }
-            20% { opacity: 0.9; }
-            80% { opacity: 0.9; }
-            100% {
-                transform: translateY(-90vh) translateX(15px) scale(1.3);
-                opacity: 0;
-            }
         }
 
         /* ====== BOTÓN FLOTANTE DE CARRITO ====== */
@@ -413,12 +385,9 @@
 </head>
 <body>
 
-    <!-- Contenedor de Emojis Flotantes (Duración exacta de 3 segundos) -->
-    <div class="ghost-container" id="ghostContainer"></div>
-
     <!-- Barra Superior -->
     <div class="top-urgency-bar">
-        <span>🦇 Edición Otoño-Halloween: ¡Entregas en Santiago y Monterrey! 🎃</span>
+        <span>¡Entregas a domicilio en Santiago y Monterrey! ✨</span>
     </div>
 
     <!-- BOTÓN FLOTANTE DE CARRITO -->
@@ -484,28 +453,6 @@
     </div>
 
     <script>
-        // Animación de bienvenida: Emojis durante exactamente 3 segundos
-        function iniciarEfectoBienvenida() {
-            const container = document.getElementById('ghostContainer');
-            const simbolos = ['👻', '🎃', '🦇', '✨'];
-            
-            let intervalo = setInterval(() => {
-                const el = document.createElement('div');
-                el.className = 'floating-ghost';
-                el.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.animationDuration = '3s';
-                container.appendChild(el);
-
-                setTimeout(() => { el.remove(); }, 3000);
-            }, 400);
-
-            setTimeout(() => {
-                clearInterval(intervalo);
-            }, 3000);
-        }
-        iniciarEfectoBienvenida();
-
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvUPizshlJP3jy4qW-ryt_47DBW73PF2CKzMy5AQmjBa-hNV351ww1KO9FpA4CycIw/exec";
         
         let datosOriginales = [];
@@ -551,10 +498,10 @@
             const contenedor = document.getElementById('catalog');
             let html = "";
             let categoriasMap = { 
-                "maquillaje": "💄 MAQUILLAJE 🦇", 
-                "skincare": "✨ SKINCARE 🎃", 
-                "perfume": "🧴 PERFUMES 🖤",
-                "accesorios": "👜 ACCESORIOS ✨" 
+                "maquillaje": "💄 MAQUILLAGE", 
+                "skincare": "✨ SKINCARE", 
+                "perfume": "🧴 PERFUMES",
+                "accesorios": "👜 ACCESORIOS" 
             };
             let listaCategorias = ["maquillaje", "skincare", "perfume", "accesorios"];
             let hayProductos = false;
@@ -569,7 +516,9 @@
 
                 if (productosFiltrados.length > 0) {
                     hayProductos = true;
-                    html += `<div class="category-header"><h2>${categoriasMap[cat]}</h2></div>`;
+                    // Limpieza de emojis en encabezados de categoría
+                    let tituloCatLimpio = categoriasMap[cat].replace(/🦇|🎃|🖤/g, '');
+                    html += `<div class="category-header"><h2>${tituloCatLimpio}</h2></div>`;
                     html += `<div class="products-grid">`;
                     
                     productosFiltrados.forEach((item) => {
@@ -732,7 +681,6 @@
             `;
             resumenDiv.innerHTML = resumenHtml;
 
-            // Lógica de botones según la cantidad de productos en el carrito
             let accionesHtml = "";
             if (totalUnidades === 1 && carrito[0].enlaceStripe && carrito[0].enlaceStripe.trim() !== "") {
                 accionesHtml = `
