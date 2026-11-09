@@ -35,19 +35,6 @@
             padding-top: 35px; 
         }
 
-        /* Patrón otoñal sutilmente transparente */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('fondo-otono.png');
-            background-repeat: repeat;
-            background-size: 380px;
-            opacity: 0.12; 
-            pointer-events: none;
-            z-index: -1;
-        }
-
         /* ====== BARRA SUPERIOR ====== */
         .top-urgency-bar {
             position: fixed;
@@ -408,7 +395,7 @@
         <!-- Logotipo discreto en la esquina superior izquierda -->
         <img src="logo-antara.png" alt="ANTARA Beauty Co." class="brand-logo-corner">
 
-        <!-- Contenido central superior con la categoría de Perfumes -->
+        <!-- Contenido central superior con las categorías -->
         <div class="header-content-inner">
             <h1 class="header-title-aesthetic">ANTARA</h1>
             <div class="filter-container">
@@ -498,7 +485,7 @@
             const contenedor = document.getElementById('catalog');
             let html = "";
             let categoriasMap = { 
-                "maquillaje": "💄 MAQUILLAGE", 
+                "maquillaje": "💄 MAQUILLAJE", 
                 "skincare": "✨ SKINCARE", 
                 "perfume": "🧴 PERFUMES",
                 "accesorios": "👜 ACCESORIOS" 
@@ -516,9 +503,7 @@
 
                 if (productosFiltrados.length > 0) {
                     hayProductos = true;
-                    // Limpieza de emojis en encabezados de categoría
-                    let tituloCatLimpio = categoriasMap[cat].replace(/🦇|🎃|🖤/g, '');
-                    html += `<div class="category-header"><h2>${tituloCatLimpio}</h2></div>`;
+                    html += `<div class="category-header"><h2>${categoriasMap[cat]}</h2></div>`;
                     html += `<div class="products-grid">`;
                     
                     productosFiltrados.forEach((item) => {
