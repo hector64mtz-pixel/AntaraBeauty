@@ -418,6 +418,7 @@
             position: absolute;
             top: 10px;
             left: 10px;
+            max-width: calc(100% - 20px);
             font-size: 9px;
             font-weight: 800;
             letter-spacing: 0.5px;
@@ -425,6 +426,13 @@
             padding: 4px 9px;
             border-radius: 20px;
             z-index: 2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+        }
+        @media (max-width: 600px) {
+            .badge-top-left { font-size: 8px; padding: 3px 7px; top: 7px; left: 7px; }
         }
         .badge-pocas {
             background: #fff4e0;
@@ -545,11 +553,51 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; gap: 10px; }
-        .cart-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .btn-qty { background: #f0eae1; color: #000000; border: none; padding: 6px 12px; cursor: pointer; font-weight: bold; border-radius: 8px;}
-        .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
-        .btn-remove { background: #fde8e8; color: #c53030; border: none; padding: 6px 10px; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight:bold;}
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #fbf9f6; border: 1px solid #f0eae1; border-radius: 18px;
+            padding: 10px 12px; gap: 10px; margin-bottom: 10px;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            animation: fadeInCard 0.35s ease-out;
+        }
+        .cart-item:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.06); transform: translateY(-1px); }
+        .cart-item-img {
+            width: 56px; height: 56px; object-fit: cover; border-radius: 14px;
+            border: 1px solid #e2d2c3; flex-shrink: 0; background: #f0eae1;
+        }
+        .cart-controls {
+            display: flex; align-items: center; gap: 2px; flex-shrink: 0;
+            background: #ffffff; border: 1.5px solid #000000; border-radius: 30px; padding: 3px;
+        }
+        .btn-qty {
+            background: transparent; color: #000000; border: none;
+            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-weight: 800; font-size: 13px; border-radius: 50%;
+            transition: background 0.15s ease;
+        }
+        .btn-qty:hover { background: #f0eae1; }
+        .btn-qty:disabled { opacity: 0.3; cursor: not-allowed; background: transparent; }
+        .cart-qty-value { min-width: 16px; text-align: center; font-weight: 700; font-family: 'Cinzel', serif; font-size: 12px; }
+        .btn-remove {
+            background: transparent; color: #c53030; border: none;
+            width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 13px; transition: background 0.15s ease;
+        }
+        .btn-remove:hover { background: #fde8e8; }
+
+        .cart-total-box {
+            background: #f0eae1; border-radius: 16px; padding: 14px 18px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 6px;
+        }
+        .cart-total-label { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
+        .cart-total-value { font-family: 'Cinzel', serif; font-weight: 700; font-size: 19px; }
+
+        .cart-empty-state { text-align: center; padding: 36px 10px; }
+        .cart-empty-state .cart-empty-icon { font-size: 38px; margin-bottom: 8px; }
+        .cart-empty-state .cart-empty-title { font-family: 'Playfair Display', serif; font-size: 16px; margin: 0 0 4px 0; }
+        .cart-empty-state .cart-empty-sub { font-size: 12px; color: #999999; margin: 0; }
 
         .multi-item-guide {
             background: #fdf6ec; border: 1px solid #f3d1b0; padding: 12px 15px; border-radius: 14px;
@@ -641,13 +689,13 @@
     <!-- MODAL DEL CARRITO -->
     <div class="modal" id="modalCarrito">
         <div class="modal-content">
-            <h2 style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
+            <h2 id="carritoTitulo" style="margin-top:0; font-size: 24px; font-family: 'Playfair Display', serif;">Tu Carrito 🛍️</h2>
 
             <div id="lista-carrito-modal">
                 <p style="text-align: center; padding: 20px 0;">Aún no tienes productos.</p>
             </div>
 
-            <div id="resumenPreciosContainer" style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;"></div>
+            <div id="resumenPreciosContainer" style="margin-top: 4px;"></div>
 
             <!-- Contenedor dinámico para botones de pago o guía de varios productos -->
             <div id="checkoutAccionesContainer"></div>
@@ -673,6 +721,13 @@
             "accesorios": "👜 ACCESORIOS"
         };
         const LISTA_CATEGORIAS = ["maquillaje", "skincare", "perfume", "accesorios"];
+
+        function textoPocasPiezas(existencia, conPalabraPieza) {
+            if (existencia === 1) {
+                return conPalabraPieza ? "¡Queda 1 pieza!" : "¡Queda 1!";
+            }
+            return conPalabraPieza ? `¡Quedan ${existencia} piezas!` : `¡Quedan ${existencia}!`;
+        }
 
         function abrirZoom(urlImagen) {
             document.getElementById('imgZoom').src = urlImagen;
@@ -794,7 +849,7 @@
                         if (!enStock) {
                             badgeHtml = `<div class="badge-top-left" style="background:#f8e2e2;color:#c53030;border:1px solid #f0c6c6;">Agotado</div>`;
                         } else if (pocasPiezas) {
-                            badgeHtml = `<div class="badge-top-left badge-pocas">¡Quedan ${item.existencia}!</div>`;
+                            badgeHtml = `<div class="badge-top-left badge-pocas">${textoPocasPiezas(item.existencia, false)}</div>`;
                         }
 
                         let stockText = enStock ? `` : `<div class="stock-info">Agotado</div>`;
@@ -854,7 +909,7 @@
             if (!enStock) {
                 badgeStock = `<div class="stock-info" style="text-align:left;">Agotado</div>`;
             } else if (item.existencia <= 3) {
-                badgeStock = `<div class="stock-info stock-low" style="text-align:left;">¡Quedan ${item.existencia} piezas!</div>`;
+                badgeStock = `<div class="stock-info stock-low" style="text-align:left;">${textoPocasPiezas(item.existencia, true)}</div>`;
             }
 
             let botonesHtml = "";
@@ -963,48 +1018,58 @@
             const contenedorModal = document.getElementById('lista-carrito-modal');
             const resumenDiv = document.getElementById('resumenPreciosContainer');
             const accionesDiv = document.getElementById('checkoutAccionesContainer');
+            const tituloEl = document.getElementById('carritoTitulo');
 
             let subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
             let totalFinal = subtotal;
+            let totalUnidades = carrito.reduce((sum, i) => sum + i.cantidad, 0);
+
+            tituloEl.textContent = totalUnidades > 0 ? `Tu Carrito (${totalUnidades}) 🛍️` : 'Tu Carrito 🛍️';
 
             if (carrito.length === 0) {
-                contenedorModal.innerHTML = "<p style='color: #888; text-align: center; padding:30px 0;'>Tu carrito está vacío. ¡Agrega tus favoritos!</p>";
+                contenedorModal.innerHTML = `
+                    <div class="cart-empty-state">
+                        <div class="cart-empty-icon">🛍️</div>
+                        <p class="cart-empty-title">Tu carrito está vacío</p>
+                        <p class="cart-empty-sub">Agrega tus productos favoritos ✨</p>
+                    </div>
+                `;
                 resumenDiv.innerHTML = "";
                 accionesDiv.innerHTML = "";
                 return;
             }
 
             let html = "";
-            let totalUnidades = carrito.reduce((sum, i) => sum + i.cantidad, 0);
 
             carrito.forEach(item => {
-                let detalleStr = item.desc ? ` <span style="color:#888; font-size:12px; font-weight:normal;">(${item.desc})</span>` : '';
+                let detalleStr = item.desc ? ` <span style="color:#999; font-size:11px; font-weight:normal;">(${item.desc})</span>` : '';
                 let disabledPlus = (item.cantidad >= item.existencia) ? "disabled" : "";
-                let imgTag = item.imagen ? `<img src="${item.imagen}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; flex-shrink: 0; background: #f0eae1;">` : '';
+                let imgTag = item.imagen ? `<img src="${item.imagen}" class="cart-item-img">` : `<div class="cart-item-img"></div>`;
 
                 html += `
                     <div class="cart-item">
-                        <div style="display: flex; align-items: center; gap: 12px; flex: 1; padding-right: 10px;">
+                        <div style="display: flex; align-items: center; gap: 12px; flex: 1; padding-right: 6px; min-width: 0;">
                             ${imgTag}
-                            <div>
+                            <div style="min-width: 0;">
                                 <strong style="color:#000000; font-size: 13px; line-height: 1.3; display: block; margin-bottom: 4px;">${item.nombre}${detalleStr}</strong>
-                                <small style="color:#555555; font-weight:600; font-family: 'Cinzel', serif;">$${item.precio} x ${item.cantidad}</small>
+                                <small style="color:#999999; font-weight:600; font-family: 'Cinzel', serif; font-size: 11px;">$${item.precio} x ${item.cantidad}</small>
                             </div>
                         </div>
                         <div class="cart-controls">
-                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -1, ${item.existencia})">-</button>
-                            <span style="color:#000000; font-weight:700; font-family: 'Cinzel', serif;">${item.cantidad}</span>
+                            <button class="btn-qty" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -1, ${item.existencia})">−</button>
+                            <span class="cart-qty-value">${item.cantidad}</span>
                             <button class="btn-qty" ${disabledPlus} onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', 1, ${item.existencia})">+</button>
-                            <button class="btn-remove" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -${item.cantidad}, ${item.existencia})">✕</button>
                         </div>
+                        <button class="btn-remove" title="Quitar" onclick="cambiarCantidad('${item.nombre.replace(/'/g, "\\'")}', '${item.desc.replace(/'/g, "\\'")}', -${item.cantidad}, ${item.existencia})">🗑️</button>
                     </div>
                 `;
             });
             contenedorModal.innerHTML = html;
 
             let resumenHtml = `
-                <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; font-family: 'Playfair Display', serif; color: #000; margin-top: 10px;">
-                    <span>Total</span> <span style="font-family: 'Cinzel', serif;">$${totalFinal.toFixed(2)} MXN</span>
+                <div class="cart-total-box">
+                    <span class="cart-total-label">Total</span>
+                    <span class="cart-total-value">$${totalFinal.toFixed(2)} MXN</span>
                 </div>
             `;
             resumenDiv.innerHTML = resumenHtml;
